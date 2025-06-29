@@ -1,0 +1,6 @@
+[gd_resource type="NoiseTexture2D" load_steps=2 format=3 uid="uid://cvv0rrabwibt2"]
+
+[ext_resource type="FastNoiseLite" uid="uid://lgxq1ohpuw5o" path="res://Assets/Materials/Textures/FastNoiseLite.tres" id="1_kbw6i"]
+
+[resource]
+noise = ExtResource("1_kbw6i")

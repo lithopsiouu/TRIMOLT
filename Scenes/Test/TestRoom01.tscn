@@ -1,0 +1,77 @@
+[gd_scene load_steps=13 format=3 uid="uid://81jphyrv4kik"]
+
+[ext_resource type="Texture2D" uid="uid://dnfg553y37koj" path="res://icon.svg" id="1_j622h"]
+[ext_resource type="PackedScene" uid="uid://dvjgix2o3u4vn" path="res://Assets/Entities/Thought/thought.tscn" id="1_oqqgh"]
+[ext_resource type="Script" path="res://Assets/Scripts/simple_cam_controller.gd" id="2_k8ddb"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cmk83"]
+sky_horizon_color = Color(0.639492, 0.657604, 0.678864, 1)
+ground_bottom_color = Color(0.172967, 0.176416, 0.165454, 1)
+ground_horizon_color = Color(0.639492, 0.657604, 0.678864, 1)
+
+[sub_resource type="Sky" id="Sky_rsb1x"]
+sky_material = SubResource("ProceduralSkyMaterial_cmk83")
+
+[sub_resource type="Environment" id="Environment_qgpw1"]
+background_mode = 2
+sky = SubResource("Sky_rsb1x")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a26nu"]
+albedo_texture = ExtResource("1_j622h")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_f4mwm"]
+material = SubResource("StandardMaterial3D_a26nu")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1u7bb"]
+size = Vector3(2, 0.5, 2)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hbx7w"]
+
+[sub_resource type="Sky" id="Sky_oyjpp"]
+sky_material = SubResource("ProceduralSkyMaterial_hbx7w")
+
+[sub_resource type="Environment" id="Environment_x1fvu"]
+background_mode = 2
+sky = SubResource("Sky_oyjpp")
+ambient_light_source = 3
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qgpw1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.901077, -0.37556, 0.216829, 0, 0.5, 0.866026, -0.433659, -0.780356, 0.450538, 0, 2.65649, 0)
+light_color = Color(1, 1, 0.85098, 1)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["World"]]
+transform = Transform3D(6, 0, 0, 0, 1, 0, 0, 0, 6, 0, 0, 0)
+mesh = SubResource("PlaneMesh_f4mwm")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+collision_layer = 33024
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_1u7bb")
+
+[node name="Thought" parent="." groups=["Enemy"] instance=ExtResource("1_oqqgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -5.5)
+
+[node name="CamHolder" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("2_k8ddb")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CamHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4562, 0.143982)
+collision_mask = 32768
+spring_length = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="CamHolder/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.352)
+environment = SubResource("Environment_x1fvu")
+fov = 73.4318

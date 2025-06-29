@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cxxsx752ow1oi"]
+
+[ext_resource type="Shader" path="res://Assets/Shaders/grass_static.gdshader" id="1_k75cx"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_k75cx")
+shader_parameter/color = null
+shader_parameter/color2 = null
+shader_parameter/noiseScale = 20.0

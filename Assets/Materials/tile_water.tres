@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b4k6y57ggysxr"]
+
+[ext_resource type="Texture2D" uid="uid://ddpby2ipymkle" path="res://Assets/Materials/Textures/grid_water_tiled.png" id="1_c8xcg"]
+
+[resource]
+albedo_texture = ExtResource("1_c8xcg")
+uv1_triplanar = true

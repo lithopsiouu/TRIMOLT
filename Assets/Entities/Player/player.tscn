@@ -1,0 +1,128 @@
+[gd_scene load_steps=20 format=3 uid="uid://cies7erfefddb"]
+
+[ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/PlayerInput.gd" id="1_rq5mj"]
+[ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/first_person_cam_controller.gd" id="2_x41ag"]
+[ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/crouch_check_mover.gd" id="3_d85bt"]
+[ext_resource type="Material" uid="uid://b4k6y57ggysxr" path="res://Assets/Materials/tile_water.tres" id="3_ux5gs"]
+[ext_resource type="Script" path="res://Assets/Scripts/StateMachine.gd" id="6_cekmq"]
+[ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/crouch_walking.gd" id="7_14u47"]
+[ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/idle.gd" id="7_cdvjx"]
+[ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/jumping.gd" id="7_huspx"]
+[ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/walking.gd" id="8_8g5c5"]
+[ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/falling.gd" id="8_16ehj"]
+[ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/air_moving.gd" id="8_3024l"]
+[ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/running.gd" id="8_snwjh"]
+[ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/crouching.gd" id="9_ire8h"]
+[ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/edge_climbing.gd" id="11_gfjae"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iwxlf"]
+radius = 0.4
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ksiku"]
+material = ExtResource("3_ux5gs")
+radius = 0.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qrnfp"]
+radius = 0.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5bcjf"]
+radius = 0.1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cc7bw"]
+height = 1.6
+
+[node name="Player" type="Node3D"]
+physics_interpolation_mode = 1
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+physics_interpolation_mode = 1
+collision_mask = 1794
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+platform_floor_layers = 4294902016
+script = ExtResource("1_rq5mj")
+
+[node name="Collider" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_iwxlf")
+
+[node name="ShadowMesh" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+layers = 524288
+mesh = SubResource("CapsuleMesh_ksiku")
+
+[node name="CrouchCheck" type="ShapeCast3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_qrnfp")
+target_position = Vector3(0, 1.1, 0)
+max_results = 3
+collision_mask = 768
+debug_shape_custom_color = Color(0.860778, 0.544058, 0.880858, 1)
+script = ExtResource("3_d85bt")
+
+[node name="SlippingCheck" type="ShapeCast3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("SphereShape3D_5bcjf")
+target_position = Vector3(0, -0.1, 0)
+max_results = 3
+collision_mask = 768
+
+[node name="ClimbCheck" type="ShapeCast3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_cc7bw")
+target_position = Vector3(0, 0, -0.4)
+max_results = 1
+collision_mask = 768
+
+[node name="TopSurface" type="RayCast3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -0.75)
+target_position = Vector3(0, -1.8, 0)
+collision_mask = 768
+hit_from_inside = true
+
+[node name="CameraTarget" type="Node3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="StateMachine" type="Node" parent="CharacterBody3D" node_paths=PackedStringArray("initial_state")]
+script = ExtResource("6_cekmq")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="CharacterBody3D/StateMachine"]
+script = ExtResource("7_cdvjx")
+
+[node name="Crouching" type="Node" parent="CharacterBody3D/StateMachine"]
+script = ExtResource("9_ire8h")
+
+[node name="CrouchWalking" type="Node" parent="CharacterBody3D/StateMachine"]
+script = ExtResource("7_14u47")
+
+[node name="Walking" type="Node" parent="CharacterBody3D/StateMachine"]
+script = ExtResource("8_8g5c5")
+
+[node name="Running" type="Node" parent="CharacterBody3D/StateMachine"]
+script = ExtResource("8_snwjh")
+
+[node name="Jumping" type="Node" parent="CharacterBody3D/StateMachine"]
+script = ExtResource("7_huspx")
+
+[node name="Falling" type="Node" parent="CharacterBody3D/StateMachine"]
+script = ExtResource("8_16ehj")
+
+[node name="AirMoving" type="Node" parent="CharacterBody3D/StateMachine"]
+script = ExtResource("8_3024l")
+
+[node name="EdgeClimbing" type="Node" parent="CharacterBody3D/StateMachine"]
+script = ExtResource("11_gfjae")
+
+[node name="CameraContainer" type="Node3D" parent="." node_paths=PackedStringArray("camTarget")]
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("2_x41ag")
+camTarget = NodePath("../CharacterBody3D/CameraTarget")
+useCamTargetChild = true
+
+[node name="Camera3D" type="Camera3D" parent="CameraContainer"]
+fov = 86.0
+
+[connection signal="edge_climb_done" from="CharacterBody3D" to="CharacterBody3D/StateMachine/EdgeClimbing" method="_on_body_edge_climb_done"]
