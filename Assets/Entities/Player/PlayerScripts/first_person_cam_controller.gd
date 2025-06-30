@@ -38,9 +38,10 @@ func _input(event: InputEvent) -> void:
 
 # sets parent position and rotation to match target
 func _process(delta: float) -> void:
-	global_position = camTarget.global_position
+	global_position.x = camTarget.global_position.x
+	global_position.z = camTarget.global_position.z
 	if not useCamTargetChild:
-		global_position.y = camTarget.global_position.y + (camTarget.scale.y * 1.5)
+		global_position.y = camTarget.global_position.y
 	else:
 		global_position.y = camTarget.global_position.y
 	global_rotation.y = camTarget.global_rotation.y

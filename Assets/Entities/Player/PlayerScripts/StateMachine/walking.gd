@@ -3,7 +3,12 @@ extends State
 @onready var body: Player = get_parent().get_parent()
 
 func update(delta:float) -> void:
-	if not body.is_on_floor() and body.input_dir != Vector2.ZERO:
+	if Input.is_action_pressed("Jump"):
+		if body.topSurfaceRay.is_colliding() and not body.collider.disabled:
+			state_machine.change_state("edgeclimbing")
+		else:
+			state_machine.change_state("jumping")
+	elif not body.is_on_floor() and body.input_dir != Vector2.ZERO:
 		state_machine.change_state("airmoving")
 		
 	elif not body.is_on_floor():
@@ -14,12 +19,6 @@ func update(delta:float) -> void:
 		
 	elif body.input_dir == Vector2.ZERO:
 		state_machine.change_state("idle")
-		
-	elif Input.is_action_pressed("Jump"):
-		if body.topSurfaceRay.is_colliding() and not body.collider.disabled:
-			state_machine.change_state("edgeclimbing")
-		else:
-			state_machine.change_state("jumping")
 		
 	elif Input.is_action_pressed("Crouch"):
 		state_machine.change_state("crouchwalking")

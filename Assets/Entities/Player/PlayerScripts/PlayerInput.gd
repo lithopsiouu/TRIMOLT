@@ -5,6 +5,7 @@ signal edge_climb_done
 var input_dir: Vector2
 var direction: Vector3
 
+# speeds tend to be pretty close to m/s
 var jumpVelocity: float = 7
 var crouchSpeed: float = 1.5
 var airSpeed: float = 2

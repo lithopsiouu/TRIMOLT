@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cies7erfefddb"]
+[gd_scene load_steps=21 format=3 uid="uid://cies7erfefddb"]
 
 [ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/PlayerInput.gd" id="1_rq5mj"]
 [ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/first_person_cam_controller.gd" id="2_x41ag"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/running.gd" id="8_snwjh"]
 [ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/crouching.gd" id="9_ire8h"]
 [ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/edge_climbing.gd" id="11_gfjae"]
+[ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/camera_direct_mover.gd" id="15_8dg15"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iwxlf"]
 radius = 0.4
@@ -84,35 +85,35 @@ hit_from_inside = true
 [node name="CameraTarget" type="Node3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="StateMachine" type="Node" parent="CharacterBody3D" node_paths=PackedStringArray("initial_state")]
+[node name="MovementStateMachine" type="Node" parent="CharacterBody3D" node_paths=PackedStringArray("initial_state")]
 script = ExtResource("6_cekmq")
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="CharacterBody3D/StateMachine"]
+[node name="Idle" type="Node" parent="CharacterBody3D/MovementStateMachine"]
 script = ExtResource("7_cdvjx")
 
-[node name="Crouching" type="Node" parent="CharacterBody3D/StateMachine"]
+[node name="Crouching" type="Node" parent="CharacterBody3D/MovementStateMachine"]
 script = ExtResource("9_ire8h")
 
-[node name="CrouchWalking" type="Node" parent="CharacterBody3D/StateMachine"]
+[node name="CrouchWalking" type="Node" parent="CharacterBody3D/MovementStateMachine"]
 script = ExtResource("7_14u47")
 
-[node name="Walking" type="Node" parent="CharacterBody3D/StateMachine"]
+[node name="Walking" type="Node" parent="CharacterBody3D/MovementStateMachine"]
 script = ExtResource("8_8g5c5")
 
-[node name="Running" type="Node" parent="CharacterBody3D/StateMachine"]
+[node name="Running" type="Node" parent="CharacterBody3D/MovementStateMachine"]
 script = ExtResource("8_snwjh")
 
-[node name="Jumping" type="Node" parent="CharacterBody3D/StateMachine"]
+[node name="Jumping" type="Node" parent="CharacterBody3D/MovementStateMachine"]
 script = ExtResource("7_huspx")
 
-[node name="Falling" type="Node" parent="CharacterBody3D/StateMachine"]
+[node name="Falling" type="Node" parent="CharacterBody3D/MovementStateMachine"]
 script = ExtResource("8_16ehj")
 
-[node name="AirMoving" type="Node" parent="CharacterBody3D/StateMachine"]
+[node name="AirMoving" type="Node" parent="CharacterBody3D/MovementStateMachine"]
 script = ExtResource("8_3024l")
 
-[node name="EdgeClimbing" type="Node" parent="CharacterBody3D/StateMachine"]
+[node name="EdgeClimbing" type="Node" parent="CharacterBody3D/MovementStateMachine"]
 script = ExtResource("11_gfjae")
 
 [node name="CameraContainer" type="Node3D" parent="." node_paths=PackedStringArray("camTarget")]
@@ -122,7 +123,10 @@ script = ExtResource("2_x41ag")
 camTarget = NodePath("../CharacterBody3D/CameraTarget")
 useCamTargetChild = true
 
-[node name="Camera3D" type="Camera3D" parent="CameraContainer"]
+[node name="Camera3D" type="Camera3D" parent="CameraContainer" node_paths=PackedStringArray("followTarget", "stateMachine")]
 fov = 86.0
+script = ExtResource("15_8dg15")
+followTarget = NodePath("../../CharacterBody3D")
+stateMachine = NodePath("../../CharacterBody3D/MovementStateMachine")
 
-[connection signal="edge_climb_done" from="CharacterBody3D" to="CharacterBody3D/StateMachine/EdgeClimbing" method="_on_body_edge_climb_done"]
+[connection signal="edge_climb_done" from="CharacterBody3D" to="CharacterBody3D/MovementStateMachine/EdgeClimbing" method="_on_body_edge_climb_done"]
