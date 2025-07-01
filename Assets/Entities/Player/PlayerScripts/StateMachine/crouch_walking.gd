@@ -4,6 +4,8 @@ extends State
 @onready var crouchCheck: ShapeCast3D = get_parent().get_parent().find_child("CrouchCheck")
 @onready var slippingCheck: ShapeCast3D = get_parent().get_parent().find_child("SlippingCheck")
 
+@export var useCrouchToggle: bool = false
+
 func enter() -> void:
 	body.crouch_tween()
 

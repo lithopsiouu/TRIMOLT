@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=3 uid="uid://dfb15net0hvb0"]
+
+[ext_resource type="Script" path="res://Assets/Entities/Generic Nav NPC/simple_nav_npc.gd" id="1_honie"]
+[ext_resource type="Material" uid="uid://bdhk4vvld1gv4" path="res://Assets/Materials/tile_concrete_red.tres" id="2_ye26e"]
+[ext_resource type="Material" uid="uid://wm1sb5jonltv" path="res://Assets/Materials/tile_concrete_teal.tres" id="3_c3naw"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_yinao"]
+material = ExtResource("2_ye26e")
+radius = 0.4
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fi47h"]
+radius = 0.4
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_yojqu"]
+material = ExtResource("3_c3naw")
+radius = 0.15
+height = 0.6
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_jr07x"]
+radius = 0.7
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ij2rj"]
+points = PackedVector3Array(1, 2, -0.000195742, 0.865897, 2, 0.499804, -0.000195742, 0, -0.000195742, 0.865897, 2, -0.500196, 0.499804, 2, 0.865897, -0.000195742, 2, -1, 0.499804, 2, -0.866092, -0.000195742, 2, 1, -0.500196, 2, 0.865897, -0.866092, 2, 0.499804, -1, 2, -0.000195742, -0.866092, 2, -0.500196, -0.500196, 2, -0.866092)
+
+[node name="SimpleNavNPC" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 1792
+script = ExtResource("1_honie")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_yinao")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_fi47h")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.35
+target_desired_distance = 1.5
+path_height_offset = -0.95
+path_max_distance = 0.61
+simplify_path = true
+simplify_epsilon = 0.1
+debug_enabled = true
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0.625, -0.322046)
+mesh = SubResource("CapsuleMesh_yojqu")
+
+[node name="CloseDetection" type="ShapeCast3D" parent="."]
+shape = SubResource("CylinderShape3D_jr07x")
+target_position = Vector3(0, 0, 0)
+
+[node name="VisionRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 0)
+target_position = Vector3(0, 0, -20)
+collision_mask = 1793
+debug_shape_custom_color = Color(0.69, 0, 0.414, 1)
+
+[node name="VisionArea" type="Area3D" parent="."]
+collision_layer = 2
+
+[node name="CollisionCone" type="CollisionShape3D" parent="VisionArea"]
+transform = Transform3D(12, 0, 0, 0, -2.62268e-07, 12, 0, -6, -5.24537e-07, 0, 0.625, 0.75)
+shape = SubResource("ConvexPolygonShape3D_ij2rj")
+
+[node name="VisionTimer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[connection signal="timeout" from="VisionTimer" to="." method="_on_vision_timer_timeout"]

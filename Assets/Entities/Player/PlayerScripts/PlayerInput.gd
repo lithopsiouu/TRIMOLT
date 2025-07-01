@@ -56,6 +56,7 @@ func _climb_edge():
 		edge_climb_done.emit()
 	else:
 		print("Can't mantle")
+		edge_climb_done.emit()
 
 func _get_top_surface_collision_point() -> Vector3:
 	var returnVector = Vector3.ZERO

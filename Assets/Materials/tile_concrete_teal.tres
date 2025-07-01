@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://wm1sb5jonltv"]
+
+[ext_resource type="Texture2D" uid="uid://lt8qm5c2bi8" path="res://Assets/Materials/Textures/grid_concrete_tiled.png" id="1_jk8p3"]
+
+[resource]
+albedo_color = Color(0.55, 1, 0.9175, 1)
+albedo_texture = ExtResource("1_jk8p3")
+uv1_triplanar = true

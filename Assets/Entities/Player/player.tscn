@@ -31,11 +31,12 @@ radius = 0.1
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_cc7bw"]
 height = 1.6
+radius = 0.6
 
 [node name="Player" type="Node3D"]
 physics_interpolation_mode = 1
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+[node name="Body" type="CharacterBody3D" parent="."]
 physics_interpolation_mode = 1
 collision_mask = 1794
 axis_lock_angular_x = true
@@ -44,16 +45,16 @@ axis_lock_angular_z = true
 platform_floor_layers = 4294902016
 script = ExtResource("1_rq5mj")
 
-[node name="Collider" type="CollisionShape3D" parent="CharacterBody3D"]
+[node name="Collider" type="CollisionShape3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_iwxlf")
 
-[node name="ShadowMesh" type="MeshInstance3D" parent="CharacterBody3D"]
+[node name="ShadowMesh" type="MeshInstance3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 layers = 524288
 mesh = SubResource("CapsuleMesh_ksiku")
 
-[node name="CrouchCheck" type="ShapeCast3D" parent="CharacterBody3D"]
+[node name="CrouchCheck" type="ShapeCast3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("SphereShape3D_qrnfp")
 target_position = Vector3(0, 1.1, 0)
@@ -62,71 +63,71 @@ collision_mask = 768
 debug_shape_custom_color = Color(0.860778, 0.544058, 0.880858, 1)
 script = ExtResource("3_d85bt")
 
-[node name="SlippingCheck" type="ShapeCast3D" parent="CharacterBody3D"]
+[node name="SlippingCheck" type="ShapeCast3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 shape = SubResource("SphereShape3D_5bcjf")
 target_position = Vector3(0, -0.1, 0)
 max_results = 3
 collision_mask = 768
 
-[node name="ClimbCheck" type="ShapeCast3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="ClimbCheck" type="ShapeCast3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.125)
 shape = SubResource("CylinderShape3D_cc7bw")
 target_position = Vector3(0, 0, -0.4)
 max_results = 1
 collision_mask = 768
 
-[node name="TopSurface" type="RayCast3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -0.75)
+[node name="TopSurface" type="RayCast3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1.125)
 target_position = Vector3(0, -1.8, 0)
 collision_mask = 768
 hit_from_inside = true
 
-[node name="CameraTarget" type="Node3D" parent="CharacterBody3D"]
+[node name="CameraTarget" type="Node3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="MovementStateMachine" type="Node" parent="CharacterBody3D" node_paths=PackedStringArray("initial_state")]
+[node name="MovementStateMachine" type="Node" parent="Body" node_paths=PackedStringArray("initial_state")]
 script = ExtResource("6_cekmq")
 initial_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="CharacterBody3D/MovementStateMachine"]
+[node name="Idle" type="Node" parent="Body/MovementStateMachine"]
 script = ExtResource("7_cdvjx")
 
-[node name="Crouching" type="Node" parent="CharacterBody3D/MovementStateMachine"]
+[node name="Crouching" type="Node" parent="Body/MovementStateMachine"]
 script = ExtResource("9_ire8h")
 
-[node name="CrouchWalking" type="Node" parent="CharacterBody3D/MovementStateMachine"]
+[node name="CrouchWalking" type="Node" parent="Body/MovementStateMachine"]
 script = ExtResource("7_14u47")
 
-[node name="Walking" type="Node" parent="CharacterBody3D/MovementStateMachine"]
+[node name="Walking" type="Node" parent="Body/MovementStateMachine"]
 script = ExtResource("8_8g5c5")
 
-[node name="Running" type="Node" parent="CharacterBody3D/MovementStateMachine"]
+[node name="Running" type="Node" parent="Body/MovementStateMachine"]
 script = ExtResource("8_snwjh")
 
-[node name="Jumping" type="Node" parent="CharacterBody3D/MovementStateMachine"]
+[node name="Jumping" type="Node" parent="Body/MovementStateMachine"]
 script = ExtResource("7_huspx")
 
-[node name="Falling" type="Node" parent="CharacterBody3D/MovementStateMachine"]
+[node name="Falling" type="Node" parent="Body/MovementStateMachine"]
 script = ExtResource("8_16ehj")
 
-[node name="AirMoving" type="Node" parent="CharacterBody3D/MovementStateMachine"]
+[node name="AirMoving" type="Node" parent="Body/MovementStateMachine"]
 script = ExtResource("8_3024l")
 
-[node name="EdgeClimbing" type="Node" parent="CharacterBody3D/MovementStateMachine"]
+[node name="EdgeClimbing" type="Node" parent="Body/MovementStateMachine"]
 script = ExtResource("11_gfjae")
 
 [node name="CameraContainer" type="Node3D" parent="." node_paths=PackedStringArray("camTarget")]
 physics_interpolation_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 script = ExtResource("2_x41ag")
-camTarget = NodePath("../CharacterBody3D/CameraTarget")
+camTarget = NodePath("../Body/CameraTarget")
 useCamTargetChild = true
 
 [node name="Camera3D" type="Camera3D" parent="CameraContainer" node_paths=PackedStringArray("followTarget", "stateMachine")]
 fov = 86.0
 script = ExtResource("15_8dg15")
-followTarget = NodePath("../../CharacterBody3D")
-stateMachine = NodePath("../../CharacterBody3D/MovementStateMachine")
+followTarget = NodePath("../../Body")
+stateMachine = NodePath("../../Body/MovementStateMachine")
 
-[connection signal="edge_climb_done" from="CharacterBody3D" to="CharacterBody3D/MovementStateMachine/EdgeClimbing" method="_on_body_edge_climb_done"]
+[connection signal="edge_climb_done" from="Body" to="Body/MovementStateMachine/EdgeClimbing" method="_on_body_edge_climb_done"]

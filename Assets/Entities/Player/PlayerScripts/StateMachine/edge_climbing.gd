@@ -1,9 +1,15 @@
 extends State
 
+# to do:
+# DONE: bring player to a point that is a certain distance from the edge using the front raycast and top raycast
+# DONE: make transition from climbing to moving smoother so there is no snapping
+# u simply forgot to reset the climbDone var doofus
+
 @onready var body: Player = get_parent().get_parent()
 var climbDone := false
 
 func enter() -> void:
+	climbDone = false
 	body._climb_edge()
 
 func update(delta: float) -> void:

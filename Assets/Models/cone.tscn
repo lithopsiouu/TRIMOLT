@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=4 uid="uid://bdoh2tbpb1ysv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_meulo"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ntila"]
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"format": 34896613377,
+"index_count": 66,
+"index_data": PackedByteArray("AAACAAEAAAADAAIAAAAEAAMAAAAFAAQAAAAGAAUAAAAHAAYAAAAIAAcAAAAJAAgAAAAKAAkAAAALAAoAAwABAAIAAQALAAwACwAJAAoACQAHAAgABwAFAAYABQADAAQAAwALAAEACwAHAAkABwADAAUACwADAAcAAAAMAAsAAAABAAwA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 13,
+"vertex_data": PackedByteArray("/38AAP9/AAD/f///AAAAAP+///8mEQAA2O7///8/AAD//////38AANju////vwAA/7///9juAAD/f/////8AAP8////Y7gAAJhH///+/AAAAAP///38AACYR////PwAA/z///yYRAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_yy5by"]
+resource_name = "cone_Cylinder"
+_surfaces = [{
+"aabb": AABB(-1, 0, -1, 2, 2, 2),
+"attribute_data": PackedByteArray("/z//f1VV/3+qKv9/qmr/f1UV/3//f/9/////f1SV/3+p6v9/qqr/f1TV/3//v/9/AAAAAP8/joL//wAAt17KiqnqAACp6gAANHVHoVTVAABU1QAAcH3/v/+/AAD/vwAANHW33qqqAACqqgAAt1409VSVAABUlQAA/38AAP8/b/3/fwAAqmoAAKpqAABHITT1VVUAAFVVAADKCrfe/z8AAP8/AACPAv+/qioAAKoqAADKCkehVRUAAFUVAABHIcqK"),
+"format": 34896613399,
+"index_count": 66,
+"index_data": PackedByteArray("BgAQAA4ACAATABEACgAWABQACwAaABcACQAdABkABwAgABwABQAiAB4AAwAlACEAAQAoACQAAAAqACcAEgANAA8ADQAsAC8ALAAmACkAJgAfACMAHwAYABsAGAASABUAEgAsAA0ALAAfACYAHwASABgALAASAB8AAgAtACsABAAMAC4A"),
+"material": SubResource("StandardMaterial3D_meulo"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 48,
+"vertex_data": PackedByteArray("/38AAP9/Osz/fwAA/3/zt/9/AAD/f9jg/38AAP9/o6T/fwAA/3+Z9f9/AAD/fymV/38AAP9/mfX/fwAA/38plf9/AAD/f9jg/38AAP9/o6T/fwAA/386zP9/AAD/f/O3/3///wAAmfX/f///AAD/v/9///8AAJn1/7///yYR/7//v///JhGZ9f+///8mEdjg2O7///8//7/Y7v///z/Y4Nju////PzrM//////9//7///////386zP//////f/O32O7///+//7/Y7v///7+jpNju////v/O3/7///9ju/7//v///2O4plf+////Y7qOk/3//////KZX/f///////v/9//////ymV/z///9juo6T/P///2O4plf8////Y7v+/JhH///+/87cmEf///7+jpCYR////v/+/AAD///9/OswAAP///3/ztwAA////f/+/JhH///8/OswmEf///z/Y4CYR////P/+//z///yYR2OD/P///JhGZ9f8///8mEf+/I1v+79FT/+azYNT220dM2Ktl7vwjKwK173xUGgM121TUdksfTFgkOP5v2yQAZy0sq2Xu/P///3/vfFQa////f+98VBrUdksf////f9R2Sx/+b9sk////f/5v2yQAZy0s////f0xYJDgAZy0s////fwM121RMWCQ4IysCtf///38DNdtU20dM2CMrArX///9/0VP/5ttHTNj///9/I1v+79FT/+b///9/I1v+77Ng1Pb///9/s2DU9qtl7vz///9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_ntila")
+
+[node name="Cylinder" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("ArrayMesh_yy5by")
+skeleton = NodePath("")
