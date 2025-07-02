@@ -19,11 +19,15 @@ func update(delta: float) -> void:
 				state_machine.change_state("running")
 			elif Input.is_action_pressed("Crouch"):
 				state_machine.change_state("crouchwalking")
+			elif Input.is_action_pressed("Jump"):
+				state_machine.change_state("jumping")
 			else:
 				state_machine.change_state("walking")
 		else:
 			if Input.is_action_pressed("Crouch"):
 				state_machine.change_state("crouching")
+			elif Input.is_action_pressed("Jump"):
+				state_machine.change_state("jumping")
 			else:
 				state_machine.change_state("idle")
 
