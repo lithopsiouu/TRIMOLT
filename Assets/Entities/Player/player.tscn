@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cies7erfefddb"]
+[gd_scene load_steps=23 format=3 uid="uid://cies7erfefddb"]
 
 [ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/PlayerInput.gd" id="1_rq5mj"]
 [ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/first_person_cam_controller.gd" id="2_x41ag"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/crouching.gd" id="9_ire8h"]
 [ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/edge_climbing.gd" id="11_gfjae"]
 [ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/camera_direct_mover.gd" id="15_8dg15"]
+[ext_resource type="PackedScene" uid="uid://c6bngr8thu4hu" path="res://Assets/UI/health_bar.tscn" id="16_l0ptc"]
 [ext_resource type="PackedScene" uid="uid://dksma1r2whc0v" path="res://Assets/UI/stamina_bar.tscn" id="16_otlp1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iwxlf"]
@@ -146,6 +147,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="HealthBar" parent="CameraContainer/Camera3D/UI" instance=ExtResource("16_l0ptc")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+offset_left = 27.0
+offset_top = -271.0
+offset_right = 65.0
+offset_bottom = -32.0
 
 [node name="StaminaBar" parent="CameraContainer/Camera3D/UI" instance=ExtResource("16_otlp1")]
 layout_mode = 1
