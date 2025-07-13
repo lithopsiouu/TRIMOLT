@@ -1,7 +1,7 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cbhhpnpt0jj6n"]
 
-[ext_resource type="Texture2D" uid="uid://1vvui8odldpn" path="res://Assets/Materials/Textures/grid_dark_tiled.png" id="1_k2yjm"]
+[ext_resource type="Texture2D" uid="uid://1vvui8odldpn" path="res://Assets/Materials/Textures/Dev/grid_dark_tiled.png" id="1_v75qy"]
 
 [resource]
-albedo_texture = ExtResource("1_k2yjm")
+albedo_texture = ExtResource("1_v75qy")
 uv1_triplanar = true

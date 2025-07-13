@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cvfc4h2i73bjl"
-path="res://.godot/imported/Thought.glb-ea98dc793eb8f8dd0ffccbd77dc7de8a.scn"
+path="res://.godot/imported/Thought.glb-0131b74ce200fb7350171e23cdaaa99f.scn"
 
 [deps]
 
-source_file="res://Assets/Models/Characters/Thought.glb"
-dest_files=["res://.godot/imported/Thought.glb-ea98dc793eb8f8dd0ffccbd77dc7de8a.scn"]
+source_file="res://Assets/Models/Characters/Thought/Thought.glb"
+dest_files=["res://.godot/imported/Thought.glb-0131b74ce200fb7350171e23cdaaa99f.scn"]
 
 [params]
 
@@ -5429,6 +5429,27 @@ _subresources={
 "slice_99/save_to_file/path": "",
 "slice_99/start_frame": 0,
 "slices/amount": 0
+}
+},
+"materials": {
+"@MATERIAL:0": {
+"use_external/enabled": true
+}
+},
+"meshes": {
+"Thought_Plane_001": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://Assets/Models/Characters/Thought/ThoughtMesh.res"
+}
+},
+"nodes": {
+"PATH:RIG-rig/Skeleton3D": {
+"rest_pose/external_animation_library": null
 }
 }
 }

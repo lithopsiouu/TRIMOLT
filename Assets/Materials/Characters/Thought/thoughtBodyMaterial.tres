@@ -1,0 +1,47 @@
+[gd_resource type="VisualShader" load_steps=5 format=3 uid="uid://dwoi3dh02i8qq"]
+
+[ext_resource type="Texture2D" uid="uid://ilimm5ls8nl7" path="res://Assets/Materials/Textures/Nature/veiny.png" id="1_gsau7"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_pm6tt"]
+texture = ExtResource("1_gsau7")
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_5susp"]
+input_name = "vertex"
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_g4qyp"]
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform sampler2D tex_frg_2;
+
+
+
+void fragment() {
+// Input:3
+	vec3 n_out3p0 = VERTEX;
+
+
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, vec2(n_out3p0.xy));
+
+
+// FloatConstant:4
+	float n_out4p0 = 0.000000;
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+	ROUGHNESS = n_out4p0;
+
+
+}
+"
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_pm6tt")
+nodes/fragment/2/position = Vector2(-220, 200)
+nodes/fragment/3/node = SubResource("VisualShaderNodeInput_5susp")
+nodes/fragment/3/position = Vector2(-580, 280)
+nodes/fragment/4/node = SubResource("VisualShaderNodeFloatConstant_g4qyp")
+nodes/fragment/4/position = Vector2(180, 420)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 3, 0, 2, 0, 4, 0, 0, 3)

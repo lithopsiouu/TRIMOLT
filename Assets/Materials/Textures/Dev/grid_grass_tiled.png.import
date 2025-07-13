@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddpby2ipymkle"
-path.s3tc="res://.godot/imported/grid_water_tiled.png-31c2a3641571e8e959e2473bef7109e7.s3tc.ctex"
+uid="uid://b6s2lyw5wemeo"
+path.s3tc="res://.godot/imported/grid_grass_tiled.png-a7735c25df3f09413ae1da3244491876.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Materials/Textures/grid_water_tiled.png"
-dest_files=["res://.godot/imported/grid_water_tiled.png-31c2a3641571e8e959e2473bef7109e7.s3tc.ctex"]
+source_file="res://Assets/Materials/Textures/Dev/grid_grass_tiled.png"
+dest_files=["res://.godot/imported/grid_grass_tiled.png-a7735c25df3f09413ae1da3244491876.s3tc.ctex"]
 
 [params]
 

@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6s2lyw5wemeo"
-path.s3tc="res://.godot/imported/grid_grass_tiled.png-85b8de19f59e0166208aa5a10fb8707d.s3tc.ctex"
+uid="uid://darfhml734es1"
+path="res://.godot/imported/ectoplasm_height.png-fdaa7aa32f92501f10ef186b22458df9.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Materials/Textures/grid_grass_tiled.png"
-dest_files=["res://.godot/imported/grid_grass_tiled.png-85b8de19f59e0166208aa5a10fb8707d.s3tc.ctex"]
+source_file="res://Assets/Materials/Textures/Nature/ectoplasm_height.png"
+dest_files=["res://.godot/imported/ectoplasm_height.png-fdaa7aa32f92501f10ef186b22458df9.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -32,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1
