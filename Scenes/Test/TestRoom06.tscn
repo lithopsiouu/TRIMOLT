@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dfb15net0hvb0" path="res://Assets/Entities/Generic Nav NPC/simple_nav_npc.tscn" id="1_f8fhl"]
 [ext_resource type="Material" uid="uid://bclljgmw3n7ur" path="res://Assets/Materials/tile_concrete_white.tres" id="1_ktg6x"]
 [ext_resource type="Material" uid="uid://cbhhpnpt0jj6n" path="res://Assets/Materials/tile_dark.tres" id="3_3omef"]
+[ext_resource type="NavigationMesh" uid="uid://bw1u24nwchu5q" path="res://Assets/Navigation/AccurateNavMeshSettings.tres" id="3_xgkdu"]
 [ext_resource type="PackedScene" uid="uid://cies7erfefddb" path="res://Assets/Entities/Player/player.tscn" id="4_33qv1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5o17u"]
@@ -20,20 +21,6 @@ sky = SubResource("Sky_spj3l")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="NavigationMesh" id="NavigationMesh_fpyf3"]
-vertices = PackedVector3Array(4.7, 0.6, -0.7, 4.9, 0.6, -0.3, 6.9, 0.6, -0.3, 6.9, 0.6, -6.9, -6.9, 0.6, 1.3, -3.7, 0.6, 1.3, -3.7, 0.6, -0.3, -3.3, 0.6, -0.7, -6.9, 0.6, -6.9, 5.3, 0.6, 1.3, 5.7, 0.6, 2.5, 6.9, 0.6, 2.5, -1.3, 1.6, 1.3, 4.7, 0.7, 0.5, -2.5, 1.6, 0.5, -0.2, 1.6, 1.3, -0.0999999, 1.6, 0.5, -2.5, 2.6, 9.5, -1.7, 2.6, 8.3, -1.7, 1.6, 1.7, -2.5, 1.6, 1.625, -2.5, 1.75, 2.75, -2.5, 2.45, 6.125, -2.5, 2.6, 7.25, -1.7, 2.6, 7.2, -1.7, 2.45, 6.1, -1.7, 1.75, 2.8, 4.5, 2.6, 9.5, 4.5, 2.6, 8.7, -1.3, 2.6, 8.7, -6.9, 0.6, 6.9, -3.7, 0.6, 6.9, -0.5, 3.6, 2.5, -0.5, 3.6, 7.5, 4.5, 3.6, 7.5, 4.5, 3.6, 2.5, 5.3, 0.6, 6.3, 5.7, 0.6, 6.9, 6.9, 0.6, 6.9, 5.3, 0.6, 3.7, 0.7, 0.6, 3.7, 0.7, 0.6, 6.3)
-polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(6, 5, 4), PackedInt32Array(6, 4, 7), PackedInt32Array(7, 4, 8), PackedInt32Array(0, 7, 3), PackedInt32Array(3, 7, 8), PackedInt32Array(10, 9, 11), PackedInt32Array(11, 9, 2), PackedInt32Array(2, 9, 1), PackedInt32Array(12, 14, 15), PackedInt32Array(15, 14, 16), PackedInt32Array(15, 16, 13), PackedInt32Array(15, 13, 9), PackedInt32Array(14, 19, 20), PackedInt32Array(20, 19, 21), PackedInt32Array(21, 19, 26), PackedInt32Array(21, 26, 25), PackedInt32Array(21, 25, 22), PackedInt32Array(22, 25, 24), PackedInt32Array(22, 24, 23), PackedInt32Array(23, 24, 18), PackedInt32Array(23, 18, 17), PackedInt32Array(13, 1, 9), PackedInt32Array(28, 27, 29), PackedInt32Array(29, 27, 17), PackedInt32Array(12, 19, 14), PackedInt32Array(18, 29, 17), PackedInt32Array(31, 30, 5), PackedInt32Array(5, 30, 4), PackedInt32Array(35, 34, 32), PackedInt32Array(32, 34, 33), PackedInt32Array(37, 36, 38), PackedInt32Array(38, 36, 39), PackedInt32Array(38, 39, 10), PackedInt32Array(38, 10, 11), PackedInt32Array(36, 41, 39), PackedInt32Array(39, 41, 40)]
-geometry_parsed_geometry_type = 1
-geometry_collision_mask = 1792
-geometry_source_geometry_mode = 2
-geometry_source_group_name = &"nav_walkable"
-cell_size = 0.2
-cell_height = 0.05
-agent_height = 2.0
-agent_radius = 0.51
-agent_max_climb = 0.05
-filter_walkable_low_height_spans = true
-
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -45,17 +32,18 @@ light_color = Color(0.88, 0.875893, 0.8184, 1)
 shadow_enabled = true
 
 [node name="SimpleNavNPC" parent="." node_paths=PackedStringArray("nav_target_parent") instance=ExtResource("1_f8fhl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.78028, 1.625, 4.72383)
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 1.90528, 1.625, 5.59883)
 nav_target_parent = NodePath("../Player")
 speed = 2.0
 sight_lost_tracking_ticks = 3
+sight_length = 8.0
 rotation_setting = "rotate_to_end_target"
 
 [node name="Player" parent="." instance=ExtResource("4_33qv1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.744683, 0.5, -3.58161)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
-navigation_mesh = SubResource("NavigationMesh_fpyf3")
+navigation_mesh = ExtResource("3_xgkdu")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D" groups=["nav_walkable"]]
 use_collision = true
@@ -82,6 +70,33 @@ polygon = PackedVector2Array(0, 0, 0, 1, 1, 1, 6, 0)
 depth = 2.0
 material = ExtResource("3_3omef")
 
+[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="NavigationRegion3D" groups=["nav_walkable"]]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5, 2.5, 8)
+use_collision = true
+collision_layer = 1792
+collision_mask = 3
+polygon = PackedVector2Array(0, 0, 0, 1, 1, 1, 6, 0)
+depth = 2.0
+material = ExtResource("3_3omef")
+
+[node name="CSGPolygon3D4" type="CSGPolygon3D" parent="NavigationRegion3D" groups=["nav_walkable"]]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -1, 3.5, 2)
+use_collision = true
+collision_layer = 1792
+collision_mask = 3
+polygon = PackedVector2Array(0, 0, 0, 1, 1, 1, 3.5, 0)
+depth = 2.0
+material = ExtResource("3_3omef")
+
+[node name="CSGPolygon3D5" type="CSGPolygon3D" parent="NavigationRegion3D" groups=["nav_walkable"]]
+transform = Transform3D(-5.73206e-15, 1, 4.37114e-08, -1.31134e-07, -4.37114e-08, 1, 1, 0, 1.31134e-07, -1, 4.5, -0.5)
+use_collision = true
+collision_layer = 1792
+collision_mask = 3
+polygon = PackedVector2Array(-1.5, 1, -1.5, 3, 2.5, 2, 2.5, 0)
+depth = 0.2
+material = ExtResource("3_3omef")
+
 [node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D" groups=["nav_walkable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 4)
 use_collision = true
@@ -98,12 +113,60 @@ collision_mask = 3
 size = Vector3(6, 3, 1)
 material = ExtResource("3_3omef")
 
+[node name="CSGBox3D8" type="CSGBox3D" parent="NavigationRegion3D" groups=["nav_walkable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2.5, -2.5)
+use_collision = true
+collision_layer = 1792
+collision_mask = 3
+size = Vector3(6, 4, 1)
+material = ExtResource("3_3omef")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="NavigationRegion3D" groups=["nav_walkable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 2, -4.5)
+use_collision = true
+collision_layer = 1792
+collision_mask = 3
+size = Vector3(1, 3, 3)
+material = ExtResource("3_3omef")
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="NavigationRegion3D" groups=["nav_walkable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.25, -6.25)
+use_collision = true
+collision_layer = 1792
+collision_mask = 3
+size = Vector3(1, 1.5, 2.5)
+material = ExtResource("3_3omef")
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="NavigationRegion3D" groups=["nav_walkable"]]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -4.66238, 1.25, -5.49327)
+use_collision = true
+collision_layer = 1792
+collision_mask = 3
+size = Vector3(0.5, 1.5, 3)
+material = ExtResource("3_3omef")
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="NavigationRegion3D" groups=["nav_walkable"]]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -3.58762, 0.8125, -4.38173)
+use_collision = true
+collision_layer = 1792
+collision_mask = 3
+size = Vector3(2.5, 0.625, 2.25)
+material = ExtResource("3_3omef")
+
 [node name="CSGBox3D6" type="CSGBox3D" parent="NavigationRegion3D" groups=["nav_walkable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 7.5)
 use_collision = true
 collision_layer = 1792
 collision_mask = 3
 size = Vector3(6, 3, 1)
+material = ExtResource("3_3omef")
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="NavigationRegion3D" groups=["nav_walkable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, 8)
+use_collision = true
+collision_layer = 1792
+collision_mask = 3
+size = Vector3(2, 3, 4)
 material = ExtResource("3_3omef")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D" groups=["nav_walkable"]]

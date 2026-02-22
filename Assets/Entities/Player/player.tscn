@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cies7erfefddb"]
+[gd_scene load_steps=22 format=3 uid="uid://cies7erfefddb"]
 
 [ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/PlayerInput.gd" id="1_rq5mj"]
 [ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/first_person_cam_controller.gd" id="2_x41ag"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/crouching.gd" id="9_ire8h"]
 [ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/edge_climbing.gd" id="11_gfjae"]
 [ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/camera_direct_mover.gd" id="15_8dg15"]
+[ext_resource type="PackedScene" uid="uid://dksma1r2whc0v" path="res://Assets/UI/stamina_bar.tscn" id="16_otlp1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iwxlf"]
 radius = 0.4
@@ -86,6 +87,14 @@ hit_from_inside = true
 [node name="CameraTarget" type="Node3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
+[node name="RunExhaustCooldown" type="Timer" parent="Body"]
+wait_time = 3.5
+one_shot = true
+
+[node name="RunWait" type="Timer" parent="Body"]
+wait_time = 1.5
+one_shot = true
+
 [node name="MovementStateMachine" type="Node" parent="Body" node_paths=PackedStringArray("initial_state")]
 script = ExtResource("6_cekmq")
 initial_state = NodePath("Idle")
@@ -130,4 +139,17 @@ script = ExtResource("15_8dg15")
 followTarget = NodePath("../../Body")
 stateMachine = NodePath("../../Body/MovementStateMachine")
 
+[node name="UI" type="Control" parent="CameraContainer/Camera3D"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StaminaBar" parent="CameraContainer/Camera3D/UI" instance=ExtResource("16_otlp1")]
+layout_mode = 1
+
 [connection signal="edge_climb_done" from="Body" to="Body/MovementStateMachine/EdgeClimbing" method="_on_body_edge_climb_done"]
+[connection signal="timeout" from="Body/RunExhaustCooldown" to="Body" method="_on_run_exhaust_timeout"]
+[connection signal="timeout" from="Body/RunWait" to="Body" method="_on_run_wait_timeout"]

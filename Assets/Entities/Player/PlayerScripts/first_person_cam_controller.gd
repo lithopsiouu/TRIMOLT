@@ -28,15 +28,6 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		camRotation = Vector3(clamp(rotation.x - event.relative.y / 1000 * camSensitivity, -1.4, 1.4), rotation.y - event.relative.x / 1000 * camSensitivity, 0)
 		_set_cam_rotation(camRotation)
-	# zooms camera based on scrollwheel input
-	if event is InputEventMouseButton:
-		if Input.is_action_pressed("scroll_up") || Input.is_action_pressed("scroll_down"):
-			if Input.get_axis("scroll_down", "scroll_up") > 0.5:
-				var tween = get_tree().create_tween()
-				tween.tween_property(cam, "fov", 40, 0.4).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
-			else:
-				var tween = get_tree().create_tween()
-				tween.tween_property(cam, "fov", 86, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 
 # sets parent position and rotation to match target
 func _process(delta: float) -> void:

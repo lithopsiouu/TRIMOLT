@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://dksma1r2whc0v"]
+
+[ext_resource type="Script" path="res://Assets/UI/UI_Scripts/stamina_bar.gd" id="1_pkpd7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nucjq"]
+draw_center = false
+skew = Vector2(0, 0.1)
+border_width_top = 35
+border_width_bottom = 135
+border_color = Color(0.6, 0.6, 0.6, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 5.0
+expand_margin_top = 10.0
+expand_margin_right = 5.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pnw20"]
+bg_color = Color(1, 0.766667, 0, 0.756863)
+skew = Vector2(0, 0.1)
+border_width_top = 5
+border_width_bottom = 5
+border_color = Color(1, 0.683333, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="ProgressBar" type="ProgressBar"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1083.0
+offset_top = 414.0
+offset_right = -31.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_nucjq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_pnw20")
+value = 100.0
+fill_mode = 3
+show_percentage = false
+script = ExtResource("1_pkpd7")
+
+[node name="HideTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="value_changed" from="." to="." method="_on_value_changed"]
+[connection signal="timeout" from="HideTimer" to="." method="_on_hide_timer_timeout"]

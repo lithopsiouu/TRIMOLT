@@ -14,7 +14,7 @@ func update(delta:float) -> void:
 	elif not body.is_on_floor():
 		state_machine.change_state("falling")
 		
-	elif body.input_dir != Vector2.ZERO and Input.is_action_pressed("Sprint"):
+	elif body.input_dir != Vector2.ZERO and Input.is_action_pressed("Sprint") and body.runAmt > 0:
 		state_machine.change_state("running")
 		
 	elif body.input_dir == Vector2.ZERO:

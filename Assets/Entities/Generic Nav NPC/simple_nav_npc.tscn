@@ -35,7 +35,7 @@ shape = SubResource("CapsuleShape3D_fi47h")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_desired_distance = 0.35
-target_desired_distance = 1.5
+target_desired_distance = 1.3
 path_height_offset = -0.95
 path_max_distance = 0.61
 simplify_path = true
@@ -52,7 +52,7 @@ target_position = Vector3(0, 0, 0)
 
 [node name="VisionRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 0)
-target_position = Vector3(0, 0, -20)
+target_position = Vector3(0, 0, -35)
 collision_mask = 1793
 debug_shape_custom_color = Color(0.69, 0, 0.414, 1)
 
@@ -67,4 +67,5 @@ shape = SubResource("ConvexPolygonShape3D_ij2rj")
 wait_time = 0.25
 autostart = true
 
+[connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_finished"]
 [connection signal="timeout" from="VisionTimer" to="." method="_on_vision_timer_timeout"]
