@@ -12,7 +12,11 @@ config_version=5
 
 config/name="I Refuse To Take My Own Life"
 <<<<<<< HEAD
+<<<<<<< HEAD
 run/main_scene="res://Scenes/Test/TestRoom08.tscn"
+=======
+run/main_scene="res://Scenes/Test/TestRoom06.tscn"
+>>>>>>> parent of 1a289d7 (add health bar)
 =======
 run/main_scene="res://Scenes/Test/TestRoom06.tscn"
 >>>>>>> parent of 1a289d7 (add health bar)
