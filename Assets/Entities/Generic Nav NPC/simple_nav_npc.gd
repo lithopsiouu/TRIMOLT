@@ -20,7 +20,7 @@ var tracking_ticks: int = 0
 
 @export_category("Sight")
 @export var use_sight: bool = true
-@export_range(1, 35) var sight_length: float = 6
+@export var sight_length: float = 6
 @onready var closeDetection: ShapeCast3D = $CloseDetection
 @onready var vision_ray: RayCast3D = $VisionRay
 
@@ -91,10 +91,7 @@ func _on_vision_timer_timeout() -> void:
 	var overlaps = $VisionArea.get_overlapping_bodies()
 	
 	if use_target_pos and closeDetection.is_colliding():
-		following = true
-		tracking_ticks = sight_lost_tracking_ticks
-		nav_target = closeDetection.get_collider(0)
-		_update_nav(nav_target)
+		navigation_agent_3d.target_position = nav_target.global_position
 	
 	if overlaps.size() > 0:
 		for overlap in overlaps: 
@@ -114,24 +111,15 @@ func _on_vision_timer_timeout() -> void:
 						following = false
 						_update_nav(nav_target)
 						tracking_ticks -= 1
-						print("Tracking outside LOS. ruff ruff")
 					else:
 						nav_target = null
 	elif tracking_ticks > 0:
 		following = false
 		_update_nav(nav_target)
 		tracking_ticks -= 1
-		print("Tracking ouside vision cone. ruff ruff")
+	else:
+		nav_target = null
 
 func _update_nav(newTarget: Node3D):
-		if newTarget != null:
-			navigation_agent_3d.target_position = newTarget.global_position
-			#print("Pathing to target " + str(newTarget.global_position))
-		else:
-			navigation_agent_3d.target_position = position
-			print("No target to path to.")
+		navigation_agent_3d.target_position = newTarget.global_position
 		nav_target = newTarget
-
-func _on_navigation_finished() -> void:
-	nav_target = null
-	print("Navigation finished.")
