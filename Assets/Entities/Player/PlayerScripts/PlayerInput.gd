@@ -17,8 +17,6 @@ var v_accel := 1.0
 var runAmt: float = 100
 var canRegenRun: bool = true
 
-var health: float = 100
-
 var climbAngleTolerance: float = -0.7
 var verticalClimbDistReduction: float = 1.7
 
@@ -27,14 +25,11 @@ var verticalClimbDistReduction: float = 1.7
 @onready var collider: CollisionShape3D = $Collider
 @onready var state_machine: StateMachine = $MovementStateMachine
 @onready var stamina_bar: ProgressBar = $"../CameraContainer/Camera3D/UI/StaminaBar"
-@onready var health_bar: ProgressBar = $"../CameraContainer/Camera3D/UI/HealthBar"
 
 func _process(delta: float) -> void:
 	input_dir = Input.get_vector("Left", "Right", "Forward", "Backward")
 	direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if Input.is_physical_key_pressed(KEY_Q):
-		_do_health_bar(health - 1)
-	_do_stamina_bar()
+	_do_stamina()
 
 func crouch_tween():
 	var tweenCrouch = get_tree().create_tween()
@@ -77,7 +72,7 @@ func _get_top_surface_collision_point() -> Vector3:
 		returnVector = topSurfaceRay.get_collision_point()
 	return returnVector
 
-func _do_stamina_bar() -> void:
+func _do_stamina() -> void:
 	if not state_machine.currentState == state_machine.states.get("running"):
 		if canRegenRun:
 			runAmt = clamp(runAmt + 0.05, 0, 100)
@@ -87,10 +82,6 @@ func _do_stamina_bar() -> void:
 		runAmt = clamp(runAmt - 0.15, 0, 100)
 	
 	stamina_bar.value = runAmt
-
-func _do_health_bar(newHealth: float) -> void:
-	health = clamp(newHealth, 0, 100)
-	health_bar.value = health
 
 func _on_run_wait_timeout() -> void:
 	canRegenRun = true

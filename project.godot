@@ -11,7 +11,11 @@ config_version=5
 [application]
 
 config/name="I Refuse To Take My Own Life"
+<<<<<<< HEAD
 run/main_scene="res://Scenes/Test/TestRoom08.tscn"
+=======
+run/main_scene="res://Scenes/Test/TestRoom06.tscn"
+>>>>>>> parent of 1a289d7 (add health bar)
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
