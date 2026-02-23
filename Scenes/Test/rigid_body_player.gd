@@ -102,7 +102,7 @@ func _input(event):
 	if Input.is_action_pressed("Jump") and is_on_floor and canJump and not above_head_check.is_colliding():
 		jump()
 
-func force_body_up():
+func force_body_up(): #add float strength change for declines(?)
 	var other_vel = Vector3.ZERO
 	var hit_body = height_contrl.get_collider()
 	
