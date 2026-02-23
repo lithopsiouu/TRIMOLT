@@ -11,15 +11,7 @@ config_version=5
 [application]
 
 config/name="I Refuse To Take My Own Life"
-<<<<<<< HEAD
-<<<<<<< HEAD
 run/main_scene="res://Scenes/Test/TestRoom08.tscn"
-=======
-run/main_scene="res://Scenes/Test/TestRoom06.tscn"
->>>>>>> parent of 1a289d7 (add health bar)
-=======
-run/main_scene="res://Scenes/Test/TestRoom06.tscn"
->>>>>>> parent of 1a289d7 (add health bar)
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
@@ -130,7 +122,7 @@ cam_look_right={
 
 [physics]
 
-3d/default_gravity=20.0
+3d/physics_engine="Jolt Physics (Extension)"
 
 [rendering]
 

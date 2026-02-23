@@ -44,6 +44,7 @@ axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
 platform_floor_layers = 4294902016
+platform_wall_layers = 512
 script = ExtResource("1_rq5mj")
 
 [node name="Collider" type="CollisionShape3D" parent="Body"]
