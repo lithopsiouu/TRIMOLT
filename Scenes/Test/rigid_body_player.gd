@@ -1,11 +1,13 @@
 extends RigidBody3D
 
 @export var jump_velocity = 15
-@export var float_spring_strength = 25
+@export var standing_float_strength = 90
+@export var crouching_float_strength = 38
 @export var float_spring_damper = 1.0
 var spring_rest_offset = 0.4
-@export var speed = 18.0
-@export var max_speed = 2.0
+@export var acceleration = 18.0
+@export var walk_speed = 2.0
+@export var run_speed = 3.5
 @export_range (0.1, 1.0) var stop_speed = 0.9
 
 var velocity = Vector3()
@@ -17,14 +19,21 @@ var mouse_input = Vector2()
 @onready var collider: CollisionShape3D = $Collider
 @onready var feet: ShapeCast3D = $Feet
 @onready var height_contrl: RayCast3D = $HeightControl
+@onready var above_head_check: ShapeCast3D = $AboveHeadCheck
 @onready var disbl_feet_timr: Timer = $DisableFeet
 @onready var enabl_jump_timr: Timer = $EnableJump
 
 @export var view_sensitivity = 10.0
+
 var is_on_floor = false
 var jumping = false
 var canJump = true
+var crouching = false
+var sprinting = false
+
 var move_input
+var standing_cam_height = 0.68
+var crouching_cam_height = 0.62
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -44,11 +53,19 @@ func _physics_process(delta: float) -> void:
 	
 	move_input = Input.get_vector("Left", "Right", "Forward", "Backward")
 	var dir = Vector3(move_input.x, 0, move_input.y)
-	velocity = dir * speed 
+	velocity = dir * acceleration 
 	if move_input.length() > 0.2:
-		apply_central_force(velocity) # add equation to "rotate" velocity with camera view
-		linear_velocity.x = clamp(linear_velocity.x, -max_speed, max_speed)
-		linear_velocity.z = clamp(linear_velocity.z, -max_speed, max_speed)
+		apply_central_force(velocity.rotated(Vector3.UP, deg_to_rad(head.rotation_degrees.y)))
+		var speed: float
+		if sprinting:
+			speed = run_speed
+		else:
+			speed = walk_speed
+		
+		var horizontal_velocity := Vector2(linear_velocity.x, linear_velocity.z)
+		var clamped_velocity := horizontal_velocity.limit_length(speed)
+		linear_velocity.x = clamped_velocity.x
+		linear_velocity.z = clamped_velocity.y
 	elif not is_on_floor:
 		constant_force.x = 0
 		constant_force.z = 0
@@ -58,17 +75,32 @@ func _physics_process(delta: float) -> void:
 		linear_velocity.x = linear_velocity.x * stop_speed
 		linear_velocity.z = linear_velocity.z * stop_speed
 	
+
+func _process(delta: float) -> void:
 	camera.rotation_degrees.x -= mouse_input.y * view_sensitivity * delta
-	camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -80, 80)
+	camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -85, 85)
 	head.rotation_degrees.y -= mouse_input.x * view_sensitivity * delta
 	mouse_input = Vector2.ZERO
 	
-	if Input.is_action_pressed("Jump") and is_on_floor and canJump:
-		jump()
+	if Input.is_action_pressed("Crouch"): #add "crawling" check for if capsule is touching ground
+		crouching = true
+		head.position.y = move_toward(head.position.y, crouching_cam_height, delta * 0.8)
+	else:
+		crouching = false
+		head.position.y = move_toward(head.position.y, standing_cam_height, delta * 0.5)
+	
 
 func _input(event):
 	if event is InputEventMouseMotion:
 		mouse_input = event.relative
+	
+	if Input.is_action_pressed("Sprint"):
+		sprinting = true
+	else:
+		sprinting = false
+	
+	if Input.is_action_pressed("Jump") and is_on_floor and canJump and not above_head_check.is_colliding():
+		jump()
 
 func force_body_up():
 	var other_vel = Vector3.ZERO
@@ -82,14 +114,20 @@ func force_body_up():
 	
 	var rel_vel = ray_dir_vel - other_dir_vel
 	
-	var dist_to_ground = (position.distance_to(height_contrl.get_collision_point()) -spring_rest_offset) #position offset from height_contrl
+	var dist_to_ground = (position.distance_to(height_contrl.get_collision_point()) -spring_rest_offset)
 	
-	var spring_force = (dist_to_ground * float_spring_strength) - (rel_vel * float_spring_damper)
+	var float_strength: float
+	if crouching:
+		float_strength = crouching_float_strength
+	else:
+		float_strength = standing_float_strength
+	
+	var spring_force = (dist_to_ground * float_strength) - (rel_vel * float_spring_damper)
 	
 	add_constant_force(Vector3.DOWN * spring_force)
 	
-	if hit_body != null:
-		hit_body
+	if hit_body != null and hit_body.is_class("RigidBody3D"):
+		hit_body.apply_force(Vector3.DOWN * -spring_force, height_contrl.get_collision_point())
 
 func jump():
 	apply_impulse(Vector3.UP * jump_velocity)

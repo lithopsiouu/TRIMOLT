@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c6fd1pm3iaj4m"]
+[gd_scene load_steps=16 format=3 uid="uid://c6fd1pm3iaj4m"]
 
 [ext_resource type="Material" uid="uid://bclljgmw3n7ur" path="res://Assets/Materials/tile_concrete_white.tres" id="1_ak0bk"]
 [ext_resource type="Material" uid="uid://cbhhpnpt0jj6n" path="res://Assets/Materials/tile_dark.tres" id="2_1hw4c"]
@@ -12,8 +12,13 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_i3wjr"]
 radius = 0.25
 
-[sub_resource type="SphereMesh" id="SphereMesh_fn8fn"]
+[sub_resource type="SphereMesh" id="SphereMesh_xh3q0"]
 material = ExtResource("5_pu3x1")
+radius = 0.25
+height = 0.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_fn8fn"]
+material = ExtResource("3_0nqo3")
 radius = 0.25
 height = 0.5
 
@@ -25,6 +30,10 @@ height = 0.6
 material = ExtResource("6_e015r")
 radius = 0.3
 height = 0.6
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_755ru"]
+height = 0.2
+radius = 0.23
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_4lg5o"]
 height = 0.2
@@ -45,7 +54,8 @@ collision_layer = 1280
 collision_mask = 3
 
 [node name="main ground" type="CSGBox3D" parent="Environment/CSG"]
-size = Vector3(10, 1, 20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.875, 0, 0)
+size = Vector3(20, 1, 20)
 material = ExtResource("1_ak0bk")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="Environment/CSG"]
@@ -149,17 +159,12 @@ rings = 9
 material = ExtResource("3_0nqo3")
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="Environment/CSG"]
-transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, -1.17245, 0.539784, 5.03034)
+transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, -0.0474499, 0.539784, 5.03034)
 size = Vector3(1, 1, 4)
 material = ExtResource("2_1hw4c")
 
 [node name="CSGBox3D7" type="CSGBox3D" parent="Environment/CSG"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4908, 1, 0)
-size = Vector3(1, 1, 20)
-material = ExtResource("1_ak0bk")
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="Environment/CSG"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5092, 1, 0)
 size = Vector3(1, 1, 20)
 material = ExtResource("1_ak0bk")
 
@@ -199,9 +204,9 @@ mass = 100.0
 shape = SubResource("SphereShape3D_i3wjr")
 
 [node name="Mesh" type="MeshInstance3D" parent="Environment/Ball100kg"]
-mesh = SubResource("SphereMesh_fn8fn")
+mesh = SubResource("SphereMesh_xh3q0")
 
-[node name="Ball100kg2" type="RigidBody3D" parent="Environment"]
+[node name="Ball500kg" type="RigidBody3D" parent="Environment"]
 process_mode = 3
 physics_interpolation_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.89369, 3.5)
@@ -209,23 +214,87 @@ collision_layer = 2
 collision_mask = 1795
 mass = 500.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Ball100kg2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Ball500kg"]
 shape = SubResource("SphereShape3D_i3wjr")
 
-[node name="Mesh" type="MeshInstance3D" parent="Environment/Ball100kg2"]
+[node name="Mesh" type="MeshInstance3D" parent="Environment/Ball500kg"]
 mesh = SubResource("SphereMesh_fn8fn")
 
 [node name="Ruler" type="CSGCombiner3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 0)
+use_collision = true
+collision_layer = 1536
+collision_mask = 3
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Environment/Ruler"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.375, 1.5, 7.75)
-size = Vector3(0.5, 2, 0.25)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.875, 1, 7.625)
+size = Vector3(0.5, 1, 0.25)
+material = ExtResource("2_1hw4c")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Environment/Ruler"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.875, 1.125, 5.375)
+size = Vector3(0.5, 1.5, 0.25)
+material = ExtResource("2_1hw4c")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Environment/Ruler"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.875, 1, 6.5)
+size = Vector3(0.5, 1.5, 0.25)
+material = ExtResource("2_1hw4c")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Environment/Ruler"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.875, 2, 8.375)
+size = Vector3(2, 1, 0.25)
+material = ExtResource("1_ak0bk")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Environment/Ruler"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.875, 2.188, 5.125)
+size = Vector3(1, 0.625, 0.25)
+material = ExtResource("1_ak0bk")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Environment/Ruler"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.875, 2.125, 6.18775)
+size = Vector3(1.125, 0.75, 0.25)
+material = ExtResource("1_ak0bk")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Environment/Ruler"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.875, 2.063, 7.063)
+size = Vector3(0.625, 0.875, 0.25)
+material = ExtResource("1_ak0bk")
+
+[node name="HeightTolerance" type="CSGCombiner3D" parent="Environment"]
+use_collision = true
+collision_layer = 1536
+collision_mask = 1027
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Environment/HeightTolerance"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 7.5)
+polygon = PackedVector2Array(0, 0.9, 0, 1, 1.5, 1)
+material = ExtResource("2_1hw4c")
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="Environment/HeightTolerance"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 6.5)
+polygon = PackedVector2Array(0, 0.8, 0, 1, 1.5, 1)
+material = ExtResource("2_1hw4c")
+
+[node name="CSGPolygon3D3" type="CSGPolygon3D" parent="Environment/HeightTolerance"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 5.5)
+polygon = PackedVector2Array(0, 0.7, 0, 1, 1.5, 1)
+material = ExtResource("2_1hw4c")
+
+[node name="CSGPolygon3D4" type="CSGPolygon3D" parent="Environment/HeightTolerance"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 4.5)
+polygon = PackedVector2Array(0, 0.6, 0, 1, 1.5, 1)
+material = ExtResource("2_1hw4c")
+
+[node name="CSGPolygon3D5" type="CSGPolygon3D" parent="Environment/HeightTolerance"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 3.5)
+polygon = PackedVector2Array(0, 0.5, 0, 1, 1.5, 1)
 material = ExtResource("2_1hw4c")
 
 [node name="RigidBodyPlayer" type="RigidBody3D" parent="."]
 process_mode = 3
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.347546, 0.722662, 7.42459)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.027454, 0.722662, 7.42459)
 collision_mask = 1795
 axis_lock_angular_x = true
 axis_lock_angular_y = true
@@ -237,11 +306,12 @@ contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("7_u6bac")
 jump_velocity = 5
-float_spring_strength = 90
+crouching_float_strength = 60
 float_spring_damper = 15.0
-speed = 10.0
-max_speed = 1.8
-stop_speed = 0.725
+acceleration = 10.0
+walk_speed = 1.0
+run_speed = 2.5
+stop_speed = 0.85
 view_sensitivity = 50.0
 
 [node name="Collider" type="CollisionShape3D" parent="RigidBodyPlayer"]
@@ -252,12 +322,23 @@ shape = SubResource("CapsuleShape3D_uh0v7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
 mesh = SubResource("CapsuleMesh_ow3ka")
 
+[node name="AboveHeadCheck" type="ShapeCast3D" parent="RigidBodyPlayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_755ru")
+target_position = Vector3(0, 0.48, 0)
+max_results = 1
+collision_mask = 1536
+
 [node name="Head" type="Node3D" parent="RigidBodyPlayer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 0)
+process_mode = 3
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68, 0)
 
 [node name="PlayerCamera" type="Camera3D" parent="RigidBodyPlayer/Head"]
+process_mode = 3
+physics_interpolation_mode = 1
 current = true
-fov = 87.0
+fov = 90.0
 
 [node name="Feet" type="ShapeCast3D" parent="RigidBodyPlayer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
@@ -280,7 +361,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 collision_mask = 1282
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.69024, 0.675699, 7.43908)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.69024, 1.5507, 6.93908)
 fov = 86.5
 
 [connection signal="timeout" from="RigidBodyPlayer/DisableFeet" to="RigidBodyPlayer" method="_on_disable_feet_timeout"]

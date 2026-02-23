@@ -13,7 +13,9 @@ config_version=5
 config/name="I Refuse To Take My Own Life"
 run/main_scene="res://Scenes/Test/TestRoom08.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="res://Assets/Materials/Textures/Logo/lithworks_logo_sharp_dropdown_inverted.png"
+config/icon="res://Assets/Materials/Textures/Logo/TRIMOLT.png"
 
 [editor_plugins]
 
@@ -123,6 +125,7 @@ cam_look_right={
 [physics]
 
 3d/physics_engine="Jolt Physics (Extension)"
+common/physics_interpolation=true
 
 [rendering]
 
