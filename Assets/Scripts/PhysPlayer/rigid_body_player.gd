@@ -4,7 +4,7 @@ extends RigidBody3D
 @export var standing_float_strength = 90
 @export var crouching_float_strength = 38
 @export var float_spring_damper = 1.0
-var spring_rest_offset = 0.4
+var spring_rest_offset = 0.32
 @export var acceleration = 18.0
 @export var walk_speed = 2.0
 @export var run_speed = 3.5
@@ -17,9 +17,11 @@ var mouse_input = Vector2()
 @onready var head = $Head
 @onready var camera: Camera3D = $Head/PlayerCamera
 @onready var collider: CollisionShape3D = $Collider
+@onready var mesh: MeshInstance3D = $Mesh
 @onready var feet: ShapeCast3D = $Feet
 @onready var height_contrl: RayCast3D = $HeightControl
 @onready var above_head_check: ShapeCast3D = $AboveHeadCheck
+@onready var uncrouch_check: ShapeCast3D = $Head/UncrouchCheck
 @onready var disbl_feet_timr: Timer = $DisableFeet
 @onready var enabl_jump_timr: Timer = $EnableJump
 
@@ -32,8 +34,12 @@ var crouching = false
 var sprinting = false
 
 var move_input
-var standing_cam_height = 0.68
-var crouching_cam_height = 0.62
+var standing_cam_height = 1.05
+var standing_collider_height = 0.7
+
+var crouching_cam_height = 0.75
+var crouching_collider_scale = 0.5
+var crouching_collider_height = 0.5
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -83,12 +89,30 @@ func _process(delta: float) -> void:
 	mouse_input = Vector2.ZERO
 	
 	if Input.is_action_pressed("Crouch"): #add "crawling" check for if capsule is touching ground
-		crouching = true
-		head.position.y = move_toward(head.position.y, crouching_cam_height, delta * 0.8)
+		_crouch(delta)
+	elif crouching and uncrouch_check.is_colliding():
+		_crouch(delta)
 	else:
-		crouching = false
-		head.position.y = move_toward(head.position.y, standing_cam_height, delta * 0.5)
+		_uncrouch(delta)
 	
+
+func _crouch(delta: float) -> void:
+	crouching = true
+	head.position.y = move_toward(head.position.y, crouching_cam_height, delta * 1.2)
+	collider.position.y = move_toward(collider.position.y, crouching_collider_height, delta * 1.1)
+	mesh.position.y = move_toward(mesh.position.y, crouching_collider_height, delta * 1.1)
+		
+	collider.scale.y = move_toward(collider.scale.y, crouching_collider_scale, delta)
+	mesh.scale.y = move_toward(mesh.scale.y, crouching_collider_scale, delta)
+
+func _uncrouch(delta: float) -> void:
+	crouching = false
+	head.position.y = move_toward(head.position.y, standing_cam_height, delta * 0.5)
+	collider.position.y = move_toward(collider.position.y, standing_collider_height, delta * 0.9)
+	mesh.position.y = move_toward(mesh.position.y, standing_collider_height, delta * 0.9)
+		
+	collider.scale.y = move_toward(collider.scale.y, 1.0, delta * 0.9)
+	mesh.scale.y = move_toward(mesh.scale.y, 1.0, delta * 0.8)
 
 func _input(event):
 	if event is InputEventMouseMotion:
