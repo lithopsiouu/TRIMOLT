@@ -1,9 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://c4ldxt4if6cjr"]
+[gd_scene load_steps=13 format=3 uid="uid://c4ldxt4if6cjr"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://6u3ecb4i6wfg" path="res://Assets/Materials/Physics/PlayerPhysMaterial.tres" id="1_um0xv"]
-[ext_resource type="Script" path="res://Assets/Scripts/PhysPlayer/rigid_body_player.gd" id="2_7kpxl"]
+[ext_resource type="Script" path="res://Assets/Entities/Player/PhysPlayer/rigid_body_player.gd" id="2_7kpxl"]
 [ext_resource type="Material" uid="uid://wm1sb5jonltv" path="res://Assets/Materials/tile_concrete_teal.tres" id="3_oy4ke"]
-[ext_resource type="Script" path="res://Assets/Entities/Player/PlayerScripts/attack_controller.gd" id="4_8kh61"]
+[ext_resource type="Script" path="res://Assets/Entities/Player/PhysPlayer/attack_controller.gd" id="4_8kh61"]
 [ext_resource type="Script" path="res://Assets/Scripts/Combat/Hitbox.gd" id="4_a4h1n"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uh0v7"]
@@ -21,6 +21,10 @@ radius = 0.23
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_eb4tl"]
 radius = 0.35
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_kb4no"]
+height = 12.0
+radius = 0.1
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ntg1m"]
 radius = 0.23
@@ -94,6 +98,15 @@ disabled = true
 [node name="MeleeCooldown" type="Timer" parent="Head/PlayerCamera/AttackController"]
 wait_time = 0.4
 one_shot = true
+
+[node name="HitboxRanged" type="Area3D" parent="Head/PlayerCamera/AttackController"]
+script = ExtResource("4_a4h1n")
+
+[node name="RangedShape" type="CollisionShape3D" parent="Head/PlayerCamera/AttackController/HitboxRanged"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -2.62268e-07, -6)
+shape = SubResource("CylinderShape3D_kb4no")
+
+[node name="RangedCooldown" type="Timer" parent="Head/PlayerCamera/AttackController"]
 
 [node name="UncrouchCheck" type="ShapeCast3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)

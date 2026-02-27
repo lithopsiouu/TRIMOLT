@@ -17,8 +17,8 @@ const ATTACK_TYPES: Array = [
 ]
 const ATTACK_DAMAGES: Dictionary = {
 	ATTACK_TYPES[0]: 0,
-	ATTACK_TYPES[1]: 10,
-	ATTACK_TYPES[2]: 12,
+	ATTACK_TYPES[1]: 15,
+	ATTACK_TYPES[2]: 10,
 	ATTACK_TYPES[3]: 20
 }
 
@@ -27,6 +27,11 @@ const ATTACK_DAMAGES: Dictionary = {
 @onready var hitbox_melee: Hitbox = $HitboxMelee
 @onready var melee: CollisionShape3D = $HitboxMelee/MeleeShape
 @onready var melee_cooldown_timer: Timer = $MeleeCooldown
+
+@onready var hitbox_ranged: Hitbox = $HitboxRanged
+@onready var ranged: CollisionShape3D = $HitboxRanged/RangedShape
+@onready var ranged_cooldown_timer: Timer = $RangedCooldown
+
 var attacking: bool = false ## Prevents multiple attacks before the cooldown timer ends.
 var equipped_attack:String = "Unequipped"
 var last_equipped_attack:String = "Unequipped"
@@ -37,6 +42,8 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Primary_Attack"):
 		do_primary_attack()
+	elif event.is_action_pressed("Secondary_Attack"):
+		do_secondary_attack()
 	
 	if event.is_action_pressed("Select_Unequipped_Attack"):
 		switch_attack_type(0)
@@ -47,7 +54,20 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Select_Special_Attack"):
 		switch_attack_type(3)
 
+## Function for "regular" or main attacks of attack type
 func do_primary_attack() -> void:
+	match equipped_attack:
+		ATTACK_TYPES[0]: # Unequipped attack
+			print("unequipped attack")
+		ATTACK_TYPES[1]: # Melee attack
+			_do_melee_attack()
+		ATTACK_TYPES[2]: # Ranged attack
+			_do_ranged_attack()
+		ATTACK_TYPES[3]: # Special attack
+			_do_ranged_attack()
+
+## Function for "heavy" or alternative attacks of attack type
+func do_secondary_attack() -> void:
 	match equipped_attack:
 		ATTACK_TYPES[0]: # Unequipped attack
 			print("unequipped attack")
@@ -71,7 +91,6 @@ func _do_melee_attack() -> void:
 func enable_melee() -> void:
 	melee.disabled = true
 	attacking = false
-
 
 func _do_ranged_attack() -> void:
 	if not attacking:
