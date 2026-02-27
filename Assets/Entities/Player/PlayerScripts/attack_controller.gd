@@ -1,0 +1,92 @@
+extends Node3D
+## Handles attacks, attack types, and attack type switching
+##
+## Parent of all attack types and controls functionality of them.
+## Controls the switching of attack types and attack inputs.
+
+## Attack types:
+## [b]Unequipped[/b] - Hands will be offscreen. Attacking equips the last used weapon.
+## [b]Melee Attack[/b]
+## [b]Ranged Attack[/b]
+## [b]Special Attack[/b]
+const ATTACK_TYPES: Array = [
+	"Unequipped",
+	"Melee",
+	"Ranged",
+	"Special"
+]
+const ATTACK_DAMAGES: Dictionary = {
+	ATTACK_TYPES[0]: 0,
+	ATTACK_TYPES[1]: 10,
+	ATTACK_TYPES[2]: 12,
+	ATTACK_TYPES[3]: 20
+}
+
+@export var melee_damage_variance:int = 2
+
+@onready var hitbox_melee: Hitbox = $HitboxMelee
+@onready var melee: CollisionShape3D = $HitboxMelee/MeleeShape
+@onready var melee_cooldown_timer: Timer = $MeleeCooldown
+var attacking: bool = false ## Prevents multiple attacks before the cooldown timer ends.
+var equipped_attack:String = "Unequipped"
+var last_equipped_attack:String = "Unequipped"
+
+func _ready() -> void:
+	melee_cooldown_timer.timeout.connect(enable_melee)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("Primary_Attack"):
+		do_primary_attack()
+	
+	if event.is_action_pressed("Select_Unequipped_Attack"):
+		switch_attack_type(0)
+	if event.is_action_pressed("Select_Melee_Attack"):
+		switch_attack_type(1)
+	if event.is_action_pressed("Select_Ranged_Attack"):
+		switch_attack_type(2)
+	if event.is_action_pressed("Select_Special_Attack"):
+		switch_attack_type(3)
+
+func do_primary_attack() -> void:
+	match equipped_attack:
+		ATTACK_TYPES[0]: # Unequipped attack
+			print("unequipped attack")
+		ATTACK_TYPES[1]: # Melee attack
+			_do_melee_attack()
+		ATTACK_TYPES[2]: # Ranged attack
+			_do_ranged_attack()
+		ATTACK_TYPES[3]: # Special attack
+			_do_ranged_attack()
+
+func _do_melee_attack() -> void:
+	if not attacking:
+		print("melee attack successful")
+		hitbox_melee.damage = ATTACK_DAMAGES.get(ATTACK_TYPES[1]) + randi_range(-melee_damage_variance, melee_damage_variance)
+		melee.disabled = false
+		attacking = true
+		melee_cooldown_timer.start()
+	else:
+		print_rich("melee attack [color=red][b]unsuccessful[/b][/color]")
+
+func enable_melee() -> void:
+	melee.disabled = true
+	attacking = false
+
+
+func _do_ranged_attack() -> void:
+	if not attacking:
+		print("ranged attack successful")
+	else:
+		print_rich("ranged attack [color=red][b]unsuccessful[/b][/color]")
+
+func _do_special_attack() -> void:
+	if not attacking:
+		print("special attack successful")
+	else:
+		print_rich("special attack [color=red][b]unsuccessful[/b][/color]")
+
+## Handles switching of attack types.
+func switch_attack_type(type: int) -> void:
+	last_equipped_attack = equipped_attack
+	equipped_attack = ATTACK_TYPES[type]
+	print("\ncurrent atk: ", equipped_attack, "\nlast atk: ", last_equipped_attack)

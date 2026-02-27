@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://clusdah11ijeg"]
+
+[ext_resource type="Script" path="res://Scenes/Test/fake_enemy_rb.gd" id="1_q3lrp"]
+[ext_resource type="Material" uid="uid://bdhk4vvld1gv4" path="res://Assets/Materials/tile_concrete_red.tres" id="2_ixt5j"]
+[ext_resource type="Script" path="res://Assets/Scripts/Combat/Hurtbox.gd" id="3_e6x18"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6m3p8"]
+radius = 0.3
+height = 1.55
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_75hty"]
+material = ExtResource("2_ixt5j")
+radius = 0.3
+height = 1.55
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8v2hi"]
+radius = 0.32
+height = 1.6
+
+[node name="FakeEnemyRB" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 1794
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+mass = 2.0
+gravity_scale = 1.25
+script = ExtResource("1_q3lrp")
+knockback_power = 10
+vertical_knockback = 0.7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_6m3p8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_75hty")
+skeleton = NodePath("")
+
+[node name="Hurtbox" type="Area3D" parent="."]
+script = ExtResource("3_e6x18")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+shape = SubResource("CapsuleShape3D_8v2hi")
+
+[node name="DeadTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
