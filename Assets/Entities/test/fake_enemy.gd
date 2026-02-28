@@ -22,8 +22,8 @@ func take_damage(amount: int) -> void:
 ## Pushes body back by amount of damage dealt divided by knockback_damp
 func do_knockback(hitbox: Hitbox, damage: int) -> void:
 	var direction_vec: Vector3 = hitbox.global_position.direction_to(global_position)
-	direction_vec.y = 0 #ignore vertical axis
-	var knockback = direction_vec * (damage / knockback_damp)
+	var knockback: Vector3 = direction_vec * (damage / knockback_damp)
+	knockback.y = 0 #ignore vertical axis
 	global_position += knockback # add knockback to position
 
 ## Disables hurtbox collider and starts a death cooldown.

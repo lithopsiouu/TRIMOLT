@@ -81,13 +81,13 @@ func _physics_process(delta: float) -> void:
 		linear_velocity.x = linear_velocity.x * stop_speed
 		linear_velocity.z = linear_velocity.z * stop_speed
 	
-
-func _process(delta: float) -> void:
 	camera.rotation_degrees.x -= mouse_input.y * view_sensitivity * delta
 	camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, -85, 85)
 	head.rotation_degrees.y -= mouse_input.x * view_sensitivity * delta
 	mouse_input = Vector2.ZERO
 	
+
+func _process(delta: float) -> void:
 	if Input.is_action_pressed("Crouch"): #add "crawling" check for if capsule is touching ground
 		_crouch(delta)
 	elif crouching and uncrouch_check.is_colliding():

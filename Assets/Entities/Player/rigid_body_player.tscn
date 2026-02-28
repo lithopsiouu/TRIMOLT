@@ -22,8 +22,7 @@ radius = 0.23
 [sub_resource type="SphereShape3D" id="SphereShape3D_eb4tl"]
 radius = 0.35
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_kb4no"]
-height = 12.0
+[sub_resource type="SphereShape3D" id="SphereShape3D_flksb"]
 radius = 0.1
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ntg1m"]
@@ -79,8 +78,6 @@ physics_interpolation_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
 
 [node name="PlayerCamera" type="Camera3D" parent="Head"]
-process_mode = 3
-physics_interpolation_mode = 1
 current = true
 fov = 90.0
 
@@ -103,10 +100,20 @@ one_shot = true
 script = ExtResource("4_a4h1n")
 
 [node name="RangedShape" type="CollisionShape3D" parent="Head/PlayerCamera/AttackController/HitboxRanged"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -2.62268e-07, -6)
-shape = SubResource("CylinderShape3D_kb4no")
+shape = SubResource("SphereShape3D_flksb")
+disabled = true
 
 [node name="RangedCooldown" type="Timer" parent="Head/PlayerCamera/AttackController"]
+one_shot = true
+
+[node name="DistanceRay" type="RayCast3D" parent="Head/PlayerCamera/AttackController"]
+target_position = Vector3(0, 0, -20)
+collision_mask = 1794
+debug_shape_custom_color = Color(0.951439, 0.714091, 0.364467, 1)
+
+[node name="RangedHitLinger" type="Timer" parent="Head/PlayerCamera/AttackController"]
+wait_time = 0.1
+one_shot = true
 
 [node name="UncrouchCheck" type="ShapeCast3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)

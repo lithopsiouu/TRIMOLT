@@ -1,7 +1,7 @@
 extends RigidBody3D
 
-@export var knockback_power: int = 4 ## Strength of knockback.
-@export var vertical_knockback: float = 0.5 ## Amount of vertical knockback.
+@export var knockback_power: float = 5 ## Strength of knockback.
+@export var vertical_knockback: float = 3 ## Amount of vertical knockback.
 @export var starting_health: int = 100 ## Health the fake_enemy starts with.
 var health: int = 1
 @onready var dead_timer: Timer = $DeadTimer
@@ -23,10 +23,9 @@ func take_damage(amount: int) -> void:
 		die()
 
 func do_knockback(hitbox: Hitbox, damage: int) -> void:
-	var distance = hitbox.global_position.distance_to(global_position)
 	var direction_vec: Vector3 = hitbox.global_position.direction_to(global_position)
-	direction_vec.y = vertical_knockback #set vertical knockback base
-	var knockback = direction_vec * (distance * knockback_power)
+	var knockback: Vector3 = direction_vec * (knockback_power)
+	knockback.y = vertical_knockback #set vertical knockback base
 	apply_central_impulse(knockback)
 
 func die() -> void:
