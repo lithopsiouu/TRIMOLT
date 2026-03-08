@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://clusdah11ijeg"]
 
-[ext_resource type="Script" path="res://Assets/Entities/test/fake_enemy_rb.gd" id="1_q3lrp"]
+[ext_resource type="Script" uid="uid://c01gjvw2c7lsd" path="res://Assets/Entities/test/fake_enemy_rb.gd" id="1_q3lrp"]
 [ext_resource type="Material" uid="uid://bdhk4vvld1gv4" path="res://Assets/Materials/tile_concrete_red.tres" id="2_ixt5j"]
-[ext_resource type="Script" path="res://Assets/Scripts/Combat/Hurtbox.gd" id="3_e6x18"]
+[ext_resource type="Script" uid="uid://06cp6tfh25a8" path="res://Assets/Scripts/Combat/Hurtbox.gd" id="3_e6x18"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6m3p8"]
 radius = 0.3

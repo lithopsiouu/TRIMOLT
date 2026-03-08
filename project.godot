@@ -17,10 +17,6 @@ boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/image="res://Assets/Materials/Textures/Logo/lithworks_logo_sharp_dropdown_inverted.png"
 config/icon="res://Assets/Materials/Textures/Logo/TRIMOLT.png"
 
-[display]
-
-window/vsync/vsync_mode=0
-
 [file_customization]
 
 folder_colors={

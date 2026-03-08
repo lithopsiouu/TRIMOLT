@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://chab13gn2saq6"]
 
-[ext_resource type="Script" path="res://Assets/Entities/test/fake_enemy.gd" id="1_lcmu2"]
+[ext_resource type="Script" uid="uid://bbc1ye3n4bp3o" path="res://Assets/Entities/test/fake_enemy.gd" id="1_lcmu2"]
 [ext_resource type="Material" uid="uid://bdhk4vvld1gv4" path="res://Assets/Materials/tile_concrete_red.tres" id="2_kssk3"]
-[ext_resource type="Script" path="res://Assets/Scripts/Combat/Hurtbox.gd" id="3_b0qlp"]
+[ext_resource type="Script" uid="uid://06cp6tfh25a8" path="res://Assets/Scripts/Combat/Hurtbox.gd" id="3_b0qlp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6m3p8"]
 radius = 0.3
@@ -18,7 +18,6 @@ radius = 0.32
 height = 1.6
 
 [node name="FakeEnemy" type="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 collision_layer = 2
 collision_mask = 1794
 script = ExtResource("1_lcmu2")

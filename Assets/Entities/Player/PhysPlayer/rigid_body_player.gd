@@ -37,9 +37,11 @@ var move_input
 var standing_cam_height = 1.05
 var standing_collider_height = 0.7
 
-var crouching_cam_height = 0.75
-var crouching_collider_scale = 0.5
-var crouching_collider_height = 0.5
+var crouching_cam_height = 0.66
+var crouching_collider_scale = 0.4
+var crouching_collider_height = 0.4
+var crouch_speed = 1.8
+var uncrouch_speed = 1.2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -98,21 +100,21 @@ func _process(delta: float) -> void:
 
 func _crouch(delta: float) -> void:
 	crouching = true
-	head.position.y = move_toward(head.position.y, crouching_cam_height, delta * 1.2)
-	collider.position.y = move_toward(collider.position.y, crouching_collider_height, delta * 1.1)
-	mesh.position.y = move_toward(mesh.position.y, crouching_collider_height, delta * 1.1)
+	head.position.y = move_toward(head.position.y, crouching_cam_height, delta * crouch_speed)
+	collider.position.y = move_toward(collider.position.y, crouching_collider_height, delta * crouch_speed)
+	mesh.position.y = move_toward(mesh.position.y, crouching_collider_height, delta * crouch_speed)
 		
 	collider.scale.y = move_toward(collider.scale.y, crouching_collider_scale, delta)
 	mesh.scale.y = move_toward(mesh.scale.y, crouching_collider_scale, delta)
 
 func _uncrouch(delta: float) -> void:
 	crouching = false
-	head.position.y = move_toward(head.position.y, standing_cam_height, delta * 0.5)
-	collider.position.y = move_toward(collider.position.y, standing_collider_height, delta * 0.9)
-	mesh.position.y = move_toward(mesh.position.y, standing_collider_height, delta * 0.9)
+	head.position.y = move_toward(head.position.y, standing_cam_height, delta * uncrouch_speed)
+	collider.position.y = move_toward(collider.position.y, standing_collider_height, delta * uncrouch_speed)
+	mesh.position.y = move_toward(mesh.position.y, standing_collider_height, delta * uncrouch_speed)
 		
-	collider.scale.y = move_toward(collider.scale.y, 1.0, delta * 0.9)
-	mesh.scale.y = move_toward(mesh.scale.y, 1.0, delta * 0.8)
+	collider.scale.y = move_toward(collider.scale.y, 1.0, delta * uncrouch_speed)
+	mesh.scale.y = move_toward(mesh.scale.y, 1.0, delta * uncrouch_speed)
 
 func _input(event):
 	if event is InputEventMouseMotion:

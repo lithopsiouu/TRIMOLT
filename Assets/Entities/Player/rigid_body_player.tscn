@@ -1,10 +1,10 @@
 [gd_scene load_steps=13 format=3 uid="uid://c4ldxt4if6cjr"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://6u3ecb4i6wfg" path="res://Assets/Materials/Physics/PlayerPhysMaterial.tres" id="1_um0xv"]
-[ext_resource type="Script" path="res://Assets/Entities/Player/PhysPlayer/rigid_body_player.gd" id="2_7kpxl"]
+[ext_resource type="Script" uid="uid://dldeqo6mbka62" path="res://Assets/Entities/Player/PhysPlayer/rigid_body_player.gd" id="2_7kpxl"]
 [ext_resource type="Material" uid="uid://wm1sb5jonltv" path="res://Assets/Materials/tile_concrete_teal.tres" id="3_oy4ke"]
-[ext_resource type="Script" path="res://Assets/Entities/Player/PhysPlayer/attack_controller.gd" id="4_8kh61"]
-[ext_resource type="Script" path="res://Assets/Scripts/Combat/Hitbox.gd" id="4_a4h1n"]
+[ext_resource type="Script" uid="uid://mruhxcooio7p" path="res://Assets/Entities/Player/PhysPlayer/attack_controller.gd" id="4_8kh61"]
+[ext_resource type="Script" uid="uid://dx50slkfs5nkt" path="res://Assets/Scripts/Combat/Hitbox.gd" id="4_a4h1n"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uh0v7"]
 radius = 0.25
@@ -35,7 +35,6 @@ radius = 0.25
 [node name="RigidBodyPlayer" type="RigidBody3D"]
 process_mode = 3
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 collision_mask = 1795
 axis_lock_angular_x = true
 axis_lock_angular_y = true
@@ -104,6 +103,7 @@ shape = SubResource("SphereShape3D_flksb")
 disabled = true
 
 [node name="RangedCooldown" type="Timer" parent="Head/PlayerCamera/AttackController"]
+wait_time = 0.7
 one_shot = true
 
 [node name="DistanceRay" type="RayCast3D" parent="Head/PlayerCamera/AttackController"]
