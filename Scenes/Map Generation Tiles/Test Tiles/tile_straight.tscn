@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://bob6aol5xpkfb"]
+
+[ext_resource type="Material" uid="uid://bclljgmw3n7ur" path="res://Assets/Materials/tile_concrete_white.tres" id="1_rowwu"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_gy40a"]
+material = ExtResource("1_rowwu")
+size = Vector2(3, 8)
+orientation = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rowwu"]
+size = Vector3(3, 0.25, 8)
+
+[node name="TileStraight" type="Node3D"]
+
+[node name="Start" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.875)
+
+[node name="End" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.875)
+
+[node name="Tile" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tile"]
+mesh = SubResource("QuadMesh_gy40a")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Tile"]
+collision_layer = 1280
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tile/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.125, 0)
+shape = SubResource("BoxShape3D_rowwu")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c6fd1pm3iaj4m"]
+[gd_scene load_steps=14 format=3 uid="uid://c6fd1pm3iaj4m"]
 
 [ext_resource type="Material" uid="uid://bclljgmw3n7ur" path="res://Assets/Materials/tile_concrete_white.tres" id="1_ak0bk"]
 [ext_resource type="Material" uid="uid://cbhhpnpt0jj6n" path="res://Assets/Materials/tile_dark.tres" id="2_1hw4c"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://clusdah11ijeg" path="res://Assets/Entities/test/fake_enemy_rb.tscn" id="7_2o6ks"]
 [ext_resource type="PackedScene" uid="uid://c4ldxt4if6cjr" path="res://Assets/Entities/Player/rigid_body_player.tscn" id="7_7idf3"]
 [ext_resource type="PackedScene" uid="uid://eirg5awc8s8f" path="res://Assets/UI/test/test_gameplay_UI.tscn" id="9_pfuy5"]
+[ext_resource type="PackedScene" uid="uid://bbsdiw7ajl3ys" path="res://Assets/Entities/Player/Viewmodel.tscn" id="10_uwb70"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_i3wjr"]
 radius = 0.25
@@ -292,3 +293,6 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.6902
 fov = 86.5
 
 [node name="TestGameplayUI" parent="." instance=ExtResource("9_pfuy5")]
+
+[node name="Node3D" parent="." instance=ExtResource("10_uwb70")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.875, -0.139357, 5.25)

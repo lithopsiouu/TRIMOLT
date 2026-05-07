@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbsdiw7ajl3ys"]
+
+[ext_resource type="ArrayMesh" uid="uid://b4wthmve55e1m" path="res://Assets/Models/Characters/Player/Viewmodel.res" id="1_ckopq"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_ckopq")
