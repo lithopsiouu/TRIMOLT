@@ -22,16 +22,14 @@ size = Vector3(9, 0.25, 8)
 
 [node name="TileSplit" type="Node3D"]
 
-[node name="Start" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.25)
-
 [node name="End1" type="Node3D" parent="."]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -4.375, 0, -4.75)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -4.375, 0, -7.375)
 
 [node name="End2" type="Node3D" parent="."]
-transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.81218, 0, -5.10355)
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.81218, 0, -7.375)
 
 [node name="Tile" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.375)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Tile"]
 mesh = SubResource("QuadMesh_gy40a")

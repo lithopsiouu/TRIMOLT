@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://whwkl6oidq3p"]
+
+[ext_resource type="Material" uid="uid://bclljgmw3n7ur" path="res://Assets/Materials/tile_concrete_white.tres" id="1_ecpnh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rowwu"]
+size = Vector3(3, 0.25, 1.115)
+
+[sub_resource type="QuadMesh" id="QuadMesh_gy40a"]
+material = ExtResource("1_ecpnh")
+size = Vector2(3, 1)
+orientation = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ecpnh"]
+size = Vector3(10, 0.25, 8)
+
+[sub_resource type="QuadMesh" id="QuadMesh_aw80h"]
+material = ExtResource("1_ecpnh")
+size = Vector2(10, 8)
+orientation = 1
+
+[node name="TileStraight" type="Node3D"]
+
+[node name="End" type="Node3D" parent="."]
+transform = Transform3D(0.986856, 0, -0.161604, 0, 1, 0, 0.161604, 0, 0.986856, -1.93507, -2.38419e-07, -9.53392)
+
+[node name="Tile" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.875)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Tile"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.38979)
+collision_layer = 1280
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tile/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.125, 0)
+shape = SubResource("BoxShape3D_rowwu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tile/StaticBody3D"]
+mesh = SubResource("QuadMesh_gy40a")
+skeleton = NodePath("../../..")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Tile"]
+transform = Transform3D(0.986768, 0, -0.162138, 0, 1, 0, 0.162138, 0, 0.986768, -1.99289, 2.38419e-07, -5.20582)
+collision_layer = 1280
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tile/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.125, 0)
+shape = SubResource("BoxShape3D_rowwu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tile/StaticBody3D2"]
+mesh = SubResource("QuadMesh_gy40a")
+skeleton = NodePath("../../..")
+
+[node name="room" type="StaticBody3D" parent="Tile"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+collision_layer = 1280
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tile/room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.125, 0)
+shape = SubResource("BoxShape3D_ecpnh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tile/room"]
+mesh = SubResource("QuadMesh_aw80h")
+skeleton = NodePath("../../..")

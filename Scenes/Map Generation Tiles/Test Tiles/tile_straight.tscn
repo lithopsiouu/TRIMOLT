@@ -12,13 +12,11 @@ size = Vector3(3, 0.25, 8)
 
 [node name="TileStraight" type="Node3D"]
 
-[node name="Start" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.875)
-
 [node name="End" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.875)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.875)
 
 [node name="Tile" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.875)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Tile"]
 mesh = SubResource("QuadMesh_gy40a")
