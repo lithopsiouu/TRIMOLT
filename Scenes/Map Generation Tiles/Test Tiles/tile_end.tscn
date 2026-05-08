@@ -10,7 +10,7 @@ orientation = 1
 [sub_resource type="BoxShape3D" id="BoxShape3D_ykodi"]
 size = Vector3(4, 0.25, 5)
 
-[node name="TileStart" type="Node3D"]
+[node name="TileEnd" type="Node3D"]
 
 [node name="Tile" type="Node3D" parent="."]
 transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)

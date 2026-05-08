@@ -18,7 +18,7 @@ material = ExtResource("1_ecpnh")
 size = Vector2(10, 8)
 orientation = 1
 
-[node name="TileStraight" type="Node3D"]
+[node name="TileStraightRoom" type="Node3D"]
 
 [node name="End" type="Node3D" parent="."]
 transform = Transform3D(0.986856, 0, -0.161604, 0, 1, 0, 0.161604, 0, 0.986856, -1.93507, -2.38419e-07, -9.53392)
