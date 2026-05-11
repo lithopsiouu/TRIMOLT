@@ -17,10 +17,6 @@ boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/image="res://Assets/Materials/Textures/Logo/lithworks_logo_sharp_dropdown_inverted.png"
 config/icon="res://Assets/Materials/Textures/Logo/TRIMOLT.png"
 
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/sticky_scribe/plugin.cfg")
-
 [file_customization]
 
 folder_colors={
