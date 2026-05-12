@@ -12,7 +12,9 @@ size = Vector3(3, 0.25, 8)
 
 [node name="TileUppy" type="Node3D"]
 
-[node name="End" type="Node3D" parent="."]
+[node name="Ends" type="Node3D" parent="."]
+
+[node name="End" type="Node3D" parent="Ends"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.94315, -7.57377)
 
 [node name="Tile" type="Node3D" parent="."]

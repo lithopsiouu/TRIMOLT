@@ -13,7 +13,8 @@
 			"blueprint": "f49ac1",
 			"doc": "9ec1cf",
 			"level tiles": "9ee09e",
-			"idea": "feb144"
+			"idea": "feb144",
+			"bug": "ff6663"
 		}
 	},
 	"issues": {
@@ -24,8 +25,7 @@
 					"level_gen.gd",
 					"feature"
 				],
-				"timestamp": 1778432772.853,
-				"priority": 5.0
+				"timestamp": 1778432772.853
 			},
 			{
 				"text": "add roominess variation control\ncontrol room commonality and room sizes",
@@ -33,8 +33,7 @@
 					"level_gen.gd",
 					"feature"
 				],
-				"timestamp": 1778432919.04,
-				"priority": 2.0
+				"timestamp": 1778432919.04
 			},
 			{
 				"text": "add height and depth variation control",
@@ -42,25 +41,14 @@
 					"level_gen.gd",
 					"feature"
 				],
-				"timestamp": 1778432994.472,
-				"priority": 3.0
+				"timestamp": 1778432994.472
 			},
 			{
 				"text": "add spawn nodes for enemies, rewards, and props",
 				"tags": [
 					"gameplay"
 				],
-				"timestamp": 1778433181.108,
-				"priority": 1.0
-			},
-			{
-				"text": "merge _connect_tile and _connect_tile_at_end",
-				"tags": [
-					"level_gen.gd",
-					"consolidation"
-				],
-				"timestamp": 1778433342.17,
-				"priority": 2.0
+				"timestamp": 1778433181.108
 			},
 			{
 				"text": "path conflict resolution solution\nPrevent intersecting nodes when generating levels\nmaybe use area3D that envelopes entire tile for detection?",
@@ -69,7 +57,7 @@
 					"issue"
 				],
 				"timestamp": 1778433475.881,
-				"priority": 4.0
+				"priority": 3.0
 			},
 			{
 				"text": "add documentation for functions",
@@ -94,7 +82,7 @@
 					"doc"
 				],
 				"timestamp": 1778433876.188,
-				"priority": 5.0
+				"priority": 2.0
 			},
 			{
 				"text": "add spawn variation control for spawn nodes\nCreate control variables for enemy, prop, and reward spawn chances and variance\nCreate per-room variation control using marble bag randomness - take initial random level spawn results and create marble bag to place in each segment to create a more even, enjoyable experience",

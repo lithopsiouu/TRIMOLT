@@ -4,7 +4,6 @@ extends Node
 # TODO: Add roominess variable (control room + room sizes)
 # TODO: Add height + depth variables
 # TODO: Add spawn nodes for enemies, rewards, and props
-# TODO: Consolidation and merges
 # TODO: Path conflict resolution (intersecting nodes)
 
 
@@ -13,7 +12,7 @@ extends Node
 var last_tile: Node = null
 var max_level_length: int = 20
 var max_branch_length: int = 3
-var end_branches: Array[Node3D] = []
+var end_nodes: Array[Node3D] = []
 
 const TILE_START = preload("res://Scenes/Map Generation Tiles/Test Tiles/tile_start.tscn")
 const TILE_END = preload("res://Scenes/Map Generation Tiles/Test Tiles/tile_end.tscn")
@@ -26,7 +25,16 @@ var all_test_tiles: Array = [
 	"straight_room",
 	"uppy",
 	"downy",
+	"X_split",
+	"Y_room",
+	"perpen_split",
 ]
+
+func _get_test_node_name(array_value: String) -> PackedScene:
+	var test_node:PackedScene = null
+	if all_test_tiles.has(array_value):
+		test_node = load(test_tiles_path % array_value)
+	return test_node
 
 func _get_test_node(array_index) -> PackedScene:
 	var test_node:PackedScene = null
@@ -39,75 +47,75 @@ func _ready() -> void: # main tiles here
 	var start = TILE_START.instantiate()
 	var true_end = TILE_TRUE_END.instantiate()
 	
-	if level_holder.ready: level_holder.add_child(start)
+	level_holder.add_child(start)
 	last_tile = level_holder.get_child(0)
 	
 	for i in range(max_level_length):
 		#_add_test_tile(1)
-		_add_test_tile(randi_range(0, (all_test_tiles.size() -1)))
+		_add_test_tile(all_test_tiles.pick_random(), true) # replace gaudy range with pick_random
 		
 	level_holder.add_child(true_end)
-	_connect_tile(true_end)
+	_new_connect_tile(true_end)
+	#connect_tile(true_end)
 	
-	for branch in end_branches.size(): # branching tiles here
-		var rand_branch_length: int = randi_range(1, max_branch_length)
-		last_tile = end_branches[branch]
+	if end_nodes.size() > 0:
+		_make_branches()
+
+func _make_branches() -> void:
+	var test_tiles_no_branch = all_test_tiles.duplicate()
+	test_tiles_no_branch.erase("split")
+	test_tiles_no_branch.erase("X_split")
+	test_tiles_no_branch.erase("Y_room")
+	test_tiles_no_branch.erase("perpen_split")
+	
+	for branch in end_nodes.size(): # branching tiles here
+		var rand_branch_length: int = 3#randi_range(1, max_branch_length)
+		last_tile = end_nodes[branch]
 		for tile in rand_branch_length:
-			var rand_tile: int = randi_range(0, (all_test_tiles.size() -1))
-			_add_test_tile_at_end(4, last_tile, true) #tile selection
+			var rand_tile: String = test_tiles_no_branch.pick_random()
+			_add_test_tile(rand_tile, true) #tile selection
 		
 		_end_branch() #ends each branch
 
 ## Create an [b]end[/b] tile at last_tile or a specific [param end_node] [Node3D].
 ## Use [param new_last_tile] if passing a [b]tile[/b] and want to set the [param last_tile].
-func _end_branch(end_node: Node3D = null, new_last_tile = false) -> void:
+func _end_branch(new_last_tile = false) -> void:
 	var branch_end = TILE_END.instantiate()
 	level_holder.add_child(branch_end)
-	if end_node == null:
-		_connect_tile_at_end(branch_end, last_tile, new_last_tile)
-	else:
-		_connect_tile_at_end(branch_end, end_node, new_last_tile)
-
-## [param array_index] grabs a tile at the specified index of the array.[br]
-## [param last_tile] is set to the new node of [param array_index]
-## @experimental: This is a test function.
-func _add_test_tile(array_index: int):#add array field in non-test func
-	var node: Node3D = _get_test_node(array_index).instantiate()
-	level_holder.add_child(node)
-	_connect_tile(node)
-	last_tile = node
+	_new_connect_tile(branch_end, new_last_tile)
 
 ## [param array_index] grabs a tile at the specified index of the array.[br]
 ## [param target_node] is the [b]end[/b] node that the new tile will be oriented to using
 ## _connect_tile_at_end().[br]
 ## [param set_last_tile] sets [param last_tile] the new node of [param array_index]. [b]MUST USE A TILE[/b]
 ## @experimental: This is a test function.
-func _add_test_tile_at_end(array_index: int, target_node: Node3D, set_last_tile:bool = false): #TODO merge _connect_tile here
-	var tile: Node3D = _get_test_node(array_index).instantiate()
+func _add_test_tile(array_value: String, set_last_tile:bool = false): #TODO merge _connect_tile here
+	var tile: Node3D = _get_test_node_name(array_value).instantiate()
 	level_holder.add_child(tile)
-	_connect_tile_at_end(tile, target_node, set_last_tile)
+	_new_connect_tile(tile, set_last_tile)
+	print(array_value)
+	#_connect_tile_at_end(tile, target_node, set_last_tile)
 
-## Transforms [param target_node] to orientation of [param last_tile].[br]
-## Appends unused ends to array [param end_branches] for later branching.
-## @experimental: This is an unfinished function.
-func _connect_tile(target_node: Node3D): #TODO add scalability for more than 2 ends, maybe by collection and addition into an array
-	var lastTile: Node3D = last_tile.find_child("End")
-	if lastTile == null:
-		var randTile = randi_range(1,2)
-		lastTile = last_tile.find_child("End" + str(randTile))
-		if (randTile/2) == 1:
-			end_branches.append(last_tile.find_child("End1"))
-		else:
-			end_branches.append(last_tile.find_child("End2"))
-	target_node.global_transform = lastTile.global_transform
-
-## Transforms a [b]tile[/b] [param target_node] to the orientation of an [param end_node].[br]
+## Transforms a [b]tile[/b] [param target_node] to the orientation of [param last_tile].[br]
 ## Use [param set_last_tile] to set the [param last_tile].
-func _connect_tile_at_end(target_node: Node3D, end_node: Node3D, set_last_tile = false):
-	if end_node.find_child("End") != null:
-		target_node.global_transform = end_node.find_child("End").global_transform
+func _new_connect_tile(target_tile: Node3D, set_last_tile = false):
+	var ends: Array[Node] = []
+	if last_tile.name.contains("End"):
+		ends.append(last_tile)
+		
+	elif last_tile.get_child(0) != null:
+		if last_tile.get_child(0).name == "Ends":
+			ends = last_tile.get_child(0).get_children() # Ends container MUST be the first child
+		else:
+			printerr("Tile is not an End or an Ends container!")
+	
+	if ends.size() == 1:
+		target_tile.global_transform = ends[0].global_transform
 	else:
-		target_node.global_transform = end_node.global_transform
+		var selected_end = ends.pick_random() # grabs a Gdscriptnativeclass ???
+		target_tile.global_transform = selected_end.global_transform
+		ends.erase(selected_end)
+		end_nodes.append_array(ends)
 	
 	if set_last_tile:
-		last_tile = target_node
+		last_tile = target_tile

@@ -1,19 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://dkurx4n4a3qbg"]
+[gd_scene load_steps=6 format=3 uid="uid://bxfrc6wxbpuok"]
 
-[ext_resource type="Material" uid="uid://bclljgmw3n7ur" path="res://Assets/Materials/tile_concrete_white.tres" id="1_gv86j"]
+[ext_resource type="Material" uid="uid://bclljgmw3n7ur" path="res://Assets/Materials/tile_concrete_white.tres" id="1_cbl4d"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_gy40a"]
-material = ExtResource("1_gv86j")
+material = ExtResource("1_cbl4d")
 size = Vector2(4, 5)
 orientation = 1
 
 [sub_resource type="QuadMesh" id="QuadMesh_gv86j"]
-material = ExtResource("1_gv86j")
+material = ExtResource("1_cbl4d")
 size = Vector2(3, 5)
 orientation = 1
 
 [sub_resource type="QuadMesh" id="QuadMesh_hhlex"]
-material = ExtResource("1_gv86j")
+material = ExtResource("1_cbl4d")
 size = Vector2(2.5, 4)
 orientation = 1
 
@@ -25,10 +25,13 @@ size = Vector3(9, 0.25, 8)
 [node name="Ends" type="Node3D" parent="."]
 
 [node name="End1" type="Node3D" parent="Ends"]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -4.375, 0, -7.375)
+transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, -5.12693, 0, -4.56173)
 
 [node name="End2" type="Node3D" parent="Ends"]
 transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.81218, 0, -7.375)
+
+[node name="End3" type="Node3D" parent="Ends"]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 2.67261, 1.19209e-07, -1.62596)
 
 [node name="Tile" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.375)
@@ -38,12 +41,17 @@ mesh = SubResource("QuadMesh_gy40a")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Tile"]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -2.70711, 0, -3.11612)
+transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, -2.88611, 0, -1.55386)
 mesh = SubResource("QuadMesh_gv86j")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Tile"]
 transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.28771, 0, -3.41596)
+mesh = SubResource("QuadMesh_hhlex")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Tile"]
+transform = Transform3D(0.43362, 0, -0.157984, 0, 1, 0, 0.116188, 0, 0.589603, 2.21756, -4.76837e-07, 0.615515)
 mesh = SubResource("QuadMesh_hhlex")
 skeleton = NodePath("../..")
 

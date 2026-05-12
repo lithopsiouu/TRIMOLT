@@ -1,19 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://dkurx4n4a3qbg"]
+[gd_scene load_steps=6 format=3 uid="uid://y4k4yt7vueok"]
 
-[ext_resource type="Material" uid="uid://bclljgmw3n7ur" path="res://Assets/Materials/tile_concrete_white.tres" id="1_gv86j"]
+[ext_resource type="Material" uid="uid://bclljgmw3n7ur" path="res://Assets/Materials/tile_concrete_white.tres" id="1_dg80v"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_gy40a"]
-material = ExtResource("1_gv86j")
+material = ExtResource("1_dg80v")
 size = Vector2(4, 5)
 orientation = 1
 
 [sub_resource type="QuadMesh" id="QuadMesh_gv86j"]
-material = ExtResource("1_gv86j")
+material = ExtResource("1_dg80v")
 size = Vector2(3, 5)
 orientation = 1
 
 [sub_resource type="QuadMesh" id="QuadMesh_hhlex"]
-material = ExtResource("1_gv86j")
+material = ExtResource("1_dg80v")
 size = Vector2(2.5, 4)
 orientation = 1
 
@@ -25,7 +25,7 @@ size = Vector3(9, 0.25, 8)
 [node name="Ends" type="Node3D" parent="."]
 
 [node name="End1" type="Node3D" parent="Ends"]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -4.375, 0, -7.375)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -5.06609, 0, -2.375)
 
 [node name="End2" type="Node3D" parent="Ends"]
 transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 1.81218, 0, -7.375)
@@ -38,7 +38,7 @@ mesh = SubResource("QuadMesh_gy40a")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Tile"]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -2.70711, 0, -3.11612)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -2.70711, 0, -0.11612)
 mesh = SubResource("QuadMesh_gv86j")
 skeleton = NodePath("../..")
 
