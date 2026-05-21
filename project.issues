@@ -57,7 +57,7 @@
 					"issue"
 				],
 				"timestamp": 1778433475.881,
-				"priority": 3.0
+				"priority": 1.0
 			},
 			{
 				"text": "add documentation for functions",
@@ -74,15 +74,6 @@
 					"blueprint"
 				],
 				"timestamp": 1778433720.995
-			},
-			{
-				"text": "add documentation for variables",
-				"tags": [
-					"level_gen.gd",
-					"doc"
-				],
-				"timestamp": 1778433876.188,
-				"priority": 2.0
 			},
 			{
 				"text": "add spawn variation control for spawn nodes\nCreate control variables for enemy, prop, and reward spawn chances and variance\nCreate per-room variation control using marble bag randomness - take initial random level spawn results and create marble bag to place in each segment to create a more even, enjoyable experience",
@@ -108,6 +99,14 @@
 					"idea"
 				],
 				"timestamp": 1778434383.173
+			},
+			{
+				"text": "fix debugdraw3D",
+				"tags": [
+					"issue",
+					"level_gen.gd"
+				],
+				"timestamp": 1778869607.206
 			}
 		]
 	}

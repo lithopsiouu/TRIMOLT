@@ -39,3 +39,7 @@ func revive() -> void:
 	collision_shape_3d.scale.y = 1.0
 	mesh_instance_3d.scale.y = 1.0
 	hurtbox_collider.disabled = false
+
+
+func _on_hurt_timer_timeout() -> void:
+	pass # Replace with function body.

@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://d34iwqldgee17"]
+
+[ext_resource type="Material" uid="uid://cbhhpnpt0jj6n" path="res://Assets/Materials/tile_dark.tres" id="1_ppon6"]
+[ext_resource type="PackedScene" uid="uid://c4ldxt4if6cjr" path="res://Assets/Entities/Player/rigid_body_player.tscn" id="2_v0qvw"]
+[ext_resource type="PackedScene" uid="uid://clusdah11ijeg" path="res://Assets/Entities/test/fake_enemy_rb.tscn" id="3_wbaqs"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l4opn"]
+sky_top_color = Color(0.278809, 0.497016, 0.54404, 1)
+sky_horizon_color = Color(0.549327, 0.598613, 0.618096, 1)
+ground_bottom_color = Color(0.104567, 0.0835032, 0.114414, 1)
+ground_horizon_color = Color(0.549327, 0.598613, 0.618096, 1)
+
+[sub_resource type="Sky" id="Sky_v0qvw"]
+sky_material = SubResource("ProceduralSkyMaterial_l4opn")
+
+[sub_resource type="Environment" id="Environment_wbaqs"]
+background_mode = 2
+sky = SubResource("Sky_v0qvw")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="World" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wbaqs")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.433659, -0.888719, 0.148721, 0, 0.165048, 0.986286, -0.901077, 0.427712, -0.0715744, 0, 2.5, 0)
+light_color = Color(0.948067, 0.954018, 0.94405, 1)
+shadow_enabled = true
+
+[node name="Map" type="Node3D" parent="."]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Map"]
+material_override = ExtResource("1_ppon6")
+use_collision = true
+collision_layer = 1280
+collision_mask = 1027
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Map/CSGCombiner3D"]
+size = Vector3(8, 2, 10)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Map/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+operation = 2
+size = Vector3(7.5, 1.5, 9.5)
+
+[node name="RigidBodyPlayer" parent="." instance=ExtResource("2_v0qvw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 3.5)
+
+[node name="FakeEnemyRB" parent="." instance=ExtResource("3_wbaqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.625748, 1, 0.122263)
+
+[node name="FakeEnemyRB2" parent="." instance=ExtResource("3_wbaqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="FakeEnemyRB3" parent="." instance=ExtResource("3_wbaqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.629266, 1, 0.188309)

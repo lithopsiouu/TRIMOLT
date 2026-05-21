@@ -45,3 +45,9 @@ shape = SubResource("CapsuleShape3D_8v2hi")
 [node name="DeadTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[connection signal="timeout" from="HurtTimer" to="Hurtbox" method="_on_hurt_timer_timeout"]
