@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://c4ldxt4if6cjr"]
+[gd_scene load_steps=18 format=3 uid="uid://c4ldxt4if6cjr"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://6u3ecb4i6wfg" path="res://Assets/Materials/Physics/PlayerPhysMaterial.tres" id="1_um0xv"]
 [ext_resource type="Script" uid="uid://dldeqo6mbka62" path="res://Assets/Entities/Player/PhysPlayer/rigid_body_player.gd" id="2_7kpxl"]
 [ext_resource type="Material" uid="uid://wm1sb5jonltv" path="res://Assets/Materials/tile_concrete_teal.tres" id="3_oy4ke"]
 [ext_resource type="Script" uid="uid://mruhxcooio7p" path="res://Assets/Entities/Player/PhysPlayer/attack_controller.gd" id="4_8kh61"]
 [ext_resource type="Script" uid="uid://dx50slkfs5nkt" path="res://Assets/Scripts/Combat/Hitbox.gd" id="4_a4h1n"]
+[ext_resource type="Script" uid="uid://d18p6dqg18ri0" path="res://Assets/Scripts/interactor.gd" id="6_peixo"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uh0v7"]
 radius = 0.25
@@ -24,6 +25,10 @@ radius = 0.35
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_flksb"]
 radius = 0.1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_peixo"]
+radius = 0.2
+height = 0.8
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ntg1m"]
 radius = 0.23
@@ -131,6 +136,17 @@ debug_shape_custom_color = Color(0.951439, 0.714091, 0.364467, 1)
 [node name="RangedHitLinger" type="Timer" parent="Head/PlayerCamera/AttackController"]
 wait_time = 0.1
 one_shot = true
+
+[node name="Interactor" type="Area3D" parent="Head/PlayerCamera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("6_peixo")
+metadata/_custom_type_script = "uid://d18p6dqg18ri0"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Head/PlayerCamera/Interactor"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_peixo")
 
 [node name="UncrouchCheck" type="ShapeCast3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)

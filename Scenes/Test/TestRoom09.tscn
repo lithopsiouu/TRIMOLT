@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://d34iwqldgee17"]
+[gd_scene load_steps=8 format=3 uid="uid://d34iwqldgee17"]
 
 [ext_resource type="Material" uid="uid://cbhhpnpt0jj6n" path="res://Assets/Materials/tile_dark.tres" id="1_ppon6"]
 [ext_resource type="PackedScene" uid="uid://c4ldxt4if6cjr" path="res://Assets/Entities/Player/rigid_body_player.tscn" id="2_v0qvw"]
 [ext_resource type="PackedScene" uid="uid://clusdah11ijeg" path="res://Assets/Entities/test/fake_enemy_rb.tscn" id="3_wbaqs"]
+[ext_resource type="PackedScene" uid="uid://yj8ym8m6f56d" path="res://Assets/Entities/test/test_interaction.tscn" id="4_wbaqs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_l4opn"]
 sky_top_color = Color(0.278809, 0.497016, 0.54404, 1)
@@ -56,3 +57,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="FakeEnemyRB3" parent="." instance=ExtResource("3_wbaqs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.629266, 1, 0.188309)
+
+[node name="TestInteraction" parent="." instance=ExtResource("4_wbaqs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 3.5)

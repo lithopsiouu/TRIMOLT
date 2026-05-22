@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://yj8ym8m6f56d"]
+
+[ext_resource type="Script" uid="uid://cbsltxjkkgq2k" path="res://test_interaction.gd" id="1_ll4e1"]
+[ext_resource type="Script" uid="uid://6gcosuwxw226" path="res://Assets/Scripts/interactable.gd" id="2_edsfp"]
+[ext_resource type="Material" uid="uid://cmqeeb11r3ork" path="res://Assets/Materials/tile_concrete_yellow.tres" id="3_3n7yg"]
+[ext_resource type="Material" uid="uid://cfb31xxxnyuff" path="res://Assets/Materials/Error.tres" id="4_7p0vv"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_h2ii7"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_21oj0"]
+material = ExtResource("3_3n7yg")
+inner_radius = 0.2
+outer_radius = 0.4
+rings = 14
+ring_segments = 12
+
+[sub_resource type="SphereMesh" id="SphereMesh_p8b6d"]
+material = ExtResource("4_7p0vv")
+radius = 0.2
+height = 0.4
+
+[node name="TestInteraction" type="Node3D"]
+script = ExtResource("1_ll4e1")
+
+[node name="Interactable" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("2_edsfp")
+cooldown = 1.0
+metadata/_custom_type_script = "uid://6gcosuwxw226"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+shape = SubResource("SphereShape3D_h2ii7")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 5, 0, 0, 0, 1, 0, 0.3, 0)
+mesh = SubResource("TorusMesh_21oj0")
+
+[node name="Button" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+mesh = SubResource("SphereMesh_p8b6d")

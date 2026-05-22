@@ -14,7 +14,8 @@
 			"doc": "9ec1cf",
 			"level tiles": "9ee09e",
 			"idea": "feb144",
-			"bug": "ff6663"
+			"bug": "ff6663",
+			"interaction": "cc99c9"
 		}
 	},
 	"issues": {
@@ -107,6 +108,15 @@
 					"level_gen.gd"
 				],
 				"timestamp": 1778869607.206
+			},
+			{
+				"text": "make Interactor briefly enable when pressing interact button",
+				"tags": [
+					"gameplay",
+					"interaction"
+				],
+				"timestamp": 1779474651.875,
+				"priority": 3.0
 			}
 		]
 	}
