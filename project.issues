@@ -5,17 +5,21 @@
 			"feature": "9ee09e",
 			"level_gen.gd": "9ec1cf",
 			"level design": "9ec1cf",
-			"gameplay": "cc99c9",
+			"gameplay": "9ee09e",
 			"consolidation": "feb144",
 			"issue": "ff6663",
 			"fake_enemy_rb.gd": "9ec1cf",
 			"documentation": "9ec1cf",
 			"blueprint": "f49ac1",
 			"doc": "9ec1cf",
-			"level tiles": "9ee09e",
+			"level tiles": "cc99c9",
 			"idea": "feb144",
 			"bug": "ff6663",
-			"interaction": "cc99c9"
+			"interaction": "cc99c9",
+			"rigid_body_player.gd": "9ec1cf",
+			"map gen": "9ec1cf",
+			"gui": "9ee09e",
+			"combat": "cc99c9"
 		}
 	},
 	"issues": {
@@ -47,7 +51,8 @@
 			{
 				"text": "add spawn nodes for enemies, rewards, and props",
 				"tags": [
-					"gameplay"
+					"gameplay",
+					"map gen"
 				],
 				"timestamp": 1778433181.108
 			},
@@ -74,13 +79,15 @@
 					"fake_enemy_rb.gd",
 					"blueprint"
 				],
-				"timestamp": 1778433720.995
+				"timestamp": 1778433720.995,
+				"priority": 3.0
 			},
 			{
 				"text": "add spawn variation control for spawn nodes\nCreate control variables for enemy, prop, and reward spawn chances and variance\nCreate per-room variation control using marble bag randomness - take initial random level spawn results and create marble bag to place in each segment to create a more even, enjoyable experience",
 				"tags": [
 					"level_gen.gd",
-					"feature"
+					"feature",
+					"map gen"
 				],
 				"timestamp": 1778433949.773
 			},
@@ -89,7 +96,8 @@
 				"tags": [
 					"level_gen.gd",
 					"gameplay",
-					"level tiles"
+					"level tiles",
+					"map gen"
 				],
 				"timestamp": 1778434110.235
 			},
@@ -102,7 +110,7 @@
 				"timestamp": 1778434383.173
 			},
 			{
-				"text": "fix debugdraw3D",
+				"text": "fix debugdraw3D, can't see collisions",
 				"tags": [
 					"issue",
 					"level_gen.gd"
@@ -110,13 +118,111 @@
 				"timestamp": 1778869607.206
 			},
 			{
-				"text": "make Interactor briefly enable when pressing interact button",
+				"text": "fix player \"kneeling\" when walking onto elevated platform",
+				"tags": [
+					"rigid_body_player.gd",
+					"issue"
+				],
+				"timestamp": 1779555533.273,
+				"priority": 1.0
+			},
+			{
+				"text": "decrease melee cooldown",
+				"tags": [
+					"gameplay"
+				],
+				"timestamp": 1779555605.739,
+				"estimate": 7,
+				"priority": 2.0
+			},
+			{
+				"text": "make flashlight render top-level",
 				"tags": [
 					"gameplay",
+					"issue"
+				],
+				"timestamp": 1779555655.66,
+				"priority": 1.0,
+				"estimate": 7
+			},
+			{
+				"text": "hurtbox error: compare_hitbox_rid cannot convert argument 1 from Object to Object.\nHurtbox.gd:31 @ _on_area_entered(): Error calling method from 'find_custom': 'Area3D(Hurtbox.gd)::compare_hitbox_rid': Cannot convert argument 1 from Object to Object.\n  <C++ Error>   Method/function failed. Returning: ret\n  <C++ Source>  core/variant/array.cpp:386 @ find_custom()\n  <Stack Trace> Hurtbox.gd:31 @ _on_area_entered()",
+				"tags": [
+					"fake_enemy_rb.gd",
+					"issue"
+				],
+				"timestamp": 1779555865.012
+			},
+			{
+				"text": "make flashlight physically-based, colliding with geometry as to not occlude the light",
+				"tags": [
+					"gameplay",
+					"issue"
+				],
+				"timestamp": 1779556861.648,
+				"priority": 1.0
+			},
+			{
+				"text": "interaction dialogue popup when in range of interactable (rework interaction system to do this)",
+				"tags": [
+					"gameplay",
+					"feature",
 					"interaction"
 				],
-				"timestamp": 1779474651.875,
-				"priority": 3.0
+				"timestamp": 1779556971.728
+			},
+			{
+				"text": "add crosshair",
+				"tags": [
+					"gameplay",
+					"gui"
+				],
+				"timestamp": 1779557253.779
+			},
+			{
+				"text": "add player health",
+				"tags": [
+					"gameplay",
+					"combat"
+				],
+				"timestamp": 1779557310.909
+			},
+			{
+				"text": "add placeholder enemy attacks",
+				"tags": [
+					"fake_enemy_rb.gd",
+					"combat",
+					"feature"
+				],
+				"timestamp": 1779557377.748
+			},
+			{
+				"text": "add enemy attacks",
+				"tags": [
+					"fake_enemy_rb.gd",
+					"combat",
+					"feature",
+					"gameplay"
+				],
+				"timestamp": 1779557449.674
+			},
+			{
+				"text": "add enemy attack knockback",
+				"tags": [
+					"fake_enemy_rb.gd",
+					"combat",
+					"feature",
+					"gameplay"
+				],
+				"timestamp": 1779557478.33
+			},
+			{
+				"text": "redo the whole ass player controller so its less ass\nUse physically-based float controller from original controller\nMake movement more responsive\nEnsure there is no way to mantle and jump for extra jump height",
+				"tags": [
+					"rigid_body_player.gd",
+					"issue"
+				],
+				"timestamp": 1779666087.65
 			}
 		]
 	}

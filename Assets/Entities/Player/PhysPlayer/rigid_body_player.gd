@@ -4,7 +4,7 @@ extends RigidBody3D
 @export var standing_float_strength = 90
 @export var crouching_float_strength = 38
 @export var float_spring_damper = 1.0
-var spring_rest_offset = 0.32
+var spring_rest_offset = 0.6
 @export var acceleration = 18.0
 @export var walk_speed = 2.0
 @export var run_speed = 3.5
@@ -18,11 +18,11 @@ var mouse_input = Vector2()
 @onready var camera: Camera3D = $Head/PlayerCamera
 @onready var collider: CollisionShape3D = $Collider
 @onready var mesh: MeshInstance3D = $Mesh
-@onready var feet: ShapeCast3D = $Feet
-@onready var height_contrl: RayCast3D = $HeightControl
+@onready var feet: ShapeCast3D = %Feet
+@onready var height_contrl: RayCast3D = %HeightControl
 @onready var above_head_check: ShapeCast3D = $AboveHeadCheck
 @onready var uncrouch_check: ShapeCast3D = $Head/UncrouchCheck
-@onready var disbl_feet_timr: Timer = $DisableFeet
+@onready var disbl_height_ctrl_timr: Timer = $DisableHeightCtrl
 @onready var enabl_jump_timr: Timer = $EnableJump
 
 @export var view_sensitivity = 10.0
@@ -54,10 +54,12 @@ func _physics_process(delta: float) -> void:
 	is_on_floor = false
 	constant_force.y = 0
 	
+	if height_contrl.is_colliding():
+		force_body_up()
+	
 	if feet.is_colliding():
 		is_on_floor = true
 		jumping = false
-		force_body_up()
 	
 	move_input = Input.get_vector("Left", "Right", "Forward", "Backward")
 	var dir = Vector3(move_input.x, 0, move_input.y)
@@ -140,7 +142,7 @@ func force_body_up(): #add float strength change for declines(?)
 	
 	var rel_vel = ray_dir_vel - other_dir_vel
 	
-	var dist_to_ground = (position.distance_to(height_contrl.get_collision_point()) -spring_rest_offset)
+	var dist_to_ground = (global_position.distance_to(height_contrl.get_collision_point()) - spring_rest_offset)
 	
 	var float_strength: float
 	if crouching:
@@ -160,15 +162,17 @@ func jump():
 	is_on_floor = false
 	jumping = true
 	canJump = false
-	disable_feet()
+	disable_height_ctrl()
 
-func disable_feet():
+func disable_height_ctrl():
 	feet.enabled = false
-	disbl_feet_timr.start()
-
-func _on_disable_feet_timeout() -> void:
-	feet.enabled = true
+	height_contrl.enabled = false
 	enabl_jump_timr.start()
 
 func _on_enable_jump_timeout() -> void:
+	feet.enabled = true
 	canJump = true
+	disbl_height_ctrl_timr.start()
+
+func _on_disable_height_ctrl_timeout() -> void:
+	height_contrl.enabled = true

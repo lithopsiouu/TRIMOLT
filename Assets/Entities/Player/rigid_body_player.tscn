@@ -1,20 +1,27 @@
-[gd_scene load_steps=18 format=3 uid="uid://c4ldxt4if6cjr"]
+[gd_scene load_steps=22 format=3 uid="uid://c4ldxt4if6cjr"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://6u3ecb4i6wfg" path="res://Assets/Materials/Physics/PlayerPhysMaterial.tres" id="1_um0xv"]
 [ext_resource type="Script" uid="uid://dldeqo6mbka62" path="res://Assets/Entities/Player/PhysPlayer/rigid_body_player.gd" id="2_7kpxl"]
 [ext_resource type="Material" uid="uid://wm1sb5jonltv" path="res://Assets/Materials/tile_concrete_teal.tres" id="3_oy4ke"]
 [ext_resource type="Script" uid="uid://mruhxcooio7p" path="res://Assets/Entities/Player/PhysPlayer/attack_controller.gd" id="4_8kh61"]
 [ext_resource type="Script" uid="uid://dx50slkfs5nkt" path="res://Assets/Scripts/Combat/Hitbox.gd" id="4_a4h1n"]
+[ext_resource type="Script" uid="uid://clmhcjpcbyw8a" path="res://Assets/Entities/Player/interactor_controller.gd" id="6_bp6tw"]
 [ext_resource type="Script" uid="uid://d18p6dqg18ri0" path="res://Assets/Scripts/interactor.gd" id="6_peixo"]
+[ext_resource type="Script" uid="uid://cpqy84rlswvn6" path="res://Assets/Entities/Player/lantern_controller.gd" id="8_ksyf0"]
+[ext_resource type="Material" uid="uid://0eeqqcbfdr4f" path="res://Assets/Materials/Error_Green.tres" id="9_bidqs"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uh0v7"]
+radius = 0.28
+height = 1.1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_4lg5o"]
+height = 0.25
 radius = 0.25
-height = 0.9
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ow3ka"]
 material = ExtResource("3_oy4ke")
-radius = 0.25
-height = 0.9
+radius = 0.28
+height = 1.1
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_755ru"]
 height = 0.2
@@ -30,9 +37,6 @@ radius = 0.1
 radius = 0.2
 height = 0.8
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_ntg1m"]
-radius = 0.23
-
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7sxge"]
 noise_type = 2
 frequency = 0.0025
@@ -47,9 +51,13 @@ seamless = true
 seamless_blend_skirt = 1.0
 noise = SubResource("FastNoiseLite_7sxge")
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_4lg5o"]
-height = 0.2
-radius = 0.25
+[sub_resource type="SphereMesh" id="SphereMesh_ovaeb"]
+material = ExtResource("9_bidqs")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ntg1m"]
+radius = 0.23
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_7sxge"]
 size = Vector2(20, 20)
@@ -67,26 +75,40 @@ continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("2_7kpxl")
-jump_velocity = 5
-standing_float_strength = 180
-crouching_float_strength = 110
-float_spring_damper = 15.0
+jump_velocity = 6
+standing_float_strength = 210
+crouching_float_strength = 180
+float_spring_damper = 7.0
 acceleration = 8.0
-walk_speed = 1.0
+walk_speed = 1.25
 run_speed = 2.5
 stop_speed = 0.85
 view_sensitivity = 50.0
 
 [node name="Collider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
 shape = SubResource("CapsuleShape3D_uh0v7")
 
+[node name="Feet" type="ShapeCast3D" parent="Collider"]
+unique_name_in_owner = true
+shape = SubResource("CylinderShape3D_4lg5o")
+target_position = Vector3(0, -1.25, 0)
+max_results = 1
+collision_mask = 256
+debug_shape_custom_color = Color(0.6, 0.356863, 0.647059, 1)
+
+[node name="HeightControl" type="RayCast3D" parent="Collider"]
+unique_name_in_owner = true
+target_position = Vector3(0, -1.45, 0)
+collision_mask = 1282
+debug_shape_custom_color = Color(0.816675, 0.632812, 0.851688, 1)
+
 [node name="Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
 mesh = SubResource("CapsuleMesh_ow3ka")
 
 [node name="AboveHeadCheck" type="ShapeCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.003, 0.22, 0.003)
 shape = SubResource("CylinderShape3D_755ru")
 target_position = Vector3(0, 0.48, 0)
 max_results = 1
@@ -96,7 +118,7 @@ debug_shape_custom_color = Color(0.598548, 0.357546, 0.646193, 1)
 [node name="Head" type="Node3D" parent="."]
 process_mode = 3
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000185072, 0.301958, 0.00305674)
 
 [node name="PlayerCamera" type="Camera3D" parent="Head"]
 current = true
@@ -137,16 +159,46 @@ debug_shape_custom_color = Color(0.951439, 0.714091, 0.364467, 1)
 wait_time = 0.1
 one_shot = true
 
-[node name="Interactor" type="Area3D" parent="Head/PlayerCamera"]
+[node name="InteractorController" type="Node3D" parent="Head/PlayerCamera"]
+script = ExtResource("6_bp6tw")
+
+[node name="Interactor" type="Area3D" parent="Head/PlayerCamera/InteractorController"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("6_peixo")
 metadata/_custom_type_script = "uid://d18p6dqg18ri0"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Head/PlayerCamera/Interactor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Head/PlayerCamera/InteractorController/Interactor"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_peixo")
+disabled = true
+
+[node name="EnableTime" type="Timer" parent="Head/PlayerCamera/InteractorController"]
+wait_time = 0.05
+one_shot = true
+ignore_time_scale = true
+
+[node name="LanternController" type="Node3D" parent="Head/PlayerCamera"]
+script = ExtResource("8_ksyf0")
+
+[node name="LanternTarget" type="Node3D" parent="Head/PlayerCamera/LanternController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.426848, -0.165586, -0.500264)
+
+[node name="Lantern" type="OmniLight3D" parent="Head/PlayerCamera/LanternController"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+top_level = true
+visible = false
+light_color = Color(0.671333, 1, 0.66, 1)
+light_projector = SubResource("NoiseTexture2D_peixo")
+light_size = 0.05
+shadow_enabled = true
+omni_attenuation = 1.5
+
+[node name="LanternMesh" type="MeshInstance3D" parent="Head/PlayerCamera/LanternController/Lantern"]
+transform = Transform3D(-0.8, 0, 6.99382e-08, 0, 1.2, 0, -6.99382e-08, 0, -0.8, 0, 0, 0)
+mesh = SubResource("SphereMesh_ovaeb")
+skeleton = NodePath("../../../..")
 
 [node name="UncrouchCheck" type="ShapeCast3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
@@ -156,43 +208,19 @@ max_results = 1
 collision_mask = 1792
 debug_shape_custom_color = Color(0.6, 0.356863, 0.647059, 1)
 
-[node name="Lantern" type="OmniLight3D" parent="Head"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-visible = false
-light_color = Color(0.671333, 1, 0.66, 1)
-light_energy = 0.8
-light_projector = SubResource("NoiseTexture2D_peixo")
-light_size = 0.05
-shadow_enabled = true
-omni_range = 4.095
-omni_attenuation = 1.96
-
-[node name="Feet" type="ShapeCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
-shape = SubResource("CylinderShape3D_4lg5o")
-target_position = Vector3(0, -0.38, 0)
-max_results = 1
-collision_mask = 256
-debug_shape_custom_color = Color(0.6, 0.356863, 0.647059, 1)
-
-[node name="DisableFeet" type="Timer" parent="."]
+[node name="DisableHeightCtrl" type="Timer" parent="."]
 process_callback = 0
-wait_time = 0.3
+wait_time = 0.2
 one_shot = true
 
 [node name="EnableJump" type="Timer" parent="."]
-wait_time = 0.4
+wait_time = 0.1
 one_shot = true
 
-[node name="HeightControl" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
-target_position = Vector3(0, -1.2, 0)
-collision_mask = 1282
-debug_shape_custom_color = Color(0.816675, 0.632812, 0.851688, 1)
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00296354, -0.6, 0.00282681)
 visible = false
 mesh = SubResource("PlaneMesh_7sxge")
 
-[connection signal="timeout" from="DisableFeet" to="." method="_on_disable_feet_timeout"]
+[connection signal="timeout" from="DisableHeightCtrl" to="." method="_on_disable_height_ctrl_timeout"]
 [connection signal="timeout" from="EnableJump" to="." method="_on_enable_jump_timeout"]

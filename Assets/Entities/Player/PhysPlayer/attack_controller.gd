@@ -35,7 +35,6 @@ const ATTACK_DAMAGES: Dictionary = {
 @onready var ranged_hit_linger_timer: Timer = $RangedHitLinger
 
 @onready var distance_ray: RayCast3D = $DistanceRay
-@onready var lantern: OmniLight3D = $"../../Lantern"
 
 
 var attacking: bool = false ## Prevents multiple attacks before the cooldown timer ends.
@@ -56,9 +55,6 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Swap_Last_Weapon"):
 		switch_attack_type(attack_string_to_int(last_equipped_attack))
 	
-	if event.is_action_pressed("Flashlight"):
-		toggle_flashlight()
-	
 	if event.is_action_pressed("Select_Unequipped_Attack"):
 		switch_attack_type(0)
 	if event.is_action_pressed("Select_Melee_Attack"):
@@ -67,9 +63,6 @@ func _input(event: InputEvent) -> void:
 		switch_attack_type(2)
 	if event.is_action_pressed("Select_Special_Attack"):
 		switch_attack_type(3)
-
-func toggle_flashlight() -> void:
-	lantern.visible = !lantern.visible
 
 ## Function for "regular" or main attacks of attack type
 func do_primary_attack() -> void:
