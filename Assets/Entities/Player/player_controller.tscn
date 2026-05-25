@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://detwpgemm2bao"]
+
+[ext_resource type="Script" uid="uid://n1oiffhd5cdv" path="res://Assets/Scripts/Player/player_controller.gd" id="1_hxfs4"]
+[ext_resource type="Script" uid="uid://d1x66i6bnu08w" path="res://Assets/Scripts/StateMachine.gd" id="2_ekv7g"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ekv7g"]
+radius = 0.3
+height = 1.5
+
+[node name="Player" type="RigidBody3D"]
+script = ExtResource("1_hxfs4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_ekv7g")
+debug_color = Color(0.60507, 0.4374, 0.81, 0.572549)
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_ekv7g")
+metadata/_custom_type_script = "uid://d1x66i6bnu08w"

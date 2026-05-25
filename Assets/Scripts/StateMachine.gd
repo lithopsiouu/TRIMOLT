@@ -2,8 +2,8 @@ class_name StateMachine extends Node
 
 @export var initial_state: State
 
-var currentState: State
-var states = {}
+var currentState: State ## Current state the [StateMachine] is in.
+var states = {} ## All children that are a [State]
 
 func _ready() -> void:
 	for child in get_children():

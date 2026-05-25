@@ -1,4 +1,5 @@
-class_name Player extends CharacterBody3D
+class_name Player 
+extends CharacterBody3D
 
 signal edge_climb_done
 

@@ -132,7 +132,7 @@
 					"gameplay"
 				],
 				"timestamp": 1779555605.739,
-				"estimate": 7,
+				"estimate": 7.0,
 				"priority": 2.0
 			},
 			{
@@ -143,7 +143,7 @@
 				],
 				"timestamp": 1779555655.66,
 				"priority": 1.0,
-				"estimate": 7
+				"estimate": 7.0
 			},
 			{
 				"text": "hurtbox error: compare_hitbox_rid cannot convert argument 1 from Object to Object.\nHurtbox.gd:31 @ _on_area_entered(): Error calling method from 'find_custom': 'Area3D(Hurtbox.gd)::compare_hitbox_rid': Cannot convert argument 1 from Object to Object.\n  <C++ Error>   Method/function failed. Returning: ret\n  <C++ Source>  core/variant/array.cpp:386 @ find_custom()\n  <Stack Trace> Hurtbox.gd:31 @ _on_area_entered()",

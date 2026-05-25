@@ -33,6 +33,7 @@ folder_colors={
 "res://Assets/Entities/Thought/": "gray",
 "res://Assets/Entities/test/": "teal",
 "res://Assets/Models/Characters/": "gray",
+"res://Assets/Scripts/Player/": "red",
 "res://Scenes/": "teal",
 "res://Scenes/Map Generation Tiles/": "blue"
 }
