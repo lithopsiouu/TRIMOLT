@@ -19,7 +19,9 @@
 			"rigid_body_player.gd": "9ec1cf",
 			"map gen": "9ec1cf",
 			"gui": "9ee09e",
-			"combat": "cc99c9"
+			"combat": "cc99c9",
+			"player_controller.gd": "9ec1cf",
+			"statemachine": "f49ac1"
 		}
 	},
 	"issues": {
@@ -223,6 +225,25 @@
 					"issue"
 				],
 				"timestamp": 1779666087.65
+			},
+			{
+				"text": "New player controller with statemachines and physical movement",
+				"tags": [
+					"player_controller.gd",
+					"gameplay",
+					"blueprint"
+				],
+				"timestamp": 1779737120.784,
+				"priority": 4.0
+			},
+			{
+				"text": "Add stumble state to all states",
+				"tags": [
+					"player_controller.gd",
+					"statemachine"
+				],
+				"timestamp": 1779907248.182,
+				"priority": 4.0
 			}
 		]
 	}

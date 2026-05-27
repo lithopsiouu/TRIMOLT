@@ -1,8 +1,10 @@
 class_name StateMachine extends Node
 
+## Class for a [StateMachine].
+
 @export var initial_state: State
 
-var currentState: State ## Current state the [StateMachine] is in.
+var current_state: State ## Current state the [StateMachine] is in.
 var states = {} ## All children that are a [State]
 
 func _ready() -> void:
@@ -12,25 +14,26 @@ func _ready() -> void:
 			states[child.name.to_lower()] = child
 	if initial_state:
 		initial_state.enter()
-		currentState = initial_state
+		current_state = initial_state
 
 func _process(delta: float) -> void:
-	if currentState:
-		currentState.update(delta)
+	if current_state:
+		current_state.update(delta)
 
 func _physics_process(delta: float) -> void:
-	if currentState:
-		currentState.physics_update(delta)
+	if current_state:
+		current_state.physics_update(delta)
 
-func change_state(newStateName: String) -> void:
-	var newState: State = states.get(newStateName.to_lower())
+## Change the [param current_state] to [param new_state_name]
+func change_state(new_state_name: String) -> void:
+	var new_state: State = states.get(new_state_name.to_lower())
 	
-	assert(newState, "State not found: " + newStateName)
+	assert(new_state, "State not found: " + new_state_name)
 	
-	if currentState:
-		currentState.exit()
+	if current_state:
+		current_state.exit()
 	
-	newState.enter()
+	new_state.enter()
 	
-	currentState = newState
-	print(str(newStateName))
+	current_state = new_state
+	print(str(new_state_name))

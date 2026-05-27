@@ -1,19 +1,210 @@
-[gd_scene load_steps=4 format=3 uid="uid://detwpgemm2bao"]
+[gd_scene load_steps=31 format=3 uid="uid://detwpgemm2bao"]
 
+[ext_resource type="PhysicsMaterial" uid="uid://6u3ecb4i6wfg" path="res://Assets/Materials/Physics/PlayerPhysMaterial.tres" id="1_bcsyx"]
 [ext_resource type="Script" uid="uid://n1oiffhd5cdv" path="res://Assets/Scripts/Player/player_controller.gd" id="1_hxfs4"]
 [ext_resource type="Script" uid="uid://d1x66i6bnu08w" path="res://Assets/Scripts/StateMachine.gd" id="2_ekv7g"]
+[ext_resource type="Material" uid="uid://b4k6y57ggysxr" path="res://Assets/Materials/tile_water.tres" id="3_4hqvw"]
+[ext_resource type="PackedScene" uid="uid://cmoc55qv10mjf" path="res://Assets/UI/test/test_player_ui.tscn" id="3_i68cg"]
+[ext_resource type="Script" uid="uid://cy7depiyr4mu7" path="res://Assets/Scripts/Player/StateMachine/Movement/idle.gd" id="5_4hqvw"]
+[ext_resource type="Script" uid="uid://clmhcjpcbyw8a" path="res://Assets/Entities/Player/interactor_controller.gd" id="5_tamhk"]
+[ext_resource type="Script" uid="uid://cj8nys4l5wwm4" path="res://Assets/Scripts/Player/StateMachine/Movement/fall_moving.gd" id="6_ee0rm"]
+[ext_resource type="Script" uid="uid://d18p6dqg18ri0" path="res://Assets/Scripts/interactor.gd" id="6_gdf4d"]
+[ext_resource type="Script" uid="uid://j5d1mqnoi0wx" path="res://Assets/Scripts/Player/StateMachine/Movement/crouch_moving.gd" id="6_hy17x"]
+[ext_resource type="Script" uid="uid://kk3qrxx6o5wn" path="res://Assets/Scripts/Player/StateMachine/Movement/jumping.gd" id="6_ii21s"]
+[ext_resource type="Script" uid="uid://b0nvwr4u3yf8j" path="res://Assets/Scripts/Player/StateMachine/Movement/walking.gd" id="6_tamhk"]
+[ext_resource type="Script" uid="uid://b2bem3u0soa5o" path="res://Assets/Scripts/Player/StateMachine/Movement/sprinting.gd" id="6_wryva"]
+[ext_resource type="Script" uid="uid://cpqy84rlswvn6" path="res://Assets/Entities/Player/lantern_controller.gd" id="7_arwmf"]
+[ext_resource type="Script" uid="uid://c6rgjfm5k8631" path="res://Assets/Scripts/State.gd" id="7_ee0rm"]
+[ext_resource type="Script" uid="uid://nibx7wjmnwpo" path="res://Assets/Scripts/Player/StateMachine/Movement/crouching.gd" id="7_ro2yu"]
+[ext_resource type="Material" uid="uid://0eeqqcbfdr4f" path="res://Assets/Materials/Error_Green.tres" id="8_ee0rm"]
+[ext_resource type="Script" uid="uid://cq4cmmlnco2a" path="res://Assets/Scripts/Player/StateMachine/Movement/falling.gd" id="8_wryva"]
+[ext_resource type="Script" uid="uid://bcrtdhnicmvvg" path="res://Assets/Scripts/Player/StateMachine/Movement/landing.gd" id="13_3am3k"]
+[ext_resource type="Script" uid="uid://jexf41khmgh8" path="res://Assets/Scripts/Player/StateMachine/Movement/stumbling.gd" id="14_ii21s"]
+[ext_resource type="Script" uid="uid://06cp6tfh25a8" path="res://Assets/Scripts/Combat/Hurtbox.gd" id="19_i68cg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ekv7g"]
 radius = 0.3
-height = 1.5
+height = 1.2
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wryva"]
+material = ExtResource("3_4hqvw")
+radius = 0.3
+height = 1.2
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1b6kx"]
+radius = 0.2
+height = 0.8
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7sxge"]
+noise_type = 2
+frequency = 0.0025
+fractal_octaves = 4
+fractal_gain = 0.485
+domain_warp_enabled = true
+domain_warp_fractal_octaves = 2
+domain_warp_fractal_lacunarity = 3.62
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hy17x"]
+seamless = true
+seamless_blend_skirt = 1.0
+noise = SubResource("FastNoiseLite_7sxge")
+
+[sub_resource type="SphereMesh" id="SphereMesh_ro2yu"]
+material = ExtResource("8_ee0rm")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ee0rm"]
+height = 0.25
+radius = 0.25
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fcpa2"]
+size = Vector3(0.5, 1.5, 0.5)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ii21s"]
+height = 0.2
+radius = 0.23
 
 [node name="Player" type="RigidBody3D"]
+collision_mask = 1795
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+physics_material_override = ExtResource("1_bcsyx")
 script = ExtResource("1_hxfs4")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="PlayerUI" parent="." instance=ExtResource("3_i68cg")]
+
+[node name="Collider" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_ekv7g")
 debug_color = Color(0.60507, 0.4374, 0.81, 0.572549)
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="Mesh" type="MeshInstance3D" parent="Collider"]
+mesh = SubResource("CapsuleMesh_wryva")
+
+[node name="StateMachineMovement" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_ekv7g")
+initial_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://d1x66i6bnu08w"
+
+[node name="State" type="Node" parent="StateMachineMovement"]
+script = ExtResource("7_ee0rm")
+metadata/_custom_type_script = "uid://c6rgjfm5k8631"
+
+[node name="Jumping" type="Node" parent="StateMachineMovement"]
+script = ExtResource("6_ii21s")
+metadata/_custom_type_script = "uid://c6rgjfm5k8631"
+
+[node name="CrouchMoving" type="Node" parent="StateMachineMovement"]
+script = ExtResource("6_hy17x")
+metadata/_custom_type_script = "uid://c6rgjfm5k8631"
+
+[node name="Crouching" type="Node" parent="StateMachineMovement"]
+script = ExtResource("7_ro2yu")
+metadata/_custom_type_script = "uid://c6rgjfm5k8631"
+
+[node name="Idle" type="Node" parent="StateMachineMovement"]
+script = ExtResource("5_4hqvw")
+metadata/_custom_type_script = "uid://c6rgjfm5k8631"
+
+[node name="Walking" type="Node" parent="StateMachineMovement"]
+script = ExtResource("6_tamhk")
+metadata/_custom_type_script = "uid://c6rgjfm5k8631"
+
+[node name="Sprinting" type="Node" parent="StateMachineMovement"]
+script = ExtResource("6_wryva")
+metadata/_custom_type_script = "uid://c6rgjfm5k8631"
+
+[node name="FallMoving" type="Node" parent="StateMachineMovement"]
+script = ExtResource("6_ee0rm")
+metadata/_custom_type_script = "uid://c6rgjfm5k8631"
+
+[node name="Falling" type="Node" parent="StateMachineMovement"]
+script = ExtResource("8_wryva")
+metadata/_custom_type_script = "uid://c6rgjfm5k8631"
+
+[node name="Landing" type="Node" parent="StateMachineMovement"]
+script = ExtResource("13_3am3k")
+metadata/_custom_type_script = "uid://c6rgjfm5k8631"
+
+[node name="Stumbling" type="Node" parent="StateMachineMovement"]
+script = ExtResource("14_ii21s")
+metadata/_custom_type_script = "uid://c6rgjfm5k8631"
+
+[node name="HeadPosition" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+
+[node name="CameraHolder" type="Node3D" parent="HeadPosition"]
+
+[node name="PlayerCamera" type="Camera3D" parent="HeadPosition/CameraHolder"]
+current = true
+fov = 90.0
+
+[node name="InteractorController" type="Node3D" parent="HeadPosition/CameraHolder"]
+script = ExtResource("5_tamhk")
+
+[node name="Interactor" type="Area3D" parent="HeadPosition/CameraHolder/InteractorController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("6_gdf4d")
+metadata/_custom_type_script = "uid://d18p6dqg18ri0"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HeadPosition/CameraHolder/InteractorController/Interactor"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_1b6kx")
+disabled = true
+
+[node name="EnableTime" type="Timer" parent="HeadPosition/CameraHolder/InteractorController"]
+wait_time = 0.05
+one_shot = true
+ignore_time_scale = true
+
+[node name="LanternController" type="Node3D" parent="HeadPosition/CameraHolder"]
+script = ExtResource("7_arwmf")
+
+[node name="LanternTarget" type="Node3D" parent="HeadPosition/CameraHolder/LanternController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.426848, -0.165586, -0.500264)
+
+[node name="Lantern" type="OmniLight3D" parent="HeadPosition/CameraHolder/LanternController"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+top_level = true
+visible = false
+light_color = Color(0.671333, 1, 0.66, 1)
+light_projector = SubResource("NoiseTexture2D_hy17x")
+light_size = 0.05
+shadow_enabled = true
+omni_attenuation = 1.5
+
+[node name="LanternMesh" type="MeshInstance3D" parent="HeadPosition/CameraHolder/LanternController/Lantern"]
+transform = Transform3D(-0.8, 0, 6.99382e-08, 0, 1.2, 0, -6.99382e-08, 0, -0.8, 0, 0, 0)
+mesh = SubResource("SphereMesh_ro2yu")
+skeleton = NodePath("../../../../..")
+
+[node name="GroundCheck" type="ShapeCast3D" parent="."]
+shape = SubResource("CylinderShape3D_ee0rm")
+target_position = Vector3(0, -0.9, 0)
+max_results = 1
+collision_mask = 256
+debug_shape_custom_color = Color(0.6, 0.356863, 0.647059, 1)
+
+[node name="FloatRay" type="RayCast3D" parent="."]
+collision_mask = 1282
+debug_shape_custom_color = Color(0.816675, 0.632812, 0.851688, 1)
+
+[node name="Hurtbox" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+script = ExtResource("19_i68cg")
+metadata/_custom_type_script = "uid://06cp6tfh25a8"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+shape = SubResource("BoxShape3D_fcpa2")
+debug_color = Color(0.99, 0, 0.033, 0.0901961)
+
+[node name="UncrouchCheck" type="ShapeCast3D" parent="."]
+shape = SubResource("CylinderShape3D_ii21s")
+target_position = Vector3(0, 0.55, 0)
+max_results = 1
+collision_mask = 1536
+debug_shape_custom_color = Color(0.598548, 0.357546, 0.646193, 1)

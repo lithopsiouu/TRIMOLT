@@ -8,6 +8,7 @@ func enter() -> void:
 func exit() -> void:
 	pass
 
+## Called in the [method StateMachine._process] function.
 func update(_delta: float) -> void:
 	pass
 

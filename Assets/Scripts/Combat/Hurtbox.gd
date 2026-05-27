@@ -1,6 +1,9 @@
 class_name Hurtbox
 extends Area3D
 
+## An [Area3D] that detects a [Hitbox]. The [Hurtbox] then takes the [Hitbox.damage] and passes it to a
+## [code]"take_damage"[/code] owner method.
+
 @onready var hurt_timer: Timer = $"../HurtTimer"
 var ignored_areas: Array = [Hitbox]
 var current_hitbox: Hitbox = null

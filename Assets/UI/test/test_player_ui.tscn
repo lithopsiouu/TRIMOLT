@@ -1,0 +1,106 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmoc55qv10mjf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4kgs7"]
+bg_color = Color(0.24, 0.24, 0.24, 0.392157)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="LabelSettings" id="LabelSettings_1jkkb"]
+font_size = 32
+font_color = Color(1, 1, 1, 0.392157)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4kgs7"]
+font_size = 18
+
+[node name="PlayerUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4kgs7")
+
+[node name="Label" type="Label" parent="Crosshair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -9.0
+offset_top = -22.5
+offset_right = 9.0
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "+"
+label_settings = SubResource("LabelSettings_1jkkb")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 847.0
+offset_top = 591.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MoveStateContainer" type="HFlowContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 53.0
+grow_horizontal = 2
+alignment = 1
+last_wrap_alignment = 2
+
+[node name="MoveStateLabel" type="Label" parent="Panel/MoveStateContainer"]
+layout_mode = 2
+text = "Move State: "
+
+[node name="MoveState" type="Label" parent="Panel/MoveStateContainer"]
+layout_mode = 2
+text = "NULL"
+label_settings = SubResource("LabelSettings_4kgs7")
+
+[node name="AttackStateContainer" type="HFlowContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -53.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+last_wrap_alignment = 2
+reverse_fill = true
+
+[node name="AttackStateLabel" type="Label" parent="Panel/AttackStateContainer"]
+layout_mode = 2
+text = "Attack State: "
+
+[node name="AttackState" type="Label" parent="Panel/AttackStateContainer"]
+layout_mode = 2
+text = "NULL"
+label_settings = SubResource("LabelSettings_4kgs7")
