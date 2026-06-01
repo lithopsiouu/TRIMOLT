@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c6fd1pm3iaj4m"]
+[gd_scene load_steps=14 format=3 uid="uid://c6fd1pm3iaj4m"]
 
 [ext_resource type="Material" uid="uid://bclljgmw3n7ur" path="res://Assets/Materials/tile_concrete_white.tres" id="1_ak0bk"]
 [ext_resource type="Material" uid="uid://cbhhpnpt0jj6n" path="res://Assets/Materials/tile_dark.tres" id="2_1hw4c"]
@@ -7,8 +7,7 @@
 [ext_resource type="Material" uid="uid://cexymhne5hrbv" path="res://Assets/Materials/tile_concrete_moodyYellow.tres" id="5_pu3x1"]
 [ext_resource type="PackedScene" uid="uid://chab13gn2saq6" path="res://Assets/Entities/test/fake_enemy.tscn" id="6_ce4wo"]
 [ext_resource type="PackedScene" uid="uid://clusdah11ijeg" path="res://Assets/Entities/test/fake_enemy_rb.tscn" id="7_2o6ks"]
-[ext_resource type="PackedScene" uid="uid://c4ldxt4if6cjr" path="res://Assets/Entities/Player/rigid_body_player.tscn" id="7_7idf3"]
-[ext_resource type="PackedScene" uid="uid://eirg5awc8s8f" path="res://Assets/UI/test/test_gameplay_UI.tscn" id="9_pfuy5"]
+[ext_resource type="PackedScene" uid="uid://detwpgemm2bao" path="res://Assets/Entities/Player/player_controller.tscn" id="10_3mern"]
 [ext_resource type="PackedScene" uid="uid://bbsdiw7ajl3ys" path="res://Assets/Entities/Player/Viewmodel.tscn" id="10_uwb70"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_i3wjr"]
@@ -290,14 +289,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.875, 1.25, 3.25)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.375, 1.5, 4.07425)
 vertical_knockback = 3.0
 
-[node name="RigidBodyPlayer" parent="." instance=ExtResource("7_7idf3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3337, 2.29528, 7.09837)
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.69024, 1.5507, 6.93908)
 fov = 86.5
-
-[node name="TestGameplayUI" parent="." instance=ExtResource("9_pfuy5")]
 
 [node name="Node3D" parent="." instance=ExtResource("10_uwb70")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.875, -0.139357, 5.25)
@@ -307,3 +301,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 8)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D2"]
 mesh = SubResource("QuadMesh_uwb70")
+
+[node name="Player" parent="." instance=ExtResource("10_3mern")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45723, 1.875, 7.67183)
+view_sensitivity = 35.0

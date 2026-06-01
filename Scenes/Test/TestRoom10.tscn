@@ -44,6 +44,7 @@ adjustment_saturation = 0.65
 environment = SubResource("Environment_mlu1j")
 
 [node name="RigidBodyPlayer" parent="." instance=ExtResource("1_6rfdc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 0)
 
 [node name="Box" type="CSGCombiner3D" parent="."]
 use_collision = true

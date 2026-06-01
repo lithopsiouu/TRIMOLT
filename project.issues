@@ -120,15 +120,6 @@
 				"timestamp": 1778869607.206
 			},
 			{
-				"text": "fix player \"kneeling\" when walking onto elevated platform",
-				"tags": [
-					"rigid_body_player.gd",
-					"issue"
-				],
-				"timestamp": 1779555533.273,
-				"priority": 1.0
-			},
-			{
 				"text": "decrease melee cooldown",
 				"tags": [
 					"gameplay"
@@ -227,23 +218,35 @@
 				"timestamp": 1779666087.65
 			},
 			{
-				"text": "New player controller with statemachines and physical movement",
+				"text": "add player crouch",
 				"tags": [
 					"player_controller.gd",
 					"gameplay",
-					"blueprint"
+					"statemachine",
+					"feature"
 				],
-				"timestamp": 1779737120.784,
+				"timestamp": 1780336622.868,
+				"priority": 3.0
+			},
+			{
+				"text": "add player stumble",
+				"tags": [
+					"player_controller.gd",
+					"gameplay",
+					"statemachine"
+				],
+				"timestamp": 1780336655.093,
 				"priority": 4.0
 			},
 			{
-				"text": "Add stumble state to all states",
+				"text": "correct camera movement upon rotating player spawn",
 				"tags": [
 					"player_controller.gd",
-					"statemachine"
+					"gameplay",
+					"feature"
 				],
-				"timestamp": 1779907248.182,
-				"priority": 4.0
+				"timestamp": 1780336709.27,
+				"priority": 1.0
 			}
 		]
 	}

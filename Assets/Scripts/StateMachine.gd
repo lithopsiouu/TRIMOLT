@@ -5,6 +5,7 @@ class_name StateMachine extends Node
 @export var initial_state: State
 
 var current_state: State ## Current state the [StateMachine] is in.
+var last_state: State ## Last state the [StateMachine] was in.
 var states = {} ## All children that are a [State]
 
 func _ready() -> void:
@@ -32,6 +33,8 @@ func change_state(new_state_name: String) -> void:
 	
 	if current_state:
 		current_state.exit()
+	
+	last_state = current_state
 	
 	new_state.enter()
 	

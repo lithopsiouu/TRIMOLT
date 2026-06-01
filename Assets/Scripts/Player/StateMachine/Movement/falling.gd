@@ -4,6 +4,12 @@ extends State
 
 @onready var player: PlayerController = self.get_parent().get_parent()
 
+func enter() -> void:
+	player.jumping = false
+	
+	if state_machine.last_state != state_machine.states.get("fallmoving"):
+		player.init_fall_pos = player.global_position
+
 func update(_delta: float) -> void:
 	
 	# If grounded
@@ -25,11 +31,22 @@ func update(_delta: float) -> void:
 			if player.sprinting:
 				state_machine.change_state("sprinting")
 			
+			# If crouching:
+			elif player.crouching:
+				state_machine.change_state("crouchmoving")
+			
 			else:
 				state_machine.change_state("walking")
 			
 		else:
-			state_machine.change_state("idle")
+			
+			# if crouching:
+			if player.crouching:
+				state_machine.change_state("crouchidle")
+				
+			else:
+				state_machine.change_state("idle")
+	
 	else:
 		if player.move_input.length() > 0.0:
 			state_machine.change_state("fallmoving")

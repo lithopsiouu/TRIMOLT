@@ -14,8 +14,7 @@ func update(_delta: float) -> void:
 			
 			# If falling faster than min stumble velocity
 			if player.linear_velocity.y < player.MIN_STUMBLE_VELOCITY:
-				# And stumbling is possible
-				if player.can_stumble: state_machine.change_state("stumbling")
+				state_machine.change_state("stumbling")
 			
 			# If falling further than min land height
 			elif player.fall_height > player.MIN_LAND_HEIGHT:

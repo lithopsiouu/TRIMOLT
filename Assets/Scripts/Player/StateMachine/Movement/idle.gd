@@ -46,4 +46,4 @@ func update(_delta: float) -> void:
 	
 	# If crouching
 	elif player.crouching:
-		state_machine.change_state("crouching")
+		state_machine.change_state("crouchidle")

@@ -1,10 +1,9 @@
-[gd_scene load_steps=31 format=3 uid="uid://detwpgemm2bao"]
+[gd_scene load_steps=30 format=3 uid="uid://detwpgemm2bao"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://6u3ecb4i6wfg" path="res://Assets/Materials/Physics/PlayerPhysMaterial.tres" id="1_bcsyx"]
 [ext_resource type="Script" uid="uid://n1oiffhd5cdv" path="res://Assets/Scripts/Player/player_controller.gd" id="1_hxfs4"]
 [ext_resource type="Script" uid="uid://d1x66i6bnu08w" path="res://Assets/Scripts/StateMachine.gd" id="2_ekv7g"]
 [ext_resource type="Material" uid="uid://b4k6y57ggysxr" path="res://Assets/Materials/tile_water.tres" id="3_4hqvw"]
-[ext_resource type="PackedScene" uid="uid://cmoc55qv10mjf" path="res://Assets/UI/test/test_player_ui.tscn" id="3_i68cg"]
 [ext_resource type="Script" uid="uid://cy7depiyr4mu7" path="res://Assets/Scripts/Player/StateMachine/Movement/idle.gd" id="5_4hqvw"]
 [ext_resource type="Script" uid="uid://clmhcjpcbyw8a" path="res://Assets/Entities/Player/interactor_controller.gd" id="5_tamhk"]
 [ext_resource type="Script" uid="uid://cj8nys4l5wwm4" path="res://Assets/Scripts/Player/StateMachine/Movement/fall_moving.gd" id="6_ee0rm"]
@@ -15,7 +14,7 @@
 [ext_resource type="Script" uid="uid://b2bem3u0soa5o" path="res://Assets/Scripts/Player/StateMachine/Movement/sprinting.gd" id="6_wryva"]
 [ext_resource type="Script" uid="uid://cpqy84rlswvn6" path="res://Assets/Entities/Player/lantern_controller.gd" id="7_arwmf"]
 [ext_resource type="Script" uid="uid://c6rgjfm5k8631" path="res://Assets/Scripts/State.gd" id="7_ee0rm"]
-[ext_resource type="Script" uid="uid://nibx7wjmnwpo" path="res://Assets/Scripts/Player/StateMachine/Movement/crouching.gd" id="7_ro2yu"]
+[ext_resource type="Script" uid="uid://dpeje65xeujd3" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/crouch_idle.gd" id="7_fcpa2"]
 [ext_resource type="Material" uid="uid://0eeqqcbfdr4f" path="res://Assets/Materials/Error_Green.tres" id="8_ee0rm"]
 [ext_resource type="Script" uid="uid://cq4cmmlnco2a" path="res://Assets/Scripts/Player/StateMachine/Movement/falling.gd" id="8_wryva"]
 [ext_resource type="Script" uid="uid://bcrtdhnicmvvg" path="res://Assets/Scripts/Player/StateMachine/Movement/landing.gd" id="13_3am3k"]
@@ -66,14 +65,15 @@ height = 0.2
 radius = 0.23
 
 [node name="Player" type="RigidBody3D"]
+physics_interpolation_mode = 1
 collision_mask = 1795
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
 physics_material_override = ExtResource("1_bcsyx")
+gravity_scale = 2.0
+can_sleep = false
 script = ExtResource("1_hxfs4")
-
-[node name="PlayerUI" parent="." instance=ExtResource("3_i68cg")]
 
 [node name="Collider" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_ekv7g")
@@ -99,8 +99,8 @@ metadata/_custom_type_script = "uid://c6rgjfm5k8631"
 script = ExtResource("6_hy17x")
 metadata/_custom_type_script = "uid://c6rgjfm5k8631"
 
-[node name="Crouching" type="Node" parent="StateMachineMovement"]
-script = ExtResource("7_ro2yu")
+[node name="CrouchIdle" type="Node" parent="StateMachineMovement"]
+script = ExtResource("7_fcpa2")
 metadata/_custom_type_script = "uid://c6rgjfm5k8631"
 
 [node name="Idle" type="Node" parent="StateMachineMovement"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c4ldxt4if6cjr"]
+[gd_scene load_steps=23 format=3 uid="uid://c4ldxt4if6cjr"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://6u3ecb4i6wfg" path="res://Assets/Materials/Physics/PlayerPhysMaterial.tres" id="1_um0xv"]
 [ext_resource type="Script" uid="uid://dldeqo6mbka62" path="res://Assets/Entities/Player/PhysPlayer/rigid_body_player.gd" id="2_7kpxl"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://d18p6dqg18ri0" path="res://Assets/Scripts/interactor.gd" id="6_peixo"]
 [ext_resource type="Script" uid="uid://cpqy84rlswvn6" path="res://Assets/Entities/Player/lantern_controller.gd" id="8_ksyf0"]
 [ext_resource type="Material" uid="uid://0eeqqcbfdr4f" path="res://Assets/Materials/Error_Green.tres" id="9_bidqs"]
+[ext_resource type="PackedScene" uid="uid://cmoc55qv10mjf" path="res://Assets/UI/test/test_player_ui.tscn" id="10_bidqs"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uh0v7"]
 radius = 0.28
@@ -221,6 +222,8 @@ one_shot = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00296354, -0.6, 0.00282681)
 visible = false
 mesh = SubResource("PlaneMesh_7sxge")
+
+[node name="PlayerUI" parent="." instance=ExtResource("10_bidqs")]
 
 [connection signal="timeout" from="DisableHeightCtrl" to="." method="_on_disable_height_ctrl_timeout"]
 [connection signal="timeout" from="EnableJump" to="." method="_on_enable_jump_timeout"]

@@ -6,12 +6,20 @@ extends State
 
 func update(_delta: float) -> void:
 	
+	# If stumbling:
+	if player.stumbling:
+		state_machine.change_state("stumbling")
+	
 	# if jumping:
-	if player.jumping:
+	elif player.jumping:
 		state_machine.change_state("jumping")
 	
+	# If sprinting:
+	elif player.sprinting:
+		state_machine.change_state("sprinting")
+	
 	# If not moving:
-	if player.move_input.length() == 0.0:
+	elif player.move_input.length() == 0.0:
 		
 		# and no ground:
 		if player.ground_check.is_colliding() == false:
@@ -19,7 +27,7 @@ func update(_delta: float) -> void:
 		
 		# and crouching:
 		elif player.crouching:
-			state_machine.change_state("crouching")
+			state_machine.change_state("crouchidle")
 		
 		else:
 			state_machine.change_state("idle")
@@ -30,13 +38,3 @@ func update(_delta: float) -> void:
 	# If crouching
 	elif player.crouching:
 		state_machine.change_state("crouchmoving")
-
-# jumping
-# crouchmoving
-# crouching
-# idle
-# walking
-# sprinting
-# fallmoving
-# falling
-# landing
