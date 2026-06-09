@@ -31,8 +31,9 @@ var _health: float
 var fall_height: float = 0.0 ## Vertical distance of a fall.
 var init_fall_pos: Vector3 = Vector3()
 const MIN_LAND_HEIGHT: float = 0.5 ## Minimum [param fall_height] required in order to cause a landing.
-const MIN_STUMBLE_VELOCITY: float = -10.0 ## Minimum [member RigidBody3D.linear_velocity.y] required in order to cause a stumble.
+const MIN_STUMBLE_VELOCITY: float = -8.0 ## Minimum [member RigidBody3D.linear_velocity.y] required in order to cause a stumble.
 var stumble_time: float = 0.5 ## Duration of stumble in seconds.
+var _stumble_timer: SceneTreeTimer
 var stumble_strength: float = 0.8 ## Strength of stumble.
 var can_stumble: = false
 
@@ -45,16 +46,20 @@ var spring_damper: float = 6
 var target_velocity: float = 0.0
 var speed: float = 0.0
 var acceleration: float = 8.0
-var run_speed: float = 2.0
-var walk_speed: float = 1.0
-var stop_speed: float = 0.8
-var jump_velocity: float = 8.0
+var run_speed: float = 2.5
+var walk_speed: float = 1.5
+var stop_speed: float = 0.6
+var jump_velocity: float = 7.2
 
+# Movement
 var move_input: Vector2 = Vector2.ZERO ## Direction of movement input
+var move_input_influence: float = 1.0
 
 # Camera
-var mouse_input:Vector2 = Vector2()
+var mouse_input: Vector2 = Vector2()
+var joy_input: Vector2 = Vector2()
 var max_cam_rot_deg: int = 85
+var rand_cam_rot: float = 0.0
 
 # Settings
 @export_group("Input Settings")
@@ -68,11 +73,13 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _process(delta: float) -> void:
-	move_input = Input.get_vector("Left", "Right", "Forward", "Backward", 0.1)
+	move_input = Input.get_vector("Left", "Right", "Forward", "Backward", 0.1) * move_input_influence
 	
 	_update_auto_uncrouch()
 	
 	_update_can_stumble()
+	
+	_stumble_process()
 
 func _physics_process(delta: float) -> void:
 	constant_force.y = 0
@@ -135,13 +142,41 @@ func _update_auto_uncrouch() -> void:
 			crouching = false
 
 ## Cause camera shake with [param strength] and some input reduction with [param influence] for [param time].
-func stumble(time: float = stumble_time, strength: float = stumble_strength, influence: float = 0.8) -> void:
+func stumble(time: float = stumble_time, strength: float = stumble_strength, influence: float = move_input_influence) -> void:
 	if can_stumble:
 		stumbling = true
 		print("stumbling for ", str(stumble_time), " seconds with a strength of ", str(stumble_strength), ".")
+		_stumble_timer = _timer(stumble_time)
+		
+		stumble_strength = clampf(stumble_strength, 0.0, 1.1)
+		move_input_influence = stumble_strength
+		
+		var cam_rot_reduction = 0.5
+		var plus_or_minus = -1 if randi() < 0.5 else 1
+		rand_cam_rot = stumble_strength * plus_or_minus * cam_rot_reduction
+		
+		var time_fract = 0.1
+		var time_fract_larger = stumble_time * time_fract
+		var time_fract_smaller = stumble_time * ( 1 - time_fract)
+		
+		var tween = get_tree().create_tween()
+		tween.tween_property(camera, "rotation", Vector3(0,0,rand_cam_rot), stumble_time * 0.1).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+		tween.tween_property(camera, "rotation", Vector3.ZERO, stumble_time * 0.9).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 	
 	else:
 		printerr("Cannot stumble.")
+
+func _stumble_process():
+		if stumbling:
+			var _stumble_progress = _stumble_timer.time_left / stumble_time ## Goes from 1 to 0.
+			var _inverse_stumble_progress = 1 - _stumble_progress ## Goes from 0 to 1.
+			
+			print(move_input)
+			
+			move_input_influence *= _stumble_progress
+			
+			if _stumble_timer.time_left == 0.0:
+				stumbling = false
 
 func jump():
 	jumping = true
@@ -151,7 +186,6 @@ func get_fall_distance() -> void:
 	# get init y fall position and subtract from updating y fall position
 	if float_ray.is_colliding() == false:
 		fall_height = init_fall_pos.y - self.global_position.y
-		print(fall_height)
 	
 func force_body_up(): #add float strength change for declines(?)
 	var other_vel = Vector3.ZERO
@@ -217,3 +251,9 @@ func _player_input_force() -> void:
 		constant_force.z = 0
 		linear_velocity.x = linear_velocity.x * stop_speed
 		linear_velocity.z = linear_velocity.z * stop_speed
+
+func _wait(seconds: float):
+	await get_tree().create_timer(seconds).timeout
+
+func _timer(seconds: float) -> SceneTreeTimer:
+	return get_tree().create_timer(seconds)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://detwpgemm2bao"]
+[gd_scene load_steps=29 format=3 uid="uid://detwpgemm2bao"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://6u3ecb4i6wfg" path="res://Assets/Materials/Physics/PlayerPhysMaterial.tres" id="1_bcsyx"]
 [ext_resource type="Script" uid="uid://n1oiffhd5cdv" path="res://Assets/Scripts/Player/player_controller.gd" id="1_hxfs4"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" uid="uid://b0nvwr4u3yf8j" path="res://Assets/Scripts/Player/StateMachine/Movement/walking.gd" id="6_tamhk"]
 [ext_resource type="Script" uid="uid://b2bem3u0soa5o" path="res://Assets/Scripts/Player/StateMachine/Movement/sprinting.gd" id="6_wryva"]
 [ext_resource type="Script" uid="uid://cpqy84rlswvn6" path="res://Assets/Entities/Player/lantern_controller.gd" id="7_arwmf"]
-[ext_resource type="Script" uid="uid://c6rgjfm5k8631" path="res://Assets/Scripts/State.gd" id="7_ee0rm"]
 [ext_resource type="Script" uid="uid://dpeje65xeujd3" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/crouch_idle.gd" id="7_fcpa2"]
 [ext_resource type="Material" uid="uid://0eeqqcbfdr4f" path="res://Assets/Materials/Error_Green.tres" id="8_ee0rm"]
 [ext_resource type="Script" uid="uid://cq4cmmlnco2a" path="res://Assets/Scripts/Player/StateMachine/Movement/falling.gd" id="8_wryva"]
@@ -86,10 +85,6 @@ mesh = SubResource("CapsuleMesh_wryva")
 script = ExtResource("2_ekv7g")
 initial_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://d1x66i6bnu08w"
-
-[node name="State" type="Node" parent="StateMachineMovement"]
-script = ExtResource("7_ee0rm")
-metadata/_custom_type_script = "uid://c6rgjfm5k8631"
 
 [node name="Jumping" type="Node" parent="StateMachineMovement"]
 script = ExtResource("6_ii21s")

@@ -214,12 +214,22 @@ mesh = SubResource("SphereMesh_fn8fn")
 [node name="Ruler" type="CSGCombiner3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, 0, 0)
 use_collision = true
-collision_layer = 1536
+collision_layer = 1792
 collision_mask = 3
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Environment/Ruler"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.25, 1, 7.625)
 size = Vector3(0.5, 1, 2.5)
+material = ExtResource("2_1hw4c")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Environment/Ruler"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.75, 0.75, 8.25)
+size = Vector3(0.5, 0.5, 1)
+material = ExtResource("2_1hw4c")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Environment/Ruler"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.375, 1.75, 8.9375)
+size = Vector3(0.875, 0.5, 0.75)
 material = ExtResource("2_1hw4c")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="Environment/Ruler"]
@@ -290,7 +300,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.375, 1.5, 4.07425)
 vertical_knockback = 3.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.69024, 1.5507, 6.93908)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.69166, 1.5507, 6.94029)
 fov = 86.5
 
 [node name="Node3D" parent="." instance=ExtResource("10_uwb70")]
@@ -303,5 +313,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 8)
 mesh = SubResource("QuadMesh_uwb70")
 
 [node name="Player" parent="." instance=ExtResource("10_3mern")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45723, 1.875, 7.67183)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45723, 3.625, 7.67183)
 view_sensitivity = 35.0

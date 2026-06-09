@@ -229,16 +229,6 @@
 				"priority": 3.0
 			},
 			{
-				"text": "add player stumble",
-				"tags": [
-					"player_controller.gd",
-					"gameplay",
-					"statemachine"
-				],
-				"timestamp": 1780336655.093,
-				"priority": 4.0
-			},
-			{
 				"text": "correct camera movement upon rotating player spawn",
 				"tags": [
 					"player_controller.gd",
@@ -247,6 +237,15 @@
 				],
 				"timestamp": 1780336709.27,
 				"priority": 1.0
+			},
+			{
+				"text": "Fix stumble movement reduction",
+				"tags": [
+					"player_controller.gd",
+					"gameplay"
+				],
+				"timestamp": 1780600502.278,
+				"priority": 4.0
 			}
 		]
 	}

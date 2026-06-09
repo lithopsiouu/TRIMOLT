@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://7rbblesjif77"]
 
-[ext_resource type="PackedScene" uid="uid://c4ldxt4if6cjr" path="res://Assets/Entities/Player/rigid_body_player.tscn" id="1_6rfdc"]
 [ext_resource type="Material" uid="uid://bclljgmw3n7ur" path="res://Assets/Materials/tile_concrete_white.tres" id="2_l4ep2"]
 [ext_resource type="Material" uid="uid://cbhhpnpt0jj6n" path="res://Assets/Materials/tile_dark.tres" id="3_l4ep2"]
 [ext_resource type="PackedScene" uid="uid://yj8ym8m6f56d" path="res://Assets/Entities/test/test_interaction.tscn" id="4_x3lp5"]
 [ext_resource type="PackedScene" uid="uid://clusdah11ijeg" path="res://Assets/Entities/test/fake_enemy_rb.tscn" id="5_dr4ir"]
+[ext_resource type="PackedScene" uid="uid://detwpgemm2bao" path="res://Assets/Entities/Player/player_controller.tscn" id="5_mlu1j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x3lp5"]
 sky_top_color = Color(0.278809, 0.497016, 0.54404, 1)
@@ -42,9 +42,6 @@ adjustment_saturation = 0.65
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_mlu1j")
-
-[node name="RigidBodyPlayer" parent="." instance=ExtResource("1_6rfdc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 0)
 
 [node name="Box" type="CSGCombiner3D" parent="."]
 use_collision = true
@@ -150,3 +147,6 @@ collision_layer = 1024
 collision_mask = 1027
 size = Vector3(3.5, 0.5, 3)
 material = ExtResource("3_l4ep2")
+
+[node name="Player" parent="." instance=ExtResource("5_mlu1j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.625, 0.125, 0.375)
