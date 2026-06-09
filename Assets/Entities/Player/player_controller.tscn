@@ -1,9 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://detwpgemm2bao"]
+[gd_scene load_steps=30 format=3 uid="uid://detwpgemm2bao"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://6u3ecb4i6wfg" path="res://Assets/Materials/Physics/PlayerPhysMaterial.tres" id="1_bcsyx"]
 [ext_resource type="Script" uid="uid://n1oiffhd5cdv" path="res://Assets/Scripts/Player/player_controller.gd" id="1_hxfs4"]
 [ext_resource type="Script" uid="uid://d1x66i6bnu08w" path="res://Assets/Scripts/StateMachine.gd" id="2_ekv7g"]
 [ext_resource type="Material" uid="uid://b4k6y57ggysxr" path="res://Assets/Materials/tile_water.tres" id="3_4hqvw"]
+[ext_resource type="PackedScene" uid="uid://1dfg8iim0th7" path="res://Assets/UI/test/pause.tscn" id="3_ii21s"]
 [ext_resource type="Script" uid="uid://cy7depiyr4mu7" path="res://Assets/Scripts/Player/StateMachine/Movement/idle.gd" id="5_4hqvw"]
 [ext_resource type="Script" uid="uid://clmhcjpcbyw8a" path="res://Assets/Entities/Player/interactor_controller.gd" id="5_tamhk"]
 [ext_resource type="Script" uid="uid://cj8nys4l5wwm4" path="res://Assets/Scripts/Player/StateMachine/Movement/fall_moving.gd" id="6_ee0rm"]
@@ -31,7 +32,7 @@ height = 1.2
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1b6kx"]
 radius = 0.2
-height = 0.8
+height = 0.6
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7sxge"]
 noise_type = 2
@@ -73,6 +74,8 @@ physics_material_override = ExtResource("1_bcsyx")
 gravity_scale = 2.0
 can_sleep = false
 script = ExtResource("1_hxfs4")
+
+[node name="Control" parent="." instance=ExtResource("3_ii21s")]
 
 [node name="Collider" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_ekv7g")
@@ -139,7 +142,7 @@ fov = 90.0
 script = ExtResource("5_tamhk")
 
 [node name="Interactor" type="Area3D" parent="HeadPosition/CameraHolder/InteractorController"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("6_gdf4d")

@@ -17,6 +17,7 @@ extends RigidBody3D
 
 # State bools
 var sprinting: bool = false
+var _sprint_toggle: bool = false
 var crouching: bool = false
 var jumping: bool = false
 var _can_uncrouch: bool = false
@@ -58,13 +59,16 @@ var move_input_influence: float = 1.0
 # Camera
 var mouse_input: Vector2 = Vector2()
 var joy_input: Vector2 = Vector2()
+var _cam_input: Vector2 = Vector2()
 var max_cam_rot_deg: int = 85
 var rand_cam_rot: float = 0.0
 
 # Settings
 @export_group("Input Settings")
 @export_range(0.0, 1.0, 0.05) var input_deadzone: float = 0.1
+@export var toggle_sprint: bool = true
 @export_range(0.0, 50.0, 0.25) var view_sensitivity: float = 20.0
+@export_range(0.0, 50.0, 0.25) var joy_view_sensitivity: float = 4.5
 
 func _init() -> void:
 	_health = _max_health
@@ -95,14 +99,24 @@ func _physics_process(delta: float) -> void:
 func _input(event):
 	if event is InputEventMouseMotion:
 		mouse_input = event.relative
+		_cam_input = mouse_input
 	
-	if Input.is_action_just_pressed("Jump"):
+	if event is InputEventJoypadMotion:
+		joy_input = Input.get_vector("cam_look_left","cam_look_right","cam_look_up","cam_look_down")
+		_cam_input = joy_input * joy_view_sensitivity
+	
+	if Input.is_action_just_pressed("Jump") and jumping == false and ground_check.is_colliding():
 		jump()
 	
-	if Input.is_action_just_pressed("Sprint"):
-		sprinting = true
-	elif Input.is_action_just_released("Sprint"):
-		sprinting = false
+	if toggle_sprint == false:
+		if Input.is_action_just_pressed("Sprint"):
+			sprinting = true
+		elif Input.is_action_just_released("Sprint"):
+			sprinting = false
+	else:
+		if Input.is_action_just_pressed("Sprint"):
+			_sprint_toggle = !_sprint_toggle
+			sprinting = _sprint_toggle
 	
 	if Input.is_action_just_pressed("Crouch"):
 		_crouch_pressed = true
@@ -171,7 +185,7 @@ func _stumble_process():
 			var _stumble_progress = _stumble_timer.time_left / stumble_time ## Goes from 1 to 0.
 			var _inverse_stumble_progress = 1 - _stumble_progress ## Goes from 0 to 1.
 			
-			print(move_input)
+			#print(move_input)
 			
 			move_input_influence *= _stumble_progress
 			
@@ -181,6 +195,7 @@ func _stumble_process():
 func jump():
 	jumping = true
 	apply_impulse(Vector3.UP * jump_velocity)
+	print("jumpang bruh")
 
 func get_fall_distance() -> void:
 	# get init y fall position and subtract from updating y fall position
@@ -216,9 +231,9 @@ func force_body_up(): #add float strength change for declines(?)
 		hit_body.apply_force(Vector3.DOWN * -spring_force, float_ray.get_collision_point())
 
 func _rotate_cam(delta: float) -> void:
-	camera_holder.rotation_degrees.x -= mouse_input.y * view_sensitivity * delta
+	camera_holder.rotation_degrees.x -= _cam_input.y * view_sensitivity * delta
 	camera_holder.rotation_degrees.x = clamp(camera_holder.rotation_degrees.x, -max_cam_rot_deg, max_cam_rot_deg)
-	head_position.rotation_degrees.y -= mouse_input.x * view_sensitivity * delta
+	head_position.rotation_degrees.y -= _cam_input.x * view_sensitivity * delta
 	mouse_input = Vector2.ZERO
 
 func _player_input_force() -> void:
