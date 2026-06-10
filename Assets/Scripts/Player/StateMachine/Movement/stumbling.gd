@@ -5,12 +5,13 @@ extends State
 @onready var player: PlayerController = self.get_parent().get_parent()
 var _vel_diff: float = 0.0
 var _stumble_time: float = 0.0
-const STUMBLE_TIME_MOD: float = 0.8
+const STUMBLE_TIME_MOD: float = 0.6
 const STUMBLE_STRENGTH_MOD: float = 0.3
 
 func enter() -> void:
 	player.crouching = false
-	player.sprinting = false
+	player.can_sprint = false
+	player.set_sprinting(false)
 	
 	if player.can_stumble:
 		_vel_diff = -player.linear_velocity.y + player.MIN_STUMBLE_VELOCITY

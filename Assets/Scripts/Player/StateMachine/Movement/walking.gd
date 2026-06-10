@@ -4,6 +4,9 @@ extends State
 
 @onready var player: PlayerController = self.get_parent().get_parent()
 
+func enter() -> void:
+	player.can_sprint = true
+
 func update(_delta: float) -> void:
 	
 	# If stumbling:

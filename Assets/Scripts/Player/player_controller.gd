@@ -14,10 +14,12 @@ extends RigidBody3D
 @onready var ground_check: ShapeCast3D = $GroundCheck
 @onready var float_ray: RayCast3D = $FloatRay
 @onready var uncrouch_check: ShapeCast3D = $UncrouchCheck
+@onready var collider: CollisionShape3D = $Collider
 
 # State bools
 var sprinting: bool = false
-var _sprint_toggle: bool = false
+var sprint_toggle: bool = false
+var can_sprint: bool = true
 var crouching: bool = false
 var jumping: bool = false
 var _can_uncrouch: bool = false
@@ -39,9 +41,12 @@ var stumble_strength: float = 0.8 ## Strength of stumble.
 var can_stumble: = false
 
 # Floating
-var spring_rest_offset: float = 0.9
-var standing_float_strength: float = 100.0
-var spring_damper: float = 6
+var spring_stand_offset: float = 1.1
+var spring_crouch_offset: float = 0.9
+var current_spring_rest_offset: float = 0.0
+var standing_float_strength: float = 110.0
+var crouching_float_strength: float = 100.0
+var spring_damper: float = 8
 
 # Velocity
 var target_velocity: float = 0.0
@@ -50,11 +55,16 @@ var acceleration: float = 8.0
 var run_speed: float = 2.5
 var walk_speed: float = 1.5
 var stop_speed: float = 0.6
-var jump_velocity: float = 7.2
+var jump_velocity: float = 7.4
 
 # Movement
 var move_input: Vector2 = Vector2.ZERO ## Direction of movement input
 var move_input_influence: float = 1.0
+
+# Body
+var standing_collider_height: float = 1.0
+var crouching_collider_height: float = 0.6
+var collider_height: float
 
 # Camera
 var mouse_input: Vector2 = Vector2()
@@ -66,18 +76,24 @@ var rand_cam_rot: float = 0.0
 # Settings
 @export_group("Input Settings")
 @export_range(0.0, 1.0, 0.05) var input_deadzone: float = 0.1
+@export_range(0.0, 1.0, 0.05) var joy_camera_deadzone: float = 0.1
 @export var toggle_sprint: bool = true
-@export_range(0.0, 50.0, 0.25) var view_sensitivity: float = 20.0
-@export_range(0.0, 50.0, 0.25) var joy_view_sensitivity: float = 4.5
+@export_range(0.0, 50.0, 0.25) var mouse_view_sensitivity: float = 20.0
+@export_range(0.0, 50.0, 0.25) var joy_view_sensitivity: float = 150.0
 
 func _init() -> void:
 	_health = _max_health
+	current_spring_rest_offset = spring_stand_offset
+	collider_height = standing_collider_height
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _process(delta: float) -> void:
 	move_input = Input.get_vector("Left", "Right", "Forward", "Backward", 0.1) * move_input_influence
+	
+	joy_input = Input.get_vector("cam_look_left","cam_look_right","cam_look_up","cam_look_down", joy_camera_deadzone)
+	_cam_input = joy_input * joy_view_sensitivity
 	
 	_update_auto_uncrouch()
 	
@@ -99,27 +115,25 @@ func _physics_process(delta: float) -> void:
 func _input(event):
 	if event is InputEventMouseMotion:
 		mouse_input = event.relative
-		_cam_input = mouse_input
-	
-	if event is InputEventJoypadMotion:
-		joy_input = Input.get_vector("cam_look_left","cam_look_right","cam_look_up","cam_look_down")
-		_cam_input = joy_input * joy_view_sensitivity
+		_cam_input = mouse_input * mouse_view_sensitivity
 	
 	if Input.is_action_just_pressed("Jump") and jumping == false and ground_check.is_colliding():
 		jump()
 	
 	if toggle_sprint == false:
-		if Input.is_action_just_pressed("Sprint"):
+		if Input.is_action_just_pressed("Sprint") and can_sprint:
 			sprinting = true
 		elif Input.is_action_just_released("Sprint"):
 			sprinting = false
+		
 	else:
-		if Input.is_action_just_pressed("Sprint"):
-			_sprint_toggle = !_sprint_toggle
-			sprinting = _sprint_toggle
+		if Input.is_action_just_pressed("Sprint") and can_sprint:
+			sprint_toggle = !sprint_toggle
+			sprinting = sprint_toggle
 	
 	if Input.is_action_just_pressed("Crouch"):
 		_crouch_pressed = true
+		crouching = true
 	elif Input.is_action_just_released("Crouch"):
 		_crouch_pressed = false
 
@@ -156,26 +170,30 @@ func _update_auto_uncrouch() -> void:
 			crouching = false
 
 ## Cause camera shake with [param strength] and some input reduction with [param influence] for [param time].
-func stumble(time: float = stumble_time, strength: float = stumble_strength, influence: float = move_input_influence) -> void:
+func stumble(time: float = stumble_time, strength: float = stumble_strength) -> void:
 	if can_stumble:
 		stumbling = true
+		stumble_strength = clampf(stumble_strength, 0.1, 0.9)
+		stumble_time = clampf(stumble_time, 0.4, 1.6)
 		print("stumbling for ", str(stumble_time), " seconds with a strength of ", str(stumble_strength), ".")
 		_stumble_timer = _timer(stumble_time)
 		
-		stumble_strength = clampf(stumble_strength, 0.0, 1.1)
-		move_input_influence = stumble_strength
+		move_input_influence = clampf(1 - stumble_strength, 0.0, 0.6)
 		
-		var cam_rot_reduction = 0.5
+		var cam_rot_reduction = 0.4
 		var plus_or_minus = -1 if randi() < 0.5 else 1
 		rand_cam_rot = stumble_strength * plus_or_minus * cam_rot_reduction
 		
-		var time_fract = 0.1
+		var time_fract = 0.8
 		var time_fract_larger = stumble_time * time_fract
 		var time_fract_smaller = stumble_time * ( 1 - time_fract)
 		
-		var tween = get_tree().create_tween()
-		tween.tween_property(camera, "rotation", Vector3(0,0,rand_cam_rot), stumble_time * 0.1).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
-		tween.tween_property(camera, "rotation", Vector3.ZERO, stumble_time * 0.9).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+		var rot_z_tween = get_tree().create_tween()
+		var move_y_tween = get_tree().create_tween()
+		rot_z_tween.tween_property(camera, "rotation", Vector3(0, 0, rand_cam_rot), stumble_time * time_fract_smaller).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+		move_y_tween.tween_property(camera, "position", Vector3(0, -0.05 -stumble_strength * 0.2, 0), stumble_time * time_fract_smaller).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		rot_z_tween.tween_property(camera, "rotation", Vector3.ZERO, stumble_time * time_fract_larger).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+		move_y_tween.tween_property(camera, "position", Vector3.ZERO, stumble_time * time_fract_larger).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 	
 	else:
 		printerr("Cannot stumble.")
@@ -185,17 +203,16 @@ func _stumble_process():
 			var _stumble_progress = _stumble_timer.time_left / stumble_time ## Goes from 1 to 0.
 			var _inverse_stumble_progress = 1 - _stumble_progress ## Goes from 0 to 1.
 			
-			#print(move_input)
+			move_input_influence = lerpf(move_input_influence, 1.0, ease(_inverse_stumble_progress, 3))
+			print(move_input_influence)
 			
-			move_input_influence *= _stumble_progress
-			
-			if _stumble_timer.time_left == 0.0:
+			if _stumble_timer.time_left <= 0.001:
 				stumbling = false
+				move_input_influence = 1.0
 
 func jump():
 	jumping = true
 	apply_impulse(Vector3.UP * jump_velocity)
-	print("jumpang bruh")
 
 func get_fall_distance() -> void:
 	# get init y fall position and subtract from updating y fall position
@@ -214,14 +231,16 @@ func force_body_up(): #add float strength change for declines(?)
 	
 	var rel_vel = ray_dir_vel - other_dir_vel
 	
-	var dist_to_ground = (global_position.distance_to(float_ray.get_collision_point()) - spring_rest_offset)
+	var dist_to_ground = (global_position.distance_to(float_ray.get_collision_point()) - current_spring_rest_offset)
 	
 	var float_strength: float
 	if crouching:
-		#float_strength = crouching_float_strength
+		float_strength = crouching_float_strength
+		current_spring_rest_offset = spring_crouch_offset
 		pass
 	else:
 		float_strength = standing_float_strength
+		current_spring_rest_offset = spring_stand_offset
 	
 	var spring_force = (dist_to_ground * float_strength) - (rel_vel * spring_damper)
 	
@@ -231,13 +250,13 @@ func force_body_up(): #add float strength change for declines(?)
 		hit_body.apply_force(Vector3.DOWN * -spring_force, float_ray.get_collision_point())
 
 func _rotate_cam(delta: float) -> void:
-	camera_holder.rotation_degrees.x -= _cam_input.y * view_sensitivity * delta
+	camera_holder.rotation_degrees.x -= _cam_input.y * delta
 	camera_holder.rotation_degrees.x = clamp(camera_holder.rotation_degrees.x, -max_cam_rot_deg, max_cam_rot_deg)
-	head_position.rotation_degrees.y -= _cam_input.x * view_sensitivity * delta
+	head_position.rotation_degrees.y -= _cam_input.x * delta
+	_cam_input = Vector2.ZERO
 	mouse_input = Vector2.ZERO
 
 func _player_input_force() -> void:
-	move_input = Input.get_vector("Left", "Right", "Forward", "Backward")
 	var dir = Vector3(move_input.x, 0, move_input.y)
 	var velocity = dir * acceleration 
 	
@@ -272,3 +291,7 @@ func _wait(seconds: float):
 
 func _timer(seconds: float) -> SceneTreeTimer:
 	return get_tree().create_timer(seconds)
+
+func set_sprinting(_sprinting: bool) -> void:
+	sprinting = _sprinting
+	sprint_toggle = _sprinting

@@ -5,7 +5,8 @@ extends State
 @onready var player: PlayerController = self.get_parent().get_parent()
 
 func enter() -> void:
-	player.sprinting = false
+	player.set_sprinting(false)
+	player.can_sprint = false
 	player.jumping = false
 
 func update(_delta: float) -> void:

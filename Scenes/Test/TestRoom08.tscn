@@ -152,14 +152,19 @@ transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 
 size = Vector3(1, 1, 4)
 material = ExtResource("2_1hw4c")
 
+[node name="CSGBox3D8" type="CSGBox3D" parent="Environment/CSG"]
+transform = Transform3D(-4.47269e-08, 0.5, 0.866026, -5.96046e-08, 0.866026, -0.5, -1, -7.39826e-08, 5.99227e-09, -5.862, 2.364, 9.25)
+size = Vector3(1.5, 2.375, 7.625)
+material = ExtResource("2_1hw4c")
+
 [node name="CSGBox3D7" type="CSGBox3D" parent="Environment/CSG"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4908, 1, 0)
 size = Vector3(1, 1, 20)
 material = ExtResource("1_ak0bk")
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="Environment/CSG"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 9)
-size = Vector3(10, 1, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 9.25)
+size = Vector3(10, 1, 1.5)
 material = ExtResource("1_ak0bk")
 
 [node name="CSGBox3D10" type="CSGBox3D" parent="Environment/CSG"]
@@ -313,5 +318,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 8)
 mesh = SubResource("QuadMesh_uwb70")
 
 [node name="Player" parent="." instance=ExtResource("10_3mern")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45723, 3.625, 7.67183)
-view_sensitivity = 35.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45723, 1.59697, 7.67183)

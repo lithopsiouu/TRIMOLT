@@ -7,6 +7,7 @@ extends State
 func enter() -> void:
 	player.can_stumble = true
 	player.jumping = false
+	player.can_sprint = true
 
 func update(_delta: float) -> void:
 	

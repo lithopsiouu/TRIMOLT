@@ -6,6 +6,7 @@ extends State
 
 func enter() -> void:
 	player.jumping = false
+	player.can_sprint = true
 	
 	if state_machine.last_state != state_machine.states.get("falling"):
 		player.init_fall_pos = player.global_position

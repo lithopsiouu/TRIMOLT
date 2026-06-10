@@ -6,8 +6,10 @@ extends State
 
 @export var stumble_altitude: float = 6.0
 
+func enter() -> void:
+	player.can_sprint = true
+
 func update(_delta: float) -> void:
-	
 	# If falling from a great height:
 	if player.fall_height > stumble_altitude:
 		state_machine.change_state("stumbling")
@@ -45,3 +47,6 @@ func update(_delta: float) -> void:
 	# If nothing:
 	else:
 		state_machine.change_state("idle")
+
+func exit() -> void:
+	player.fall_height = 0
