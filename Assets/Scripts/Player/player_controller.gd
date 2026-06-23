@@ -93,7 +93,7 @@ func _process(delta: float) -> void:
 	move_input = Input.get_vector("Left", "Right", "Forward", "Backward", 0.1) * move_input_influence
 	
 	joy_input = Input.get_vector("cam_look_left","cam_look_right","cam_look_up","cam_look_down", joy_camera_deadzone)
-	_cam_input = joy_input * joy_view_sensitivity
+	if mouse_input == Vector2.ZERO: _cam_input = joy_input * joy_view_sensitivity
 	
 	_update_auto_uncrouch()
 	

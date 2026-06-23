@@ -21,7 +21,8 @@
 			"gui": "9ee09e",
 			"combat": "cc99c9",
 			"player_controller.gd": "9ec1cf",
-			"statemachine": "f49ac1"
+			"statemachine": "f49ac1",
+			"visual issue": "ff6663"
 		}
 	},
 	"issues": {
@@ -246,6 +247,13 @@
 				],
 				"timestamp": 1780600502.278,
 				"priority": 4.0
+			},
+			{
+				"text": "lantern spins when rotation moves over vec3.zero",
+				"tags": [
+					"visual issue"
+				],
+				"timestamp": 1782240551.318
 			}
 		]
 	}

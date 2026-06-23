@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://detwpgemm2bao"]
+[gd_scene load_steps=29 format=3 uid="uid://detwpgemm2bao"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://6u3ecb4i6wfg" path="res://Assets/Materials/Physics/PlayerPhysMaterial.tres" id="1_bcsyx"]
 [ext_resource type="Script" uid="uid://n1oiffhd5cdv" path="res://Assets/Scripts/Player/player_controller.gd" id="1_hxfs4"]
@@ -15,11 +15,11 @@
 [ext_resource type="Script" uid="uid://b2bem3u0soa5o" path="res://Assets/Scripts/Player/StateMachine/Movement/sprinting.gd" id="6_wryva"]
 [ext_resource type="Script" uid="uid://cpqy84rlswvn6" path="res://Assets/Entities/Player/lantern_controller.gd" id="7_arwmf"]
 [ext_resource type="Script" uid="uid://dpeje65xeujd3" path="res://Assets/Entities/Player/PlayerScripts/StateMachine/crouch_idle.gd" id="7_fcpa2"]
-[ext_resource type="Material" uid="uid://0eeqqcbfdr4f" path="res://Assets/Materials/Error_Green.tres" id="8_ee0rm"]
 [ext_resource type="Script" uid="uid://cq4cmmlnco2a" path="res://Assets/Scripts/Player/StateMachine/Movement/falling.gd" id="8_wryva"]
 [ext_resource type="Script" uid="uid://bcrtdhnicmvvg" path="res://Assets/Scripts/Player/StateMachine/Movement/landing.gd" id="13_3am3k"]
 [ext_resource type="Script" uid="uid://jexf41khmgh8" path="res://Assets/Scripts/Player/StateMachine/Movement/stumbling.gd" id="14_ii21s"]
 [ext_resource type="Script" uid="uid://06cp6tfh25a8" path="res://Assets/Scripts/Combat/Hurtbox.gd" id="19_i68cg"]
+[ext_resource type="ArrayMesh" uid="uid://dq0816edkpv60" path="res://Assets/Models/Characters/Player/Pupa/polyphemus_pupa_Plane.res" id="20_i68cg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ekv7g"]
 radius = 0.3
@@ -47,11 +47,6 @@ domain_warp_fractal_lacunarity = 3.62
 seamless = true
 seamless_blend_skirt = 1.0
 noise = SubResource("FastNoiseLite_7sxge")
-
-[sub_resource type="SphereMesh" id="SphereMesh_ro2yu"]
-material = ExtResource("8_ee0rm")
-radius = 0.05
-height = 0.1
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ee0rm"]
 height = 0.25
@@ -168,17 +163,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.426848, -0.165586, -0.50026
 [node name="Lantern" type="OmniLight3D" parent="HeadPosition/CameraHolder/LanternController"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 top_level = true
-visible = false
 light_color = Color(0.671333, 1, 0.66, 1)
 light_projector = SubResource("NoiseTexture2D_hy17x")
 light_size = 0.05
 shadow_enabled = true
 omni_attenuation = 1.5
 
-[node name="LanternMesh" type="MeshInstance3D" parent="HeadPosition/CameraHolder/LanternController/Lantern"]
-transform = Transform3D(-0.8, 0, 6.99382e-08, 0, 1.2, 0, -6.99382e-08, 0, -0.8, 0, 0, 0)
-mesh = SubResource("SphereMesh_ro2yu")
-skeleton = NodePath("../../../../..")
+[node name="Pupa" type="MeshInstance3D" parent="HeadPosition/CameraHolder/LanternController/Lantern"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+cast_shadow = 0
+gi_mode = 0
+mesh = ExtResource("20_i68cg")
 
 [node name="GroundCheck" type="ShapeCast3D" parent="."]
 shape = SubResource("CylinderShape3D_ee0rm")

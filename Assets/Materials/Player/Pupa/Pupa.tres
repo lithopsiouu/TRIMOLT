@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://c6nq0lr1exo5a"]
+
+[ext_resource type="Texture2D" uid="uid://ba61b60fq04bb" path="res://Assets/Materials/Player/Pupa/Pupa_albedo.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://cmdsqy2c2h3sp" path="res://Assets/Materials/Player/Pupa/Pupa_orm.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://c6h3xorkbagsj" path="res://Assets/Materials/Player/Pupa/Pupa_normal.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://edmrj6l7u87n" path="res://Assets/Materials/Player/Pupa/Pupa_emission.png" id="5"]
+
+[resource]
+albedo_texture = ExtResource("1")
+metallic_texture = ExtResource("2")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2")
+roughness_texture_channel = 1
+emission_enabled = true
+emission_texture = ExtResource("5")
+normal_enabled = true
+normal_texture = ExtResource("3")
