@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdjf6xxlocdlj"]
+
+[ext_resource type="Texture2D" uid="uid://b2bbvrwk4bibj" path="res://icon.svg" id="1_0nkqq"]
+[ext_resource type="Script" uid="uid://chl35u517h5uh" path="res://Assets/Scripts/Mental Notes/mental_note_manager.gd" id="2_krkbb"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(513, 365)
+texture = ExtResource("1_0nkqq")
+
+[node name="MentalMentalNoteManager" type="Node" parent="."]
+script = ExtResource("2_krkbb")
+metadata/_custom_type_script = "uid://chl35u517h5uh"
