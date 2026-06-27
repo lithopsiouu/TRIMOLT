@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://brqre3wxh30um"]
+
+[ext_resource type="Texture2D" uid="uid://b2bbvrwk4bibj" path="res://icon.svg" id="1_0fkq1"]
+[ext_resource type="LabelSettings" uid="uid://gyv35o2hc5nb" path="res://Assets/UI/Settings/readable.tres" id="2_jydfs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ak0sq"]
+size = Vector2(130, 130)
+
+[node name="Sprite2D" type="Sprite2D"]
+self_modulate = Color(0.24, 0.670667, 1, 1)
+texture = ExtResource("1_0fkq1")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -75.5
+offset_right = -64.0
+offset_bottom = -52.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "sample"
+label_settings = ExtResource("2_jydfs")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_ak0sq")

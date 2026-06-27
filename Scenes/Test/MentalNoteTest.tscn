@@ -1,20 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdjf6xxlocdlj"]
+[gd_scene load_steps=7 format=3 uid="uid://bdjf6xxlocdlj"]
 
 [ext_resource type="Texture2D" uid="uid://b2bbvrwk4bibj" path="res://icon.svg" id="1_0nkqq"]
+[ext_resource type="Texture2D" uid="uid://1vvui8odldpn" path="res://Assets/Materials/Textures/Dev/grid_dark_tiled.png" id="1_gssai"]
 [ext_resource type="Script" uid="uid://chl35u517h5uh" path="res://Assets/Scripts/Mental Notes/mental_note_manager.gd" id="2_krkbb"]
+[ext_resource type="LabelSettings" uid="uid://gyv35o2hc5nb" path="res://Assets/UI/Settings/readable.tres" id="3_stwxr"]
+[ext_resource type="Script" uid="uid://cia5m67ivvm2p" path="res://Assets/Scripts/Mental Notes/camera_2d_controller.gd" id="4_nx2a7"]
 
-[node name="Control" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_stwxr"]
+size = Vector2(124, 124)
+
+[node name="MentalMap" type="Node2D"]
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.556863)
+texture_repeat = 2
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_gssai")
+region_enabled = true
+region_rect = Rect2(0, 0, 5000, 5000)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(513, 365)
+position = Vector2(162, 178)
 texture = ExtResource("1_0nkqq")
+
+[node name="Label" type="Label" parent="Sprite2D"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "wasdababa"
+label_settings = ExtResource("3_stwxr")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D"]
+shape = SubResource("RectangleShape2D_stwxr")
 
 [node name="MentalMentalNoteManager" type="Node" parent="."]
 script = ExtResource("2_krkbb")
 metadata/_custom_type_script = "uid://chl35u517h5uh"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+position_smoothing_speed = 9.0
+script = ExtResource("4_nx2a7")

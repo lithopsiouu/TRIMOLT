@@ -22,7 +22,8 @@
 			"combat": "cc99c9",
 			"player_controller.gd": "9ec1cf",
 			"statemachine": "f49ac1",
-			"visual issue": "ff6663"
+			"visual issue": "ff6663",
+			"mental map": "9ec1cf"
 		}
 	},
 	"issues": {
@@ -219,17 +220,6 @@
 				"timestamp": 1779666087.65
 			},
 			{
-				"text": "add player crouch",
-				"tags": [
-					"player_controller.gd",
-					"gameplay",
-					"statemachine",
-					"feature"
-				],
-				"timestamp": 1780336622.868,
-				"priority": 3.0
-			},
-			{
 				"text": "correct camera movement upon rotating player spawn",
 				"tags": [
 					"player_controller.gd",
@@ -240,20 +230,63 @@
 				"priority": 1.0
 			},
 			{
-				"text": "Fix stumble movement reduction",
-				"tags": [
-					"player_controller.gd",
-					"gameplay"
-				],
-				"timestamp": 1780600502.278,
-				"priority": 4.0
-			},
-			{
 				"text": "lantern spins when rotation moves over vec3.zero",
 				"tags": [
 					"visual issue"
 				],
 				"timestamp": 1782240551.318
+			},
+			{
+				"text": "improve player crouch\nmake player shorter and collider smaller for better cramped crawling",
+				"tags": [
+					"gameplay"
+				],
+				"timestamp": 1782549216.83,
+				"priority": 3.0
+			},
+			{
+				"text": "fix mental node drag clumping\nmental nodes stack on top of each other, making it impossible to separate. Look into Control node solutions",
+				"tags": [
+					"mental map",
+					"issue"
+				],
+				"timestamp": 1782549258.068,
+				"priority": 5.0
+			},
+			{
+				"text": "add line between mental nodes showing pairs",
+				"tags": [
+					"mental map",
+					"idea",
+					"feature",
+					"debug"
+				],
+				"timestamp": 1782549351.718
+			},
+			{
+				"text": "visual differentiation between mental nodes",
+				"tags": [
+					"mental map",
+					"feature"
+				],
+				"timestamp": 1782549394.347
+			},
+			{
+				"text": "pin mental question to camera",
+				"tags": [
+					"mental map",
+					"feature"
+				],
+				"timestamp": 1782549429.871
+			},
+			{
+				"text": "create mental answer class",
+				"tags": [
+					"mental map",
+					"feature"
+				],
+				"timestamp": 1782549504.314,
+				"priority": 4.0
 			}
 		]
 	}
