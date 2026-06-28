@@ -23,7 +23,8 @@
 			"player_controller.gd": "9ec1cf",
 			"statemachine": "f49ac1",
 			"visual issue": "ff6663",
-			"mental map": "9ec1cf"
+			"mental map": "9ec1cf",
+			"optimization": "feb144"
 		}
 	},
 	"issues": {
@@ -245,15 +246,6 @@
 				"priority": 3.0
 			},
 			{
-				"text": "fix mental node drag clumping\nmental nodes stack on top of each other, making it impossible to separate. Look into Control node solutions",
-				"tags": [
-					"mental map",
-					"issue"
-				],
-				"timestamp": 1782549258.068,
-				"priority": 5.0
-			},
-			{
 				"text": "add line between mental nodes showing pairs",
 				"tags": [
 					"mental map",
@@ -287,6 +279,31 @@
 				],
 				"timestamp": 1782549504.314,
 				"priority": 4.0
+			},
+			{
+				"text": "Add color variation to different node types\ndifferent node types should be color coded via a const array",
+				"tags": [
+					"feature",
+					"mental map"
+				],
+				"timestamp": 1782635268.611,
+				"priority": 3.0
+			},
+			{
+				"text": "lock camera zoom to max and min zoom",
+				"tags": [
+					"visual issue",
+					"mental map"
+				],
+				"timestamp": 1782635686.029
+			},
+			{
+				"text": "create all nodes using a loop of sorts, grabbing names from an array or const",
+				"tags": [
+					"mental map",
+					"optimization"
+				],
+				"timestamp": 1782635773.656
 			}
 		]
 	}

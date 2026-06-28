@@ -10,6 +10,8 @@ const TAGS: Array[String] = [
 	"drew"
 ]
 
+var _mouse_hovering_areas: Array = []
+
 var _notes: Array = []
 var _questions: Array = []
 var _connections: Array = []
@@ -21,11 +23,19 @@ var connection_container: Node
 func _ready() -> void:
 	initialize_categories()
 	
-	create_note("dunds", [TAGS[0]], Vector2(0, 5))
-	create_note("bababa", [TAGS[0]], Vector2(0, -5))
-	create_note("poooop", [TAGS[0]], Vector2(5, 0))
-	create_note("gwag", [TAGS[0]], Vector2(-5, 0))
-	create_question("what if buns", [TAGS[0]], Vector2(0, 0))
+	create_note("percy just got 5 phones", [TAGS[0]], Vector2(0, 125))
+	create_note("percy has been broke", [TAGS[0]], Vector2(0, -125))
+	create_note("you", [TAGS[0]], Vector2(125, 0))
+	create_note("ari", [TAGS[0]], Vector2(-125, 0))
+	
+	create_question("sooo much", [TAGS[0]], Vector2(0, 0))
+	
+	pair_node(get_node_in_array_by_content("percy just got 5 phones", _notes), get_node_in_array_by_content("percy has been broke", _notes))
+
+func _input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed("Mental_Map_Node_Grab"):
+		_mouse_hovering_areas[-1].set_following_mouse(true)
+		_mouse_hovering_areas[-1].get_parent().move_child(_mouse_hovering_areas[-1], -1)
 
 func initialize_categories() -> void:
 	note_container = Node.new()
@@ -75,6 +85,12 @@ func pair_node(node, node_pair, pair_both: bool = true):
 	if pair_both:
 		node_pair.append_ID_pair(node.get_ID())
 
+func get_node_in_array_by_content(content: String, array: Array):
+	for item in array:
+		if content == item.get_content():
+			return item
+	return null
+
 ## Deletes a paired [MentalNote] and [MentalQuestion].
 func destroy_pair() -> void:
 	pass
@@ -87,6 +103,15 @@ func mental_node_setup(node, array: Array, content: String, tags: Array):
 	node.set_ID(array.find(node))
 	node.set_content(content)
 	node.set_tags(tags)
+	
+	node.mouse_over.connect(insert_mouse_hovering_areas)
+	node.mouse_off.connect(remove_mouse_hovering_areas)
+
+func insert_mouse_hovering_areas(node):
+	_mouse_hovering_areas.insert(0, node)
+
+func remove_mouse_hovering_areas(node):
+	_mouse_hovering_areas.erase(node)
 
 ## Returns a tag if [param tag_name] is in [param TAGS], otherwise returns [code]""[/code].
 func get_tag_from_name(tag_name: String) -> String:

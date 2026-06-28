@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7h8n1b12gjx2"]
+
+[ext_resource type="LabelSettings" uid="uid://gyv35o2hc5nb" path="res://Assets/UI/Settings/readable.tres" id="1_f5ooy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5ooy"]
+bg_color = Color(0.14931, 0.296414, 0.680785, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.355376, 0.460392, 0.584026, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_color = Color(0, 0, 0, 0.129412)
+shadow_size = 10
+shadow_offset = Vector2(0, 8)
+
+[node name="Control" type="Control"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 3
+anchor_left = 0.457
+anchor_top = 0.423
+anchor_right = 0.543
+anchor_bottom = 0.577
+offset_left = 49.536
+offset_top = 49.896
+offset_right = -49.5361
+offset_bottom = -49.896
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_f5ooy")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "sample"
+label_settings = ExtResource("1_f5ooy")
+horizontal_alignment = 1
+vertical_alignment = 1

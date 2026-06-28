@@ -4,43 +4,53 @@ extends Node2D
 ## A [MentalNode] that is used by [MentalNote] and [MentalQuestion] classes.
 
 const MENTAL_NODE_TEST = preload("res://Assets/UI/Mental_Map/mental_node_test.tscn")
-var node
+
+signal mouse_over
+signal mouse_off
 
 var tags: Array = []
 var content: String = ""
 var _ID: int = -1
 var ID_pairs: Array[int] = [] ## ID of other [MentalNode] that will create a [MentalConnection].
 
-var mouse_hovering: bool = false
 var following_mouse: bool = false
+var max_distance_from_mouse: float = 300
 var init_pos: Vector2
-var move_speed: float = 9
+var move_speed: float = 0
+var normal_move_speed: float = 9
+var fast_move_speed: float = 20
 
 func _init() -> void:
 	init_pos = global_position
 	
-	node = MENTAL_NODE_TEST.instantiate()
+	var node = MENTAL_NODE_TEST.instantiate()
 	add_child(node)
-	node.get_child(1).mouse_entered.connect(_on_mouse_enter)
-	node.get_child(1).mouse_exited.connect(_on_mouse_exit)
-
-func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("Mental_Map_Node_Grab") and mouse_hovering:
-		following_mouse = true
-	
-	if Input.is_action_just_released("Mental_Map_Node_Grab"):
-		following_mouse = false
+	node.mouse_entered.connect(_on_mouse_enter)
+	node.mouse_exited.connect(_on_mouse_exit)
 
 func _process(delta: float) -> void:
 	if following_mouse:
 		var mouse_pos = get_global_mouse_position()
+		
+		keep_up_speed(mouse_pos)
+		
 		global_position = global_position.lerp(mouse_pos, delta * move_speed)
 
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_released("Mental_Map_Node_Grab"):
+		set_following_mouse(false)
+
+func keep_up_speed(mouse_pos: Vector2) -> void:
+	if global_position.distance_to(mouse_pos) > max_distance_from_mouse:
+		move_speed = fast_move_speed
+	else:
+		move_speed = normal_move_speed
+
 func _on_mouse_enter() -> void:
-	mouse_hovering = true
+	mouse_over.emit(self)
 
 func _on_mouse_exit() -> void:
-	mouse_hovering = false
+	mouse_off.emit(self)
 
 ## Returns an [Array] of [param tags].
 func get_tags() -> Array:
@@ -63,7 +73,7 @@ func get_content() -> String:
 func set_content(new_content: String) -> void:
 	content = new_content
 	
-	get_child(0).get_child(0).text = content
+	get_child(0).get_child(-1).text = content
 
 
 ## Returns [param _ID].
@@ -73,6 +83,11 @@ func get_ID() -> int:
 ## Sets [param _ID].
 func set_ID(new_ID: int) -> void:
 	_ID = new_ID
+
+
+## Sets [param following_mouse] to [param state].
+func set_following_mouse(state: bool) -> void:
+	following_mouse = state
 
 
 ## Returns [param ID_pair].

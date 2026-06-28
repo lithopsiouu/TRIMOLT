@@ -2,6 +2,8 @@ extends Camera2D
 
 @export var zoom_speed: float = 6
 var zoom_target: Vector2
+var max_zoom: float = 1.5
+var min_zoom: float = 0.5
 
 @export var move_speed: float = 800
 var move_input: Vector2 = Vector2.ZERO ## Direction of movement input
