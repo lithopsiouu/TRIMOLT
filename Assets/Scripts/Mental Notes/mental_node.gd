@@ -1,7 +1,7 @@
 class_name MentalNode
 extends Node2D
 
-## A [MentalNode] that is used by [MentalNote] and [MentalQuestion] classes.
+## A [MentalNode] that is used by [MentalNote], [MentalQuestion], and [MentalConnection] classes.
 
 const MENTAL_NODE_TEST = preload("res://Assets/UI/Mental_Map/mental_node_test.tscn")
 

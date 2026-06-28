@@ -10,6 +10,13 @@ const TAGS: Array[String] = [
 	"drew"
 ]
 
+var starting_notes_dict = {
+	"percy just got 5 phones": [[TAGS[0]], Vector2(randi_range(-200, 200), randi_range(-200, 200))],
+	"percy has been broke": [[TAGS[0]], Vector2(randi_range(-200, 200), randi_range(-200, 200))],
+	"hi percy": [[TAGS[0]], Vector2(randi_range(-200, 200), randi_range(-200, 200))],
+	"percy smells bad": [[TAGS[0]], Vector2(randi_range(-200, 200), randi_range(-200, 200))],
+}
+
 var _mouse_hovering_areas: Array = []
 
 var _notes: Array = []
@@ -23,10 +30,7 @@ var connection_container: Node
 func _ready() -> void:
 	initialize_categories()
 	
-	create_note("percy just got 5 phones", [TAGS[0]], Vector2(0, 125))
-	create_note("percy has been broke", [TAGS[0]], Vector2(0, -125))
-	create_note("you", [TAGS[0]], Vector2(125, 0))
-	create_note("ari", [TAGS[0]], Vector2(-125, 0))
+	create_initial_nodes()
 	
 	create_question("sooo much", [TAGS[0]], Vector2(0, 0))
 	
@@ -37,6 +41,7 @@ func _input(_event: InputEvent) -> void:
 		_mouse_hovering_areas[-1].set_following_mouse(true)
 		_mouse_hovering_areas[-1].get_parent().move_child(_mouse_hovering_areas[-1], -1)
 
+## Creates containers for each type of [MentalNode].
 func initialize_categories() -> void:
 	note_container = Node.new()
 	question_container = Node.new()
@@ -47,6 +52,10 @@ func initialize_categories() -> void:
 	note_container.name = "mental_note_container"
 	question_container.name = "mental_questions_container"
 	connection_container.name = "mental_connection_container"
+
+func create_initial_nodes() -> void:
+	for i in starting_notes_dict:
+		create_note(i, starting_notes_dict[i][0], starting_notes_dict[i][1])
 
 ## Creates a [MentalNote] and sets the ID, content, and tags.
 func create_note(content: String, tags: Array = [TAGS[0]], pos: Vector2 = Vector2.ZERO) -> void:
@@ -77,6 +86,8 @@ func create_connection(content: String, tags: Array = [TAGS[0]]) -> void:
 
 ## Adds a node pair to the [param node] and optionally sets the pair for the [param node_pair].
 func pair_node(node, node_pair, pair_both: bool = true):
+	if node == null:
+		return
 	node.append_ID_pair(node_pair.get_ID())
 	
 	print(node, node.get_ID())

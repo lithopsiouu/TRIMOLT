@@ -298,12 +298,12 @@
 				"timestamp": 1782635686.029
 			},
 			{
-				"text": "create all nodes using a loop of sorts, grabbing names from an array or const",
+				"text": "minor bug: grabbing an overlapped tile may become dragged",
 				"tags": [
 					"mental map",
-					"optimization"
+					"issue"
 				],
-				"timestamp": 1782635773.656
+				"timestamp": 1782670874.296
 			}
 		]
 	}
