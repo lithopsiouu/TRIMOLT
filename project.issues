@@ -256,14 +256,6 @@
 				"timestamp": 1782549351.718
 			},
 			{
-				"text": "visual differentiation between mental nodes",
-				"tags": [
-					"mental map",
-					"feature"
-				],
-				"timestamp": 1782549394.347
-			},
-			{
 				"text": "pin mental question to camera",
 				"tags": [
 					"mental map",
@@ -281,15 +273,6 @@
 				"priority": 4.0
 			},
 			{
-				"text": "Add color variation to different node types\ndifferent node types should be color coded via a const array",
-				"tags": [
-					"feature",
-					"mental map"
-				],
-				"timestamp": 1782635268.611,
-				"priority": 3.0
-			},
-			{
 				"text": "lock camera zoom to max and min zoom",
 				"tags": [
 					"visual issue",
@@ -304,6 +287,15 @@
 					"issue"
 				],
 				"timestamp": 1782670874.296
+			},
+			{
+				"text": "restructure mental map nodes and controller to make merging controlled by individual nodes",
+				"tags": [
+					"mental map",
+					"issue",
+					"consolidation"
+				],
+				"timestamp": 1782764633.282
 			}
 		]
 	}

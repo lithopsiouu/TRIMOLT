@@ -4,24 +4,16 @@ extends Node
 ## Contains variables that are used by [MentalNote] and [MentalQuestion] classes.
 ## Also creates [MentalNote] and [MentalQuestion] classes.
 
-const TAGS: Array[String] = [
-	"unsorted",
-	"me",
-	"drew"
-]
-
 var starting_notes_dict = {
-	"percy just got 5 phones": [[TAGS[0]], Vector2(randi_range(-200, 200), randi_range(-200, 200))],
-	"percy has been broke": [[TAGS[0]], Vector2(randi_range(-200, 200), randi_range(-200, 200))],
-	"hi percy": [[TAGS[0]], Vector2(randi_range(-200, 200), randi_range(-200, 200))],
-	"percy smells bad": [[TAGS[0]], Vector2(randi_range(-200, 200), randi_range(-200, 200))],
+	"percy just got 5 phones": [Vector2(randi_range(-200, 200), randi_range(-200, 200))],
+	"percy has been broke": [Vector2(randi_range(-200, 200), randi_range(-200, 200))],
+	"hi percy": [Vector2(randi_range(-200, 200), randi_range(-200, 200))],
+	"percy smells bad": [Vector2(randi_range(-200, 200), randi_range(-200, 200))],
 }
 
 var _mouse_hovering_areas: Array = []
 
-var _notes: Array = []
-var _questions: Array = []
-var _connections: Array = []
+var _nodes: Array = []
 
 var note_container: Node
 var question_container: Node
@@ -32,12 +24,18 @@ func _ready() -> void:
 	
 	create_initial_nodes()
 	
-	create_question("sooo much", [TAGS[0]], Vector2(0, 0))
+	create_question("sooo much", Vector2(0, 0))
 	
-	pair_node(get_node_in_array_by_content("percy just got 5 phones", _notes), get_node_in_array_by_content("percy has been broke", _notes))
+	pair_node(get_node_in_array_by_content("percy just got 5 phones", _nodes), get_node_in_array_by_content("percy has been broke", _nodes))
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Mental_Map_Node_Grab"):
+		if _mouse_hovering_areas.size() <= 0:
+			return
+		
+		if _mouse_hovering_areas[-1] == null:
+			return
+		
 		_mouse_hovering_areas[-1].set_following_mouse(true)
 		_mouse_hovering_areas[-1].get_parent().move_child(_mouse_hovering_areas[-1], -1)
 
@@ -55,34 +53,34 @@ func initialize_categories() -> void:
 
 func create_initial_nodes() -> void:
 	for i in starting_notes_dict:
-		create_note(i, starting_notes_dict[i][0], starting_notes_dict[i][1])
+		create_note(i, starting_notes_dict[i][0])
 
 ## Creates a [MentalNote] and sets the ID, content, and tags.
-func create_note(content: String, tags: Array = [TAGS[0]], pos: Vector2 = Vector2.ZERO) -> void:
+func create_note(content: String, pos: Vector2 = Vector2.ZERO, tags: Array = [MentalNodeData.TAGS[0]]) -> void:
 	var note = MentalNote.new()
 	note_container.add_child(note)
 	note.name = content
 	note.position = pos
 	
-	mental_node_setup(note, _notes, content, tags)
+	mental_node_setup(note, _nodes, content, tags)
 
 ## Creates a [MentalQuestion] and sets the ID, content, and tags.
-func create_question(content: String, tags: Array = [TAGS[0]], pos: Vector2 = Vector2.ZERO) -> void:
+func create_question(content: String, pos: Vector2 = Vector2.ZERO, tags: Array = [MentalNodeData.TAGS[0]]) -> void:
 	var question = MentalQuestion.new()
 	question_container.add_child(question)
 	question.name = content
 	question.position = pos
 	
-	mental_node_setup(question, _questions, content, tags)
+	mental_node_setup(question, _nodes, content, tags)
 
 
 ## Creates a [MentalConnection], sets the ID, content, and tags, and destroys the [MentalNote] and [MentalQuestion] pair.
-func create_connection(content: String, tags: Array = [TAGS[0]]) -> void:
+func create_connection(content: String, pos: Vector2 = Vector2.ZERO, tags: Array = [MentalNodeData.TAGS[0]]) -> void:
 	var connection = MentalConnection.new()
 	connection_container.add_child(connection)
 	connection.name = content
 	
-	mental_node_setup(connection, _connections, content, tags)
+	mental_node_setup(connection, _nodes, content, tags)
 
 ## Adds a node pair to the [param node] and optionally sets the pair for the [param node_pair].
 func pair_node(node, node_pair, pair_both: bool = true):
@@ -102,9 +100,15 @@ func get_node_in_array_by_content(content: String, array: Array):
 			return item
 	return null
 
-## Deletes a paired [MentalNote] and [MentalQuestion].
-func destroy_pair() -> void:
-	pass
+## Deletes a pair of [MentalNode]s.
+func destroy_pair(node1, node2) -> void:
+	create_connection("percy stole fones")
+	remove_mouse_hovering_areas(node1)
+	remove_mouse_hovering_areas(node2)
+	print("destroying ", node1)
+	node1.queue_free()
+	print("destroying ", node2)
+	node2.queue_free()
 
 ## Sets the content of a given mental node.
 func mental_node_setup(node, array: Array, content: String, tags: Array):
@@ -117,6 +121,7 @@ func mental_node_setup(node, array: Array, content: String, tags: Array):
 	
 	node.mouse_over.connect(insert_mouse_hovering_areas)
 	node.mouse_off.connect(remove_mouse_hovering_areas)
+	node.connected.connect(destroy_pair)
 
 func insert_mouse_hovering_areas(node):
 	_mouse_hovering_areas.insert(0, node)
@@ -128,7 +133,7 @@ func remove_mouse_hovering_areas(node):
 func get_tag_from_name(tag_name: String) -> String:
 	tag_name = tag_name.to_lower()
 	var found_tag: String = ""
-	for tag in TAGS:
+	for tag in MentalNodeData.TAGS:
 		if tag_name == tag:
 			found_tag = tag
 	return found_tag

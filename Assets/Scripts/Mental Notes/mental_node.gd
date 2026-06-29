@@ -7,11 +7,14 @@ const MENTAL_NODE_TEST = preload("res://Assets/UI/Mental_Map/mental_node_test.ts
 
 signal mouse_over
 signal mouse_off
+signal connected
 
 var tags: Array = []
 var content: String = ""
 var _ID: int = -1
 var ID_pairs: Array[int] = [] ## ID of other [MentalNode] that will create a [MentalConnection].
+var color: Color = Color.WHITE
+var node: Area2D
 
 var following_mouse: bool = false
 var max_distance_from_mouse: float = 300
@@ -23,10 +26,13 @@ var fast_move_speed: float = 20
 func _init() -> void:
 	init_pos = global_position
 	
-	var node = MENTAL_NODE_TEST.instantiate()
+	node = MENTAL_NODE_TEST.instantiate()
 	add_child(node)
 	node.mouse_entered.connect(_on_mouse_enter)
 	node.mouse_exited.connect(_on_mouse_exit)
+	node.area_entered.connect(on_area_entered)
+	
+	node.get_child(0).self_modulate = color
 
 func _process(delta: float) -> void:
 	if following_mouse:
@@ -105,3 +111,20 @@ func append_ID_pair(new_ID_pair: int) -> void:
 ## Append Array of pairs to [param ID_pairs].
 func append_ID_pairs(new_ID_pairs: Array) -> void:
 	ID_pairs.append_array(new_ID_pairs)
+
+
+func get_color() -> Color:
+	return color
+
+func set_color(new_color: Color) -> void:
+	color = new_color
+	node.get_child(0).self_modulate = new_color
+
+
+func on_area_entered(area: Area2D) -> void:
+	if area.get_parent().has_method("get_ID"):
+		if ID_pairs.size() <= 0:
+			return
+		if ID_pairs[0] == area.get_parent().get_ID():
+			print("id is same")
+			connected.emit(self, area.get_parent())
