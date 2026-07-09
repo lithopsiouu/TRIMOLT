@@ -45,7 +45,7 @@ var spring_stand_offset: float = 1.1
 var spring_crouch_offset: float = 0.9
 var current_spring_rest_offset: float = 0.0
 var standing_float_strength: float = 110.0
-var crouching_float_strength: float = 100.0
+var crouching_float_strength: float = 90.0
 var spring_damper: float = 8
 
 # Velocity
@@ -72,6 +72,10 @@ var joy_input: Vector2 = Vector2()
 var _cam_input: Vector2 = Vector2()
 var max_cam_rot_deg: int = 85
 var rand_cam_rot: float = 0.0
+var cam_crouch_lerp_speed: float = 6.0
+var cam_height_standing: float = 0.44
+var cam_height_crouching: float = .27
+var cam_height: float
 
 # Settings
 @export_group("Input Settings")
@@ -94,6 +98,10 @@ func _process(delta: float) -> void:
 	
 	joy_input = Input.get_vector("cam_look_left","cam_look_right","cam_look_up","cam_look_down", joy_camera_deadzone)
 	if mouse_input == Vector2.ZERO: _cam_input = joy_input * joy_view_sensitivity
+	
+	collider.scale.y = collider_height
+	
+	move_camera_height(delta)
 	
 	_update_auto_uncrouch()
 	
@@ -134,8 +142,14 @@ func _input(event):
 	if Input.is_action_just_pressed("Crouch"):
 		_crouch_pressed = true
 		crouching = true
+		cam_height = cam_height_crouching
+		collider_height = crouching_collider_height
 	elif Input.is_action_just_released("Crouch"):
 		_crouch_pressed = false
+
+func move_camera_height(delta: float) -> void:
+	if camera.position.y != cam_height:
+		head_position.position = head_position.position.lerp(Vector3(0, cam_height, 0), delta * cam_crouch_lerp_speed)
 
 ## Reduces player health by [param damage].
 func take_damage(damage: float) -> void:
@@ -168,6 +182,8 @@ func _update_auto_uncrouch() -> void:
 	if crouching and _can_uncrouch: 
 		if _crouch_pressed == false:
 			crouching = false
+			collider_height = standing_collider_height
+			cam_height = cam_height_standing
 
 ## Cause camera shake with [param strength] and some input reduction with [param influence] for [param time].
 func stumble(time: float = stumble_time, strength: float = stumble_strength) -> void:

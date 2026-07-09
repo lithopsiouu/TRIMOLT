@@ -106,6 +106,7 @@ debug_shape_custom_color = Color(0.816675, 0.632812, 0.851688, 1)
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_ow3ka")
 
 [node name="AboveHeadCheck" type="ShapeCast3D" parent="."]
