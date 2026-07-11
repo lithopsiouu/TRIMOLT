@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://yj8ym8m6f56d"]
 
-[ext_resource type="Script" uid="uid://cbsltxjkkgq2k" path="res://test_interaction.gd" id="1_ll4e1"]
-[ext_resource type="Script" uid="uid://6gcosuwxw226" path="res://Assets/Scripts/interactable.gd" id="2_edsfp"]
+[ext_resource type="Script" uid="uid://cbsltxjkkgq2k" path="res://Assets/Scripts/Interaction/test_interaction.gd" id="1_ll4e1"]
+[ext_resource type="Script" uid="uid://6gcosuwxw226" path="res://Assets/Scripts/Interaction/interactable.gd" id="2_edsfp"]
 [ext_resource type="Material" uid="uid://cmqeeb11r3ork" path="res://Assets/Materials/tile_concrete_yellow.tres" id="3_3n7yg"]
 [ext_resource type="Material" uid="uid://cfb31xxxnyuff" path="res://Assets/Materials/Error.tres" id="4_7p0vv"]
 

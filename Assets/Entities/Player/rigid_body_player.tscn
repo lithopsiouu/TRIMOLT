@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://mruhxcooio7p" path="res://Assets/Entities/Player/PhysPlayer/attack_controller.gd" id="4_8kh61"]
 [ext_resource type="Script" uid="uid://dx50slkfs5nkt" path="res://Assets/Scripts/Combat/Hitbox.gd" id="4_a4h1n"]
 [ext_resource type="Script" uid="uid://clmhcjpcbyw8a" path="res://Assets/Entities/Player/interactor_controller.gd" id="6_bp6tw"]
-[ext_resource type="Script" uid="uid://d18p6dqg18ri0" path="res://Assets/Scripts/interactor.gd" id="6_peixo"]
+[ext_resource type="Script" uid="uid://d18p6dqg18ri0" path="res://Assets/Scripts/Interaction/interactor.gd" id="6_peixo"]
 [ext_resource type="Script" uid="uid://cpqy84rlswvn6" path="res://Assets/Entities/Player/lantern_controller.gd" id="8_ksyf0"]
 [ext_resource type="Material" uid="uid://0eeqqcbfdr4f" path="res://Assets/Materials/Error_Green.tres" id="9_bidqs"]
 [ext_resource type="PackedScene" uid="uid://cmoc55qv10mjf" path="res://Assets/UI/test/test_player_ui.tscn" id="10_bidqs"]

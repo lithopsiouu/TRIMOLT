@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://cy7depiyr4mu7" path="res://Assets/Scripts/Player/StateMachine/Movement/idle.gd" id="5_4hqvw"]
 [ext_resource type="Script" uid="uid://clmhcjpcbyw8a" path="res://Assets/Entities/Player/interactor_controller.gd" id="5_tamhk"]
 [ext_resource type="Script" uid="uid://cj8nys4l5wwm4" path="res://Assets/Scripts/Player/StateMachine/Movement/fall_moving.gd" id="6_ee0rm"]
-[ext_resource type="Script" uid="uid://d18p6dqg18ri0" path="res://Assets/Scripts/interactor.gd" id="6_gdf4d"]
+[ext_resource type="Script" uid="uid://d18p6dqg18ri0" path="res://Assets/Scripts/Interaction/interactor.gd" id="6_gdf4d"]
 [ext_resource type="Script" uid="uid://j5d1mqnoi0wx" path="res://Assets/Scripts/Player/StateMachine/Movement/crouch_moving.gd" id="6_hy17x"]
 [ext_resource type="Script" uid="uid://kk3qrxx6o5wn" path="res://Assets/Scripts/Player/StateMachine/Movement/jumping.gd" id="6_ii21s"]
 [ext_resource type="Script" uid="uid://b0nvwr4u3yf8j" path="res://Assets/Scripts/Player/StateMachine/Movement/walking.gd" id="6_tamhk"]

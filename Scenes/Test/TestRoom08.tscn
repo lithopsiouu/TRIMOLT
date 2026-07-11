@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c6fd1pm3iaj4m"]
+[gd_scene load_steps=15 format=3 uid="uid://c6fd1pm3iaj4m"]
 
 [ext_resource type="Material" uid="uid://bclljgmw3n7ur" path="res://Assets/Materials/tile_concrete_white.tres" id="1_ak0bk"]
 [ext_resource type="Material" uid="uid://cbhhpnpt0jj6n" path="res://Assets/Materials/tile_dark.tres" id="2_1hw4c"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://chab13gn2saq6" path="res://Assets/Entities/test/fake_enemy.tscn" id="6_ce4wo"]
 [ext_resource type="PackedScene" uid="uid://clusdah11ijeg" path="res://Assets/Entities/test/fake_enemy_rb.tscn" id="7_2o6ks"]
 [ext_resource type="PackedScene" uid="uid://detwpgemm2bao" path="res://Assets/Entities/Player/player_controller.tscn" id="10_3mern"]
+[ext_resource type="PackedScene" uid="uid://cnxaaqmatjh5d" path="res://Assets/Entities/Interaction/Door/door_slide.tscn" id="10_ut2o3"]
 [ext_resource type="PackedScene" uid="uid://bbsdiw7ajl3ys" path="res://Assets/Entities/Player/Viewmodel.tscn" id="10_uwb70"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_i3wjr"]
@@ -319,3 +320,11 @@ mesh = SubResource("QuadMesh_uwb70")
 
 [node name="Player" parent="." instance=ExtResource("10_3mern")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45723, 1.59697, 7.67183)
+
+[node name="door_slide" parent="." instance=ExtResource("10_ut2o3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.499999, 5)
+open_transition_type = 6
+close_transition_type = 9
+is_open = true
+open_move_time = 1.4
+close_move_time = 0.9

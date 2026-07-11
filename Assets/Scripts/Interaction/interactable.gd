@@ -6,7 +6,7 @@ extends Area3D
 
 @export var one_time: bool = false ## Determines if the [Interactable] can only be activated once.
 @export var toggle: bool = true ## Determines if the [Interactable] has a [code]true[/code] and [code]false[/code] state.
-@export var toggle_state = false ## Toggle state the [Interactable] begins with.[br]Only used if [param toggle] is [code]true[/code].
+@export var toggle_state = false ## The state of the [Interactable].[br]Only used if [param toggle] is [code]true[/code].
 @export var cooldown: float = 0.0 ## Only used if [param cooldown] is greater than 0.
 
 @onready var timer: Timer
@@ -14,6 +14,13 @@ extends Area3D
 func _init() -> void:
 	collision_layer = 0
 	collision_mask = 4
+	
+	#if get_child(0) == null:
+		#var col: CollisionShape3D = CollisionShape3D.new()
+		#add_child(col)
+		#var sphere: SphereShape3D = SphereShape3D.new()
+		#sphere.radius = 1.0
+		#col.shape = sphere
 
 func _ready() -> void:
 	area_entered.connect(_on_area_entered)

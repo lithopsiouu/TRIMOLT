@@ -213,14 +213,6 @@
 				"timestamp": 1779557478.33
 			},
 			{
-				"text": "redo the whole ass player controller so its less ass\nUse physically-based float controller from original controller\nMake movement more responsive\nEnsure there is no way to mantle and jump for extra jump height",
-				"tags": [
-					"rigid_body_player.gd",
-					"issue"
-				],
-				"timestamp": 1779666087.65
-			},
-			{
 				"text": "correct camera movement upon rotating player spawn",
 				"tags": [
 					"player_controller.gd",
@@ -236,14 +228,6 @@
 					"visual issue"
 				],
 				"timestamp": 1782240551.318
-			},
-			{
-				"text": "improve player crouch\nmake player shorter and collider smaller for better cramped crawling",
-				"tags": [
-					"gameplay"
-				],
-				"timestamp": 1782549216.83,
-				"priority": 3.0
 			},
 			{
 				"text": "add line between mental nodes showing pairs",

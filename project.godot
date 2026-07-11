@@ -29,6 +29,7 @@ enabled=PackedStringArray("res://addons/sticky_scribe/plugin.cfg")
 [file_customization]
 
 folder_colors={
+"res://Assets/Entities/Interaction/": "blue",
 "res://Assets/Entities/Player/": "red",
 "res://Assets/Entities/Thought/": "gray",
 "res://Assets/Entities/test/": "teal",
