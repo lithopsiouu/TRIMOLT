@@ -24,7 +24,8 @@
 			"statemachine": "f49ac1",
 			"visual issue": "ff6663",
 			"mental map": "9ec1cf",
-			"optimization": "feb144"
+			"optimization": "feb144",
+			"todo": "ff6663"
 		}
 	},
 	"issues": {
@@ -69,14 +70,6 @@
 				],
 				"timestamp": 1778433475.881,
 				"priority": 1.0
-			},
-			{
-				"text": "add documentation for functions",
-				"tags": [
-					"fake_enemy_rb.gd",
-					"doc"
-				],
-				"timestamp": 1778433652.271
 			},
 			{
 				"text": "create \"enemy\" class for fake_enemy_rb.gd to be scalable",
@@ -165,7 +158,8 @@
 					"feature",
 					"interaction"
 				],
-				"timestamp": 1779556971.728
+				"timestamp": 1779556971.728,
+				"priority": 5.0
 			},
 			{
 				"text": "add crosshair",
@@ -254,7 +248,7 @@
 					"feature"
 				],
 				"timestamp": 1782549504.314,
-				"priority": 4.0
+				"priority": 2.0
 			},
 			{
 				"text": "lock camera zoom to max and min zoom",
@@ -280,6 +274,15 @@
 					"consolidation"
 				],
 				"timestamp": 1782764633.282
+			},
+			{
+				"text": "move area_entered code to _toggle() function\nlogic restructuring to allow for contextual button prompts",
+				"tags": [
+					"interaction",
+					"todo"
+				],
+				"timestamp": 1783794293.26,
+				"priority": 5.0
 			}
 		]
 	}

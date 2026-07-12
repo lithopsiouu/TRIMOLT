@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://b20q67vas67xa"]
+
+[ext_resource type="Texture2D" uid="uid://cvv0rrabwibt2" path="res://Assets/Materials/Textures/WindNoiseTexture.tres" id="1_ee67p"]
+
+[node name="Prompt" type="Sprite3D"]
+modulate = Color(0.099986, 0.099986, 0.099986, 1)
+pixel_size = 0.0005
+billboard = 1
+no_depth_test = true
+fixed_size = true
+texture = ExtResource("1_ee67p")
+
+[node name="Label3D" type="Label3D" parent="."]
+billboard = 1
+no_depth_test = true
+fixed_size = true
+render_priority = 1
+text = "E"

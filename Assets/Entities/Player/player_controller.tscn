@@ -148,7 +148,6 @@ metadata/_custom_type_script = "uid://d18p6dqg18ri0"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HeadPosition/CameraHolder/InteractorController/Interactor"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_1b6kx")
-disabled = true
 
 [node name="EnableTime" type="Timer" parent="HeadPosition/CameraHolder/InteractorController"]
 wait_time = 0.05

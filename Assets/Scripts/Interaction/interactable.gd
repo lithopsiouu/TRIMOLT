@@ -12,8 +12,8 @@ extends Area3D
 @onready var timer: Timer
 
 func _init() -> void:
-	collision_layer = 0
-	collision_mask = 4
+	collision_layer = 4
+	collision_mask = 0
 	
 	#if get_child(0) == null:
 		#var col: CollisionShape3D = CollisionShape3D.new()
@@ -23,31 +23,27 @@ func _init() -> void:
 		#col.shape = sphere
 
 func _ready() -> void:
-	area_entered.connect(_on_area_entered)
+	#area_entered.connect(_on_area_entered)
 	_config_timer()
 
+## Initialize a [Timer] and its properties
 func _config_timer():
 	timer = Timer.new()
 	add_child(timer)
 	timer.one_shot = true
 
-## When touching an [Interactor], send owner [code]activate[/code] or [code]deactivate[/code] signals.
-func _on_area_entered(interactor: Interactor):
-	if interactor == null:
-		return
-	
+func _toggle():
 	if timer.time_left > 0:
 		return
 	
+	if toggle_state == false:
+		toggle_state = true
+		if owner.has_method("activate"):
+			owner.activate()
 	else:
-		if toggle_state == false:
-			toggle_state = true
-			if owner.has_method("activate"):
-				owner.activate()
-		else:
-			toggle_state = false
-			if owner.has_method("deactivate"):
-				owner.deactivate()
+		toggle_state = false
+		if owner.has_method("deactivate"):
+			owner.deactivate()
 	
 	if one_time:
 		self.queue_free()
