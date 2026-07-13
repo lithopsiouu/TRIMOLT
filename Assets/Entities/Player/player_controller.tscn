@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://detwpgemm2bao"]
+[gd_scene load_steps=30 format=3 uid="uid://detwpgemm2bao"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://6u3ecb4i6wfg" path="res://Assets/Materials/Physics/PlayerPhysMaterial.tres" id="1_bcsyx"]
 [ext_resource type="Script" uid="uid://n1oiffhd5cdv" path="res://Assets/Scripts/Player/player_controller.gd" id="1_hxfs4"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://cq4cmmlnco2a" path="res://Assets/Scripts/Player/StateMachine/Movement/falling.gd" id="8_wryva"]
 [ext_resource type="Script" uid="uid://bcrtdhnicmvvg" path="res://Assets/Scripts/Player/StateMachine/Movement/landing.gd" id="13_3am3k"]
 [ext_resource type="Script" uid="uid://jexf41khmgh8" path="res://Assets/Scripts/Player/StateMachine/Movement/stumbling.gd" id="14_ii21s"]
+[ext_resource type="PackedScene" uid="uid://tggth82lvupv" path="res://Assets/UI/test/test_UI_button_prompt.tscn" id="18_i68cg"]
 [ext_resource type="Script" uid="uid://06cp6tfh25a8" path="res://Assets/Scripts/Combat/Hurtbox.gd" id="19_i68cg"]
 [ext_resource type="ArrayMesh" uid="uid://dq0816edkpv60" path="res://Assets/Models/Characters/Player/Pupa/polyphemus_pupa_Plane.res" id="20_i68cg"]
 
@@ -32,7 +33,7 @@ height = 1.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1b6kx"]
 radius = 0.2
-height = 0.6
+height = 0.9
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7sxge"]
 noise_type = 2
@@ -77,7 +78,6 @@ shape = SubResource("CapsuleShape3D_ekv7g")
 debug_color = Color(0.60507, 0.4374, 0.81, 0.572549)
 
 [node name="Mesh" type="MeshInstance3D" parent="Collider"]
-visible = false
 mesh = SubResource("CapsuleMesh_wryva")
 
 [node name="StateMachineMovement" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
@@ -139,7 +139,7 @@ fov = 90.0
 script = ExtResource("5_tamhk")
 
 [node name="Interactor" type="Area3D" parent="HeadPosition/CameraHolder/InteractorController"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("6_gdf4d")
@@ -153,6 +153,8 @@ shape = SubResource("CapsuleShape3D_1b6kx")
 wait_time = 0.05
 one_shot = true
 ignore_time_scale = true
+
+[node name="Prompt" parent="HeadPosition/CameraHolder/InteractorController" instance=ExtResource("18_i68cg")]
 
 [node name="LanternController" type="Node3D" parent="HeadPosition/CameraHolder"]
 script = ExtResource("7_arwmf")

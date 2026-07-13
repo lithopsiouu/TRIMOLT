@@ -3,7 +3,7 @@ extends Area3D
 
 ## An [Area3D] that only interacts with [Interactables].
 
-var interactables: Array = []
+var interactables: Array[Interactable] = []
 
 func _init() -> void:
 	collision_layer = 0
