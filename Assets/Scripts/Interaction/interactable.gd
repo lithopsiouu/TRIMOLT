@@ -32,18 +32,18 @@ func _config_timer():
 	add_child(timer)
 	timer.one_shot = true
 
-func _toggle():
+func _toggle(player: PlayerController):
 	if timer.time_left > 0:
 		return
 	
 	if toggle_state == false:
 		toggle_state = true
 		if owner.has_method("activate"):
-			owner.activate()
+			owner.activate(player)
 	else:
 		toggle_state = false
 		if owner.has_method("deactivate"):
-			owner.deactivate()
+			owner.deactivate(player)
 	
 	if one_time:
 		self.queue_free()
