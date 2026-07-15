@@ -2,6 +2,8 @@ extends Door
 
 #@export var door_mesh: Mesh = BoxMesh.new()
 
+## A door that slides to a direction when interacted with. 
+
 @export_category("Door Functions")
 @export_group("Transform")
 @export var slide_direction: Vector3 = Vector3.UP

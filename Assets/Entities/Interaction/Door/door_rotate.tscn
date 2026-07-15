@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://bjh5vawiibmn1"]
+
+[ext_resource type="Script" uid="uid://c377h4fhkpv3d" path="res://Assets/Scripts/Interaction/Door/door_rotate.gd" id="1_k3mvb"]
+[ext_resource type="Script" uid="uid://6gcosuwxw226" path="res://Assets/Scripts/Interaction/interactable.gd" id="2_uy2u7"]
+[ext_resource type="Material" uid="uid://wm1sb5jonltv" path="res://Assets/Materials/tile_concrete_teal.tres" id="3_p7ush"]
+[ext_resource type="Texture2D" uid="uid://beswyd4bh8b75" path="res://Assets/Materials/Textures/Dev/Editor Icon/door_rotate.jpg" id="4_k3mvb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gspp3"]
+size = Vector3(1.2, 1.8, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_th6wo"]
+size = Vector3(1.2, 1.8, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gspp3"]
+material = ExtResource("3_p7ush")
+size = Vector3(1.2, 1.8, 0.3)
+
+[node name="door_rotate" type="Node3D"]
+script = ExtResource("1_k3mvb")
+metadata/_custom_type_script = "uid://bu2ldgkptuqc2"
+
+[node name="Interactable" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.9, 0)
+script = ExtResource("2_uy2u7")
+metadata/_custom_type_script = "uid://6gcosuwxw226"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+shape = SubResource("BoxShape3D_gspp3")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Interactable"]
+collision_layer = 1024
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable/StaticBody3D"]
+shape = SubResource("BoxShape3D_th6wo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Interactable/StaticBody3D"]
+mesh = SubResource("BoxMesh_gspp3")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 0)
+pixel_size = 0.003
+billboard = 1
+no_depth_test = true
+texture_filter = 0
+texture = ExtResource("4_k3mvb")

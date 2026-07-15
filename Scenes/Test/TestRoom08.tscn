@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c6fd1pm3iaj4m"]
+[gd_scene load_steps=16 format=3 uid="uid://c6fd1pm3iaj4m"]
 
 [ext_resource type="Material" uid="uid://bclljgmw3n7ur" path="res://Assets/Materials/tile_concrete_white.tres" id="1_ak0bk"]
 [ext_resource type="Material" uid="uid://cbhhpnpt0jj6n" path="res://Assets/Materials/tile_dark.tres" id="2_1hw4c"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://detwpgemm2bao" path="res://Assets/Entities/Player/player_controller.tscn" id="10_3mern"]
 [ext_resource type="PackedScene" uid="uid://cnxaaqmatjh5d" path="res://Assets/Entities/Interaction/Door/door_slide.tscn" id="10_ut2o3"]
 [ext_resource type="PackedScene" uid="uid://bbsdiw7ajl3ys" path="res://Assets/Entities/Player/Viewmodel.tscn" id="10_uwb70"]
+[ext_resource type="PackedScene" uid="uid://bjh5vawiibmn1" path="res://Assets/Entities/Interaction/Door/door_rotate.tscn" id="11_3mern"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_i3wjr"]
 radius = 0.25
@@ -328,3 +329,12 @@ close_transition_type = 9
 is_open = true
 open_move_time = 1.4
 close_move_time = 0.9
+
+[node name="door_rotate" parent="." instance=ExtResource("11_3mern")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.00935, 0.499999, 5.43788)
+start_position = 5.0
+open_transition_type = 10
+close_transition_type = 1
+close_ease_type = 0
+open_move_time = 0.6
+close_move_time = 0.3

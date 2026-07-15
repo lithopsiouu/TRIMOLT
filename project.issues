@@ -25,7 +25,8 @@
 			"visual issue": "ff6663",
 			"mental map": "9ec1cf",
 			"optimization": "feb144",
-			"todo": "ff6663"
+			"todo": "ff6663",
+			"door.gd": "9ec1cf"
 		}
 	},
 	"issues": {
@@ -283,6 +284,14 @@
 				],
 				"timestamp": 1783794293.26,
 				"priority": 5.0
+			},
+			{
+				"text": "open door in direction player facing",
+				"tags": [
+					"door.gd",
+					"todo"
+				],
+				"timestamp": 1783988486.294
 			}
 		]
 	}
