@@ -46,7 +46,7 @@ var spring_crouch_offset: float = 0.9
 var current_spring_rest_offset: float = 0.0
 var standing_float_strength: float = 110.0
 var crouching_float_strength: float = 90.0
-var spring_damper: float = 8
+var spring_damper: float = 10
 
 # Velocity
 var target_velocity: float = 0.0
@@ -189,7 +189,7 @@ func _update_auto_uncrouch() -> void:
 func stumble(time: float = stumble_time, strength: float = stumble_strength) -> void:
 	if can_stumble:
 		stumbling = true
-		stumble_strength = clampf(stumble_strength, 0.1, 0.9)
+		stumble_strength = clampf(stumble_strength, 0.1, 2)
 		stumble_time = clampf(stumble_time, 0.4, 1.6)
 		print("stumbling for ", str(stumble_time), " seconds with a strength of ", str(stumble_strength), ".")
 		_stumble_timer = _timer(stumble_time)
@@ -220,7 +220,7 @@ func _stumble_process():
 			var _inverse_stumble_progress = 1 - _stumble_progress ## Goes from 0 to 1.
 			
 			move_input_influence = lerpf(move_input_influence, 1.0, ease(_inverse_stumble_progress, 3))
-			print(move_input_influence)
+			#print(move_input_influence)
 			
 			if _stumble_timer.time_left <= 0.001:
 				stumbling = false

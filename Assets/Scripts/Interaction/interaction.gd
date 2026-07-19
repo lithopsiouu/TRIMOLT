@@ -19,9 +19,9 @@ func _ready() -> void:
 	await interactable.ready
 
 ## Activation function.
-func activate():
+func activate(_player: PlayerController = null):
 	print("Activated!")
 
 ## Deactivation function.
-func deactivate():
+func deactivate(_player: PlayerController = null):
 	print("Deactivated!")

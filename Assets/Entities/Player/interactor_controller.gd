@@ -80,7 +80,7 @@ func _interact():
 		return
 	
 	if interactables[0].has_method("_toggle"):
-		interactables[0]._toggle()
+		interactables[0]._toggle(owner)
 	#interactor_shape.disabled = false
 	#enable_timer.start()
 

@@ -18,10 +18,10 @@ func _ready() -> void:
 	_init_is_open()
 	_hide_editor_sprite()
 
-func activate():
+func activate(_player: PlayerController = null):
 	door_slide(open_position, open_move_time, open_transition_type, open_ease_type)
 
-func deactivate():
+func deactivate(_player: PlayerController = null):
 	door_slide(close_position, close_move_time, close_transition_type, close_ease_type)
 
 ## [b]Tweens[/b] the position of the [param door] to [param end_pos],[br]otherwise sets position if [param move_time] is [code]> 0[/code].
