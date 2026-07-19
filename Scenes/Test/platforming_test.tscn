@@ -1,0 +1,148 @@
+[gd_scene load_steps=10 format=3 uid="uid://f0liy10oo7xv"]
+
+[ext_resource type="Material" uid="uid://c32rn5p4ng1mu" path="res://Assets/Materials/tile_grass.tres" id="1_nehjv"]
+[ext_resource type="PackedScene" uid="uid://detwpgemm2bao" path="res://Assets/Entities/Player/player_controller.tscn" id="2_0lcol"]
+[ext_resource type="Material" uid="uid://cbhhpnpt0jj6n" path="res://Assets/Materials/tile_dark.tres" id="2_4y5b7"]
+[ext_resource type="Material" uid="uid://ba41kre8tm21r" path="res://Assets/Materials/Nature/Bark.tres" id="3_4y5b7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4y5b7"]
+sky_top_color = Color(0.14536, 0.179754, 0.19137, 1)
+sky_horizon_color = Color(0.340108, 0.343115, 0.343929, 1)
+ground_bottom_color = Color(0.161146, 0.138777, 0.130419, 1)
+ground_horizon_color = Color(0.340108, 0.343115, 0.343929, 1)
+
+[sub_resource type="Sky" id="Sky_3jsup"]
+sky_material = SubResource("ProceduralSkyMaterial_4y5b7")
+
+[sub_resource type="Environment" id="Environment_28m21"]
+background_mode = 2
+sky = SubResource("Sky_3jsup")
+tonemap_mode = 2
+ssao_enabled = true
+glow_enabled = true
+
+[sub_resource type="Curve" id="Curve_3jsup"]
+_data = [Vector2(0, 0.498392), 0.0, 1.65598, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_28m21"]
+material = ExtResource("1_nehjv")
+radius = 4.9
+radial_steps = 16
+sections = 2
+section_length = 0.65
+curve = SubResource("Curve_3jsup")
+
+[node name="world" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.969492, 0.050545, -0.239853, 2.28349e-10, 0.978509, 0.206204, 0.245121, 0.199913, -0.948657, 0, 0, 0)
+light_color = Color(0.923176, 0.930943, 0.938806, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_28m21")
+
+[node name="environment" type="Node3D" parent="."]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="environment"]
+use_collision = true
+collision_layer = 1280
+collision_mask = 1027
+
+[node name="CSGBox3D" type="CSGBox3D" parent="environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.9, -0.4, -8.2)
+size = Vector3(25.6, 1, 26.4)
+material = ExtResource("1_nehjv")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 0.0320213, 0.342485, 0, -0.999487, 0.0109724, 0, 0.475771, -7.17187)
+operation = 2
+radius = 2.01855
+height = 22.0563
+sides = 16
+material = ExtResource("2_4y5b7")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 3.21388, 0, 0, 0, 2.16384, -6.17073, 1.6354, 0.0738754)
+mesh = SubResource("TubeTrailMesh_28m21")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="environment/CSGCombiner3D"]
+transform = Transform3D(0.185568, 0, -0.890572, 0, 1.62465, 0, 0.893954, 0, 0.184866, -6.97465, 0.13685, -21.3724)
+mesh = SubResource("TubeTrailMesh_28m21")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="environment/CSGCombiner3D"]
+transform = Transform3D(1.45707, 0, 0, 0, 0.301587, 0, 0, 0, 1.41383, 2.83698, -0.120456, -19.2565)
+radius = 2.2
+radial_segments = 16
+rings = 10
+material = ExtResource("1_nehjv")
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="environment/CSGCombiner3D"]
+transform = Transform3D(0.201662, -0.0457354, -1.38371, -0.667986, 0.261219, -0.281408, 1.27913, 0.143624, 0.071192, -0.555697, 0.348084, -22.2907)
+radius = 2.2
+radial_segments = 16
+rings = 10
+material = ExtResource("1_nehjv")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.48929, 0.424793, -3.55988)
+height = 1.1665
+material = ExtResource("3_4y5b7")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.17472, 0.375469, -9.37447)
+radius = 0.377441
+height = 0.693604
+material = ExtResource("3_4y5b7")
+
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="environment/CSGCombiner3D"]
+transform = Transform3D(0.892789, 0.449628, 0.0276055, -0.386973, 0.734125, 0.557953, 0.230605, -0.508817, 0.829413, -3.35668, 5.42702, -8.70958)
+radius = 0.366699
+height = 7.4845
+material = ExtResource("3_4y5b7")
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="environment/CSGCombiner3D"]
+transform = Transform3D(0.999471, -0.0324812, 0.00173012, 0.0325272, 0.998056, -0.0531618, -1.16415e-10, 0.05319, 0.998584, -6.4681, 10.096, -16.3932)
+radius = 0.660645
+height = 20.2183
+material = ExtResource("3_4y5b7")
+
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="environment/CSGCombiner3D"]
+transform = Transform3D(0.985654, 0.155055, 0.0666716, 0.0279959, 0.23935, -0.97053, -0.166443, 0.958472, 0.231576, -5.84643, 4.35573, -14.1094)
+radius = 0.164063
+height = 4.75101
+material = ExtResource("3_4y5b7")
+
+[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="environment/CSGCombiner3D"]
+transform = Transform3D(0.707242, 0.706967, 0.00249712, -0.117748, 0.121275, -0.985611, -0.697097, 0.696771, 0.169014, -5.21594, 2.65916, -15.6277)
+radius = 0.164063
+height = 2.24171
+material = ExtResource("3_4y5b7")
+
+[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="environment/CSGCombiner3D"]
+transform = Transform3D(-0.00141136, 0.732271, 0.681012, -0.232183, 0.662162, -0.712483, -0.972671, -0.159125, 0.169087, -4.28587, 7.66916, -16.9433)
+radius = 0.164063
+height = 4.75101
+material = ExtResource("3_4y5b7")
+
+[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="environment/CSGCombiner3D"]
+transform = Transform3D(0.960543, 0.272331, -0.0565141, -0.0600807, 0.00476889, -0.998182, -0.271567, 0.962192, 0.0209425, -4.1796, 4.97997, -9.90166)
+radius = 0.164063
+height = 2.77564
+material = ExtResource("3_4y5b7")
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="environment/CSGCombiner3D"]
+transform = Transform3D(0.916016, 0.376322, -0.138914, 0.0737501, 0.182403, 0.980454, 0.394305, -0.908356, 0.13933, -1.79702, 1.10708, -20.8365)
+radius = 0.307129
+height = 10.9063
+material = ExtResource("3_4y5b7")
+
+[node name="CSGCylinder3D11" type="CSGCylinder3D" parent="environment/CSGCombiner3D"]
+transform = Transform3D(0.790836, -0.607779, -0.071995, 0.407387, 0.61054, -0.679173, 0.456743, 0.507785, 0.730439, -4.11004, 1.25491, -16.9634)
+radius = 0.169434
+height = 2.5879
+material = ExtResource("3_4y5b7")
+
+[node name="Player" parent="." instance=ExtResource("2_0lcol")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.6, 1.8)
