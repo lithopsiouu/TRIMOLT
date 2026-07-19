@@ -8,6 +8,7 @@ func enter() -> void:
 	player.can_stumble = true
 	player.jumping = false
 	player.can_sprint = true
+	player.coyote_time_active = true
 
 func update(_delta: float) -> void:
 	

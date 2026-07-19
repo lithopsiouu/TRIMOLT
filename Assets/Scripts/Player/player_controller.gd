@@ -7,12 +7,13 @@ extends RigidBody3D
 ## Also uses a [StateMachine] for attacks and attack states.
 
 # Node access
+@onready var coyote_timer: Timer = $CoyoteTimer
 @onready var state_machine_movement: StateMachine = $StateMachineMovement
 @onready var camera: Camera3D = $HeadPosition/CameraHolder/PlayerCamera
 @onready var camera_holder: Node3D = $HeadPosition/CameraHolder
 @onready var head_position: Node3D = $HeadPosition
 @onready var ground_check: ShapeCast3D = $GroundCheck
-@onready var float_ray: RayCast3D = $FloatRay
+@onready var float_ray: ShapeCast3D = $FloatCast
 @onready var uncrouch_check: ShapeCast3D = $UncrouchCheck
 @onready var collider: CollisionShape3D = $Collider
 
@@ -25,6 +26,7 @@ var jumping: bool = false
 var _can_uncrouch: bool = false
 var _crouch_pressed: bool = false
 var stumbling: bool = false
+var coyote_time_active: bool = true
 
 # Stats
 @export var _max_health: float = 100
@@ -125,8 +127,9 @@ func _input(event):
 		mouse_input = event.relative
 		_cam_input = mouse_input * mouse_view_sensitivity
 	
-	if Input.is_action_just_pressed("Jump") and jumping == false and ground_check.is_colliding():
+	if Input.is_action_just_pressed("Jump") and jumping == false and coyote_time_active:
 		jump()
+		coyote_time_active = false
 	
 	if toggle_sprint == false:
 		if Input.is_action_just_pressed("Sprint") and can_sprint:
@@ -237,7 +240,7 @@ func get_fall_distance() -> void:
 	
 func force_body_up(): #add float strength change for declines(?)
 	var other_vel = Vector3.ZERO
-	var hit_body = float_ray.get_collider()
+	var hit_body = float_ray.get_collider(0)
 	
 	if hit_body != null and hit_body.get("linear_velocity") != null:
 		other_vel = hit_body.get("linear_velocity")
@@ -247,7 +250,7 @@ func force_body_up(): #add float strength change for declines(?)
 	
 	var rel_vel = ray_dir_vel - other_dir_vel
 	
-	var dist_to_ground = (global_position.distance_to(float_ray.get_collision_point()) - current_spring_rest_offset)
+	var dist_to_ground = (global_position.distance_to(float_ray.get_collision_point(0)) - current_spring_rest_offset)
 	
 	var float_strength: float
 	if crouching:
@@ -263,7 +266,7 @@ func force_body_up(): #add float strength change for declines(?)
 	add_constant_force(Vector3.DOWN * spring_force)
 	
 	if hit_body != null and hit_body.is_class("RigidBody3D"):
-		hit_body.apply_force(Vector3.DOWN * -spring_force, float_ray.get_collision_point())
+		hit_body.apply_force(Vector3.DOWN * -spring_force, float_ray.get_collision_point(0))
 
 func _rotate_cam(delta: float) -> void:
 	camera_holder.rotation_degrees.x -= _cam_input.y * delta
@@ -311,3 +314,7 @@ func _timer(seconds: float) -> SceneTreeTimer:
 func set_sprinting(_sprinting: bool) -> void:
 	sprinting = _sprinting
 	sprint_toggle = _sprinting
+
+
+func _on_coyote_timer_timeout() -> void:
+	coyote_time_active = false

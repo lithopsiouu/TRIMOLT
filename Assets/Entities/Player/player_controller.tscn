@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://detwpgemm2bao"]
+[gd_scene load_steps=31 format=3 uid="uid://detwpgemm2bao"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://6u3ecb4i6wfg" path="res://Assets/Materials/Physics/PlayerPhysMaterial.tres" id="1_bcsyx"]
 [ext_resource type="Script" uid="uid://n1oiffhd5cdv" path="res://Assets/Scripts/Player/player_controller.gd" id="1_hxfs4"]
@@ -52,6 +52,10 @@ noise = SubResource("FastNoiseLite_7sxge")
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ee0rm"]
 height = 0.25
 radius = 0.25
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_i68cg"]
+height = 0.2
+radius = 0.2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fcpa2"]
 size = Vector3(0.5, 1.5, 0.5)
@@ -183,6 +187,10 @@ max_results = 1
 collision_mask = 256
 debug_shape_custom_color = Color(0.6, 0.356863, 0.647059, 1)
 
+[node name="FloatCast" type="ShapeCast3D" parent="."]
+shape = SubResource("CylinderShape3D_i68cg")
+collision_mask = 1792
+
 [node name="FloatRay" type="RayCast3D" parent="."]
 target_position = Vector3(0, -1.1, 0)
 collision_mask = 1282
@@ -204,3 +212,9 @@ target_position = Vector3(0, 0.55, 0)
 max_results = 1
 collision_mask = 1536
 debug_shape_custom_color = Color(0.598548, 0.357546, 0.646193, 1)
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]

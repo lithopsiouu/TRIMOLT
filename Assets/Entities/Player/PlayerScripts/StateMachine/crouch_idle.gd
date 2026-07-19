@@ -9,6 +9,8 @@ func enter() -> void:
 	player.can_sprint = false
 	player.jumping = false
 	player.set_sprinting(false)
+	player.coyote_time_active = true
+	player.coyote_timer.stop()
 
 func update(_delta: float) -> void:
 	

@@ -320,7 +320,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 8)
 mesh = SubResource("QuadMesh_uwb70")
 
 [node name="Player" parent="." instance=ExtResource("10_3mern")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45723, 1.59697, 7.67183)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.9202, 5.50385, 8.961)
 
 [node name="door_slide" parent="." instance=ExtResource("10_ut2o3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.499999, 5)

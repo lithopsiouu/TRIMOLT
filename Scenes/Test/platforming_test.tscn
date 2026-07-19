@@ -36,7 +36,7 @@ curve = SubResource("Curve_3jsup")
 [node name="world" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.969492, 0.050545, -0.239853, 2.28349e-10, 0.978509, 0.206204, 0.245121, 0.199913, -0.948657, 0, 0, 0)
+transform = Transform3D(-0.811736, 0.256797, -0.524537, -0.0763635, 0.843763, 0.531255, 0.579009, 0.471295, -0.665303, 0, 0, 0)
 light_color = Color(0.923176, 0.930943, 0.938806, 1)
 shadow_enabled = true
 
@@ -109,14 +109,14 @@ height = 20.2183
 material = ExtResource("3_4y5b7")
 
 [node name="CSGCylinder3D6" type="CSGCylinder3D" parent="environment/CSGCombiner3D"]
-transform = Transform3D(0.985654, 0.155055, 0.0666716, 0.0279959, 0.23935, -0.97053, -0.166443, 0.958472, 0.231576, -5.84643, 4.35573, -14.1094)
-radius = 0.164063
-height = 4.75101
+transform = Transform3D(0.991382, 0.0985654, 0.0862944, 0.0450591, 0.361972, -0.9311, -0.12301, 0.926963, 0.354412, -6.1418, 4.07217, -14.0056)
+radius = 0.261719
+height = 5.15187
 material = ExtResource("3_4y5b7")
 
 [node name="CSGCylinder3D10" type="CSGCylinder3D" parent="environment/CSGCombiner3D"]
-transform = Transform3D(0.707242, 0.706967, 0.00249712, -0.117748, 0.121275, -0.985611, -0.697097, 0.696771, 0.169014, -5.21594, 2.65916, -15.6277)
-radius = 0.164063
+transform = Transform3D(0.707242, 0.706967, 0.00249712, -0.117748, 0.121275, -0.985611, -0.697097, 0.696771, 0.169014, -5.14089, 2.92274, -15.5961)
+radius = 0.276367
 height = 2.24171
 material = ExtResource("3_4y5b7")
 
@@ -127,9 +127,9 @@ height = 4.75101
 material = ExtResource("3_4y5b7")
 
 [node name="CSGCylinder3D8" type="CSGCylinder3D" parent="environment/CSGCombiner3D"]
-transform = Transform3D(0.960543, 0.272331, -0.0565141, -0.0600807, 0.00476889, -0.998182, -0.271567, 0.962192, 0.0209425, -4.1796, 4.97997, -9.90166)
+transform = Transform3D(0.93897, 0.339327, -0.0565141, -0.0602674, 0.00052418, -0.998182, -0.338681, 0.940668, 0.0209425, -4.26509, 4.97847, -10.2037)
 radius = 0.164063
-height = 2.77564
+height = 3.40345
 material = ExtResource("3_4y5b7")
 
 [node name="CSGCylinder3D5" type="CSGCylinder3D" parent="environment/CSGCombiner3D"]
@@ -143,6 +143,12 @@ transform = Transform3D(0.790836, -0.607779, -0.071995, 0.407387, 0.61054, -0.67
 radius = 0.169434
 height = 2.5879
 material = ExtResource("3_4y5b7")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="environment"]
+transform = Transform3D(0.88843, 0.00260197, 0.459005, -0.438795, -0.288695, 0.850949, 0.134726, -0.957418, -0.255343, -2.67932, 5.57789, -17.642)
+spot_range = 6.29
+spot_attenuation = 0.31
+spot_angle = 31.34
 
 [node name="Player" parent="." instance=ExtResource("2_0lcol")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.6, 1.8)

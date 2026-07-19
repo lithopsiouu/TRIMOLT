@@ -6,6 +6,8 @@ extends State
 
 func enter() -> void:
 	player.crouching = false
+	player.coyote_time_active = true
+	player.coyote_timer.stop()
 
 func update(_delta: float) -> void:
 	

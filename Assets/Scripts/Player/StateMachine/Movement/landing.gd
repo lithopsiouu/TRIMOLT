@@ -8,6 +8,8 @@ extends State
 
 func enter() -> void:
 	player.can_sprint = true
+	player.coyote_time_active = true
+	player.coyote_timer.stop()
 
 func update(_delta: float) -> void:
 	# If falling from a great height:

@@ -8,6 +8,9 @@ func enter() -> void:
 	player.jumping = false
 	player.can_sprint = true
 	
+	if player.coyote_timer.is_stopped():
+		player.coyote_timer.start()
+	
 	if state_machine.last_state != state_machine.states.get("falling"):
 		player.init_fall_pos = player.global_position
 
