@@ -32,8 +32,8 @@ radius = 0.3
 height = 1.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1b6kx"]
-radius = 0.4
-height = 1.2
+radius = 0.2
+height = 0.9
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7sxge"]
 noise_type = 2
@@ -139,7 +139,7 @@ fov = 90.0
 script = ExtResource("5_tamhk")
 
 [node name="Interactor" type="Area3D" parent="HeadPosition/CameraHolder/InteractorController"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("6_gdf4d")

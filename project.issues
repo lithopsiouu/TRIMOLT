@@ -286,12 +286,12 @@
 				"priority": 5.0
 			},
 			{
-				"text": "open door in direction player facing (unhandled door init rotation)",
+				"text": "open door in direction player facing",
 				"tags": [
 					"door.gd",
 					"todo"
 				],
-				"timestamp": 1784107369.077
+				"timestamp": 1783988486.294
 			}
 		]
 	}
