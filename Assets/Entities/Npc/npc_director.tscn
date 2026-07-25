@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bqqgnk2l0x8di"]
+
+[node name="NpcDirector" type="Node"]
+
+[node name="WanderTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 8.0
+autostart = true
