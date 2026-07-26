@@ -1,4 +1,4 @@
-class_name NpcBase extends Node3D
+class_name Npc extends Node3D
 
 ## Base for npc movement. Allows for controlling
 
@@ -6,14 +6,19 @@ class_name NpcBase extends Node3D
 @onready var head_detector: ShapeCast3D = $ShapeCast3D
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 
+@export_category("Settings")
+@export var turn_to_path_node: bool = true
+
 var npc_head_height: float = 1.0
 var npc_detection_direction: Vector3 = Vector3.FORWARD
 var npc_detection_distance: int = 1.0
-var move_speed: float = 0.3
+var npc_detection_transform: Vector3
 
+var move_speed: float = 0.3
 var destination_reached: bool = true
 
-var npc_detection_transform: Vector3
+# states
+var wandering: bool = false
 
 func _init() -> void:
 	npc_detection_transform = npc_detection_direction.normalized() * npc_detection_distance
@@ -41,6 +46,7 @@ func _physics_process(delta: float) -> void:
 		var local_destination = destination - global_position
 		var direction = local_destination.normalized() 
 		
+		look_at(nav_agent.get_next_path_position())
 		global_position += direction * move_speed
 
 ## Sets the navigation agent's target position.
@@ -48,6 +54,9 @@ func set_new_nav_target_pos(pos: Vector3) -> void:
 	destination_reached = false
 	nav_agent.target_position = pos
 
+func set_wander_nav_target_pos(pos: Vector3) -> void:
+	wandering = true
+	set_new_nav_target_pos(pos)
+
 func _on_destination_reached() -> void:
 	destination_reached = true
-	print("destination reached")

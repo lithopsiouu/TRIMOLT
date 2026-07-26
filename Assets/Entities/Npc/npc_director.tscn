@@ -1,8 +1,10 @@
-[gd_scene format=3 uid="uid://bqqgnk2l0x8di"]
+[gd_scene load_steps=2 format=3 uid="uid://bqqgnk2l0x8di"]
+
+[ext_resource type="Script" uid="uid://dnom45dc5l4s6" path="res://Assets/Scripts/Npc/npc_director.gd" id="1_4xqhm"]
 
 [node name="NpcDirector" type="Node"]
+script = ExtResource("1_4xqhm")
 
 [node name="WanderTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 8.0
-autostart = true
