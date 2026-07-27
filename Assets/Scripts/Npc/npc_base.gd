@@ -7,14 +7,15 @@ class_name Npc extends Node3D
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 
 @export_category("Settings")
-@export var turn_to_path_node: bool = true
+@export var face_path_node: bool = true
 
 var npc_head_height: float = 1.0
 var npc_detection_direction: Vector3 = Vector3.FORWARD
 var npc_detection_distance: int = 1.0
 var npc_detection_transform: Vector3
 
-var move_speed: float = 0.3
+var follow_speed: float = 0.2
+var wander_speed: float = 0.08
 var destination_reached: bool = true
 
 # states
@@ -34,11 +35,11 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("Mental_Map_Camera_Pan"):
+		wandering = false
 		var randompos := Vector3.ZERO
 		randompos.z = randf_range(-5.0, 5.0)
 		randompos.x = randf_range(-5.0, 5.0)
 		set_new_nav_target_pos(randompos)
-
 
 func _physics_process(delta: float) -> void:
 	if destination_reached == false:
@@ -46,17 +47,30 @@ func _physics_process(delta: float) -> void:
 		var local_destination = destination - global_position
 		var direction = local_destination.normalized() 
 		
-		look_at(nav_agent.get_next_path_position())
-		global_position += direction * move_speed
+		if face_path_node:
+			look_at(nav_agent.get_next_path_position())
+		
+		if wandering:
+			global_position += direction * wander_speed
+			
+		else:
+			global_position += direction * follow_speed
 
 ## Sets the navigation agent's target position.
 func set_new_nav_target_pos(pos: Vector3) -> void:
 	destination_reached = false
 	nav_agent.target_position = pos
 
+## Set nav agent to wander to a pos
 func set_wander_nav_target_pos(pos: Vector3) -> void:
 	wandering = true
 	set_new_nav_target_pos(pos)
 
+## Set nav agent to follow to a pos
+func set_follow_nav_target_pos(pos: Vector3) -> void:
+	wandering = false
+	set_new_nav_target_pos(pos)
+
 func _on_destination_reached() -> void:
 	destination_reached = true
+	wandering = false

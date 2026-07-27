@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://c3yagmgholp6q"]
+[gd_scene load_steps=9 format=3 uid="uid://c3yagmgholp6q"]
 
 [ext_resource type="Material" uid="uid://bclljgmw3n7ur" path="res://Assets/Materials/tile_concrete_white.tres" id="1_sw7su"]
 [ext_resource type="Material" uid="uid://be68h5dj3yjlo" path="res://Assets/Materials/tile_kenney_dark_13.tres" id="2_oloju"]
 [ext_resource type="PackedScene" uid="uid://qu8pn1uea8fu" path="res://Assets/Entities/Npc/npc_base.tscn" id="3_8hjoa"]
+[ext_resource type="PackedScene" uid="uid://bqqgnk2l0x8di" path="res://Assets/Entities/Npc/npc_director.tscn" id="3_w8dbt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oloju"]
 sky_top_color = Color(0.7832, 0.8558, 0.88, 1)
@@ -35,8 +36,6 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 6.8
 projection = 1
 current = true
 size = 11.0
-
-[node name="NpcDirector" type="Node" parent="."]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_8hjoa")
@@ -91,5 +90,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.33339, 1.8, -3.3)
 size = Vector3(1.2, 3.4, 1.2)
 material = ExtResource("2_oloju")
 
-[node name="Npc" parent="NavigationRegion3D" instance=ExtResource("3_8hjoa")]
+[node name="NpcDirector" parent="NavigationRegion3D" instance=ExtResource("3_w8dbt")]
+wander_time = 5.0
+
+[node name="Npc" parent="NavigationRegion3D/NpcDirector" instance=ExtResource("3_8hjoa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 2)
+
+[node name="Npc2" parent="NavigationRegion3D/NpcDirector" instance=ExtResource("3_8hjoa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 2)
+
+[node name="Npc3" parent="NavigationRegion3D/NpcDirector" instance=ExtResource("3_8hjoa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 2)
+
+[node name="Npc4" parent="NavigationRegion3D/NpcDirector" instance=ExtResource("3_8hjoa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 2)
+
+[node name="Npc5" parent="NavigationRegion3D/NpcDirector" instance=ExtResource("3_8hjoa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 2)
+
+[node name="Npc6" parent="NavigationRegion3D/NpcDirector" instance=ExtResource("3_8hjoa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 2)

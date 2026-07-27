@@ -14,5 +14,5 @@ func update(_delta: float) -> void:
 		state_machine.change_state("wandering")
 	
 	# If npc has a destination
-	if npc.destination_reached == false:
+	elif npc.destination_reached == false:
 		state_machine.change_state("following")

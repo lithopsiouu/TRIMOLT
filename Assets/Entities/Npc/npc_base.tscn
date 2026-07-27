@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cto7schwucorg" path="res://Assets/Scripts/Npc/npc_base.gd" id="1_kf0iq"]
 [ext_resource type="Material" uid="uid://cfb31xxxnyuff" path="res://Assets/Materials/Error.tres" id="1_y668j"]
 [ext_resource type="Script" uid="uid://d1x66i6bnu08w" path="res://Assets/Scripts/StateMachine.gd" id="3_uscak"]
-[ext_resource type="Script" uid="uid://c6rgjfm5k8631" path="res://Assets/Scripts/State.gd" id="4_7aasj"]
+[ext_resource type="Script" uid="uid://ctf31tfxaf8xj" path="res://Assets/Scripts/Npc/Npc Base StateMachine/wandering.gd" id="5_7aasj"]
 [ext_resource type="Script" uid="uid://kh2ox7nkvg4a" path="res://Assets/Scripts/Npc/Npc Base StateMachine/idle.gd" id="5_401f2"]
 [ext_resource type="Script" uid="uid://dl6ycyj6es2l8" path="res://Assets/Scripts/Npc/Npc Base StateMachine/following.gd" id="6_7aasj"]
 
@@ -41,7 +41,7 @@ script = ExtResource("5_401f2")
 metadata/_custom_type_script = "uid://c6rgjfm5k8631"
 
 [node name="Wandering" type="Node" parent="StateMachine"]
-script = ExtResource("4_7aasj")
+script = ExtResource("5_7aasj")
 metadata/_custom_type_script = "uid://c6rgjfm5k8631"
 
 [node name="Following" type="Node" parent="StateMachine"]
