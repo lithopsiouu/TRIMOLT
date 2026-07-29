@@ -10,3 +10,4 @@ albedo_color = Color(1, 1, 1, 0.392157)
 albedo_texture = ExtResource("1_x7pxu")
 metallic_specular = 0.0
 roughness = 0.0
+billboard_mode = 2

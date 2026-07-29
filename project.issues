@@ -292,6 +292,22 @@
 					"todo"
 				],
 				"timestamp": 1783988486.294
+			},
+			{
+				"text": "correctly implement player movement responsiveness",
+				"tags": [
+					"player_controller.gd",
+					"todo"
+				],
+				"timestamp": 1785350553.28
+			},
+			{
+				"text": "velocity bug when hovering over ledge causes stumble",
+				"tags": [
+					"player_controller.gd",
+					"issue"
+				],
+				"timestamp": 1785350643.527
 			}
 		]
 	}

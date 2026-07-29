@@ -5,8 +5,8 @@ extends State
 @onready var player: PlayerController = self.get_parent().get_parent()
 var _vel_diff: float = 0.0
 var _stumble_time: float = 0.0
-const STUMBLE_TIME_MOD: float = 0.6
-const STUMBLE_STRENGTH_MOD: float = 0.3
+const STUMBLE_TIME_MOD: float = 0.6 ## Multiply stumble time
+const STUMBLE_STRENGTH_MOD: float = 0.3 ## Multiply stumble strength
 
 func enter() -> void:
 	player.crouching = false

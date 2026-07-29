@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://detwpgemm2bao"]
+[gd_scene load_steps=33 format=3 uid="uid://detwpgemm2bao"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://6u3ecb4i6wfg" path="res://Assets/Materials/Physics/PlayerPhysMaterial.tres" id="1_bcsyx"]
 [ext_resource type="Script" uid="uid://n1oiffhd5cdv" path="res://Assets/Scripts/Player/player_controller.gd" id="1_hxfs4"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://dgaqgl71nwssu" path="res://Assets/Entities/Interaction/inventory.tscn" id="19_fcpa2"]
 [ext_resource type="Script" uid="uid://06cp6tfh25a8" path="res://Assets/Scripts/Combat/Hurtbox.gd" id="19_i68cg"]
 [ext_resource type="ArrayMesh" uid="uid://dq0816edkpv60" path="res://Assets/Models/Characters/Player/Pupa/polyphemus_pupa_Plane.res" id="20_i68cg"]
+[ext_resource type="PackedScene" uid="uid://dtyumyb40f1k8" path="res://Assets/Entities/fx/weather_emitter.tscn" id="23_neo3l"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ekv7g"]
 radius = 0.3
@@ -83,6 +84,7 @@ shape = SubResource("CapsuleShape3D_ekv7g")
 debug_color = Color(0.60507, 0.4374, 0.81, 0.572549)
 
 [node name="Mesh" type="MeshInstance3D" parent="Collider"]
+layers = 512
 mesh = SubResource("CapsuleMesh_wryva")
 
 [node name="StateMachineMovement" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
@@ -219,5 +221,8 @@ debug_shape_custom_color = Color(0.598548, 0.357546, 0.646193, 1)
 [node name="CoyoteTimer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
+
+[node name="Weather Emitter" parent="." instance=ExtResource("23_neo3l")]
+visible = false
 
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]

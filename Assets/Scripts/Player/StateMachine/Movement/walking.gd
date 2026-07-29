@@ -5,6 +5,7 @@ extends State
 @onready var player: PlayerController = self.get_parent().get_parent()
 
 func enter() -> void:
+	player.crouching = false
 	player.can_sprint = true
 	player.coyote_time_active = true
 	player.coyote_timer.stop()

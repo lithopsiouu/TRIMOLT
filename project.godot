@@ -14,6 +14,7 @@ config/name="mothball"
 run/main_scene="res://Scenes/Test/TestRoom08.tscn"
 config/features=PackedStringArray("4.4", "Mobile")
 boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/fullsize=false
 boot_splash/image="res://Assets/Materials/Textures/Logo/lithworks_logo_sharp_dropdown_inverted.png"
 config/icon="res://Assets/Materials/Textures/Logo/TRIMOLT.png"
 
@@ -253,6 +254,7 @@ Mental_Map_Node_Grab={
 
 [layer_names]
 
+3d_render/layer_10="Ignore Rain"
 3d_render/layer_20="HideFromPlayer"
 3d_physics/layer_1="Player"
 3d_navigation/layer_1="Walkable"

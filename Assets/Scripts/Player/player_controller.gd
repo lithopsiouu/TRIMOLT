@@ -35,8 +35,8 @@ var _health: float
 # Falling and stumbling
 var fall_height: float = 0.0 ## Vertical distance of a fall.
 var init_fall_pos: Vector3 = Vector3()
-const MIN_LAND_HEIGHT: float = 0.5 ## Minimum [param fall_height] required in order to cause a landing.
-const MIN_STUMBLE_VELOCITY: float = -8.0 ## Minimum [member RigidBody3D.linear_velocity.y] required in order to cause a stumble.
+const MIN_LAND_HEIGHT: float = 0.8 ## Minimum [param fall_height] required in order to cause a landing.
+const MIN_STUMBLE_VELOCITY: float = -11.0 ## Minimum [member RigidBody3D.linear_velocity.y] required in order to cause a stumble.
 var stumble_time: float = 0.5 ## Duration of stumble in seconds.
 var _stumble_timer: SceneTreeTimer
 var stumble_strength: float = 0.8 ## Strength of stumble.
@@ -46,9 +46,9 @@ var can_stumble: = false
 var spring_stand_offset: float = 1.1
 var spring_crouch_offset: float = 0.9
 var current_spring_rest_offset: float = 0.0
-var standing_float_strength: float = 110.0
+var standing_float_strength: float = 120.0
 var crouching_float_strength: float = 90.0
-var spring_damper: float = 10
+var spring_damper: float = 12
 
 # Velocity
 var target_velocity: float = 0.0
@@ -151,7 +151,7 @@ func _input(event):
 		_crouch_pressed = false
 
 func move_camera_height(delta: float) -> void:
-	if camera.position.y != cam_height:
+	if camera.position.y != cam_height and not stumbling:
 		head_position.position = head_position.position.lerp(Vector3(0, cam_height, 0), delta * cam_crouch_lerp_speed)
 
 ## Reduces player health by [param damage].
@@ -192,20 +192,23 @@ func _update_auto_uncrouch() -> void:
 func stumble(time: float = stumble_time, strength: float = stumble_strength) -> void:
 	if can_stumble:
 		stumbling = true
-		stumble_strength = clampf(stumble_strength, 0.1, 0.9)
-		stumble_time = clampf(stumble_time, 0.4, 1.6)
+		cam_height = cam_height_standing
+		stumble_strength = clampf(stumble_strength, 0.1, 2.0)
+		stumble_time = clampf(stumble_time, 0.3, 1.3)
 		print("stumbling for ", str(stumble_time), " seconds with a strength of ", str(stumble_strength), ".")
 		_stumble_timer = _timer(stumble_time)
 		
 		move_input_influence = clampf(1 - stumble_strength, 0.0, 0.6)
 		
-		var cam_rot_reduction = 0.4
-		var plus_or_minus = -1 if randi() < 0.5 else 1
+		var cam_rot_reduction = 0.3
+		var plus_or_minus = -1 if randi_range(-1, 1) < 0.5 else 1
 		rand_cam_rot = stumble_strength * plus_or_minus * cam_rot_reduction
 		
-		var time_fract = 0.8
+		var time_fract = 0.75 ## Amount of time spent rising
 		var time_fract_larger = stumble_time * time_fract
 		var time_fract_smaller = stumble_time * ( 1 - time_fract)
+		
+		camera_holder.rotation_degrees.x -= stumble_strength * 8 ## stumble strength multiplied to increase cam rotation
 		
 		var rot_z_tween = get_tree().create_tween()
 		var move_y_tween = get_tree().create_tween()
@@ -223,7 +226,7 @@ func _stumble_process():
 			var _inverse_stumble_progress = 1 - _stumble_progress ## Goes from 0 to 1.
 			
 			move_input_influence = lerpf(move_input_influence, 1.0, ease(_inverse_stumble_progress, 3))
-			print(move_input_influence)
+			#print(move_input_influence)
 			
 			if _stumble_timer.time_left <= 0.001:
 				stumbling = false
@@ -277,10 +280,15 @@ func _rotate_cam(delta: float) -> void:
 
 func _player_input_force() -> void:
 	var dir = Vector3(move_input.x, 0, move_input.y)
+	var vel_dir_diff = dir.dot(linear_velocity.normalized())
 	var velocity = dir * acceleration 
 	
 	if move_input.length() > 0:
 		var speed: float
+		
+		if vel_dir_diff < 0:
+			var pos_diff = abs(vel_dir_diff) * 2
+			velocity += Vector3(pos_diff, 0, pos_diff)
 		
 		apply_central_force(velocity.rotated(Vector3.UP, deg_to_rad(head_position.rotation_degrees.y)))
 		
