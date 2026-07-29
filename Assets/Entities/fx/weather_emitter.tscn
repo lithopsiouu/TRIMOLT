@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://dtyumyb40f1k8"]
+
+[ext_resource type="Material" uid="uid://df08jpm7hawiu" path="res://Assets/Materials/Nature/rain_droptres.tres" id="1_2aq1t"]
+[ext_resource type="Material" uid="uid://dgp630p0i887c" path="res://Assets/Entities/fx/rain_process_material.tres" id="2_x6esq"]
+[ext_resource type="Material" uid="uid://bfis6kxvne12p" path="res://Assets/Entities/fx/splash_process_material.tres" id="4_7jgvu"]
+[ext_resource type="Material" uid="uid://gtrimi06nii0" path="res://Assets/Materials/Nature/rain_splash.tres" id="6_dy1db"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_cncnq"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_b2csr"]
+material = ExtResource("6_dy1db")
+orientation = 1
+
+[node name="Weather Emitter" type="Node3D"]
+
+[node name="Rain" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15.2, 0)
+material_override = ExtResource("1_2aq1t")
+amount = 200
+sub_emitter = NodePath("../RainSplash")
+lifetime = 0.8
+fixed_fps = 60
+collision_base_size = 0.6
+visibility_aabb = AABB(-8, -30, -8, 16, 32, 16)
+draw_order = 3
+transform_align = 2
+process_material = ExtResource("2_x6esq")
+draw_pass_1 = SubResource("QuadMesh_cncnq")
+
+[node name="RainSplash" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 70
+lifetime = 0.2
+one_shot = true
+process_material = ExtResource("4_7jgvu")
+draw_pass_1 = SubResource("QuadMesh_b2csr")
+
+[node name="GPUParticlesCollisionHeightField3D" type="GPUParticlesCollisionHeightField3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.715, 0)
+size = Vector3(32, 25.85, 32)
+follow_camera_enabled = true

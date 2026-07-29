@@ -1,0 +1,22 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=3 format=3 uid="uid://dgp630p0i887c"]
+
+[ext_resource type="Texture2D" uid="uid://dgys0o5xkrclf" path="res://Assets/Entities/fx/curves/rain/curve_scale_texture.tres" id="1_2s2rq"]
+[ext_resource type="Texture2D" uid="uid://cr3k3b7yvt0vu" path="res://Assets/Entities/fx/curves/rain/curve_scale_xyz_texture.tres" id="2_f24ly"]
+
+[resource]
+particle_flag_rotate_y = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+angle_min = -360.0
+angle_max = 360.0
+direction = Vector3(0, -1, 0)
+spread = 3.0
+initial_velocity_min = 20.0
+initial_velocity_max = 25.0
+scale_min = 0.4
+scale_max = 0.8
+scale_curve = ExtResource("1_2s2rq")
+scale_over_velocity_curve = ExtResource("2_f24ly")
+collision_mode = 2
+sub_emitter_mode = 3
+sub_emitter_amount_at_collision = 1

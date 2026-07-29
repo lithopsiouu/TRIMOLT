@@ -1,6 +1,7 @@
 extends Node3D
 
 @onready var interactor: Interactor = $Interactor
+@onready var inventory: Inventory = $Inventory
 var interactables
 @onready var interactor_shape: CollisionShape3D = $Interactor/CollisionShape3D
 @onready var enable_timer: Timer = $EnableTime
@@ -73,16 +74,34 @@ func track_interaction_prompt_offscreen() -> void:
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("Interact"):
 		_interact()
+	
+	if Input.is_action_just_pressed("Swap_Last_Weapon"):
+		drop_item()
 
 func _interact():
 	if interactables.size() == 0:
 		print("no interactables")
 		return
 	
-	if interactables[0].has_method("_toggle"):
-		interactables[0]._toggle()
+	var interactable = interactables[0]
+	
+	if interactable.has_method("_toggle"):
+		
+		if interactable.get_parent() is Item:
+			inventory.add_item(interactable.get_parent())
+		
+		interactable._toggle()
+		
+	
 	#interactor_shape.disabled = false
 	#enable_timer.start()
+
+func drop_item() -> void:
+	if inventory.items.size() == 0:
+		print("no item in inventory")
+		return
+	
+	inventory.drop_item(inventory.items[0], global_position)
 
 func _disable_interactor_shape():
 	interactor_shape.disabled = true

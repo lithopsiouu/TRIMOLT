@@ -1,0 +1,6 @@
+[gd_resource type="CurveTexture" load_steps=2 format=3 uid="uid://cy3v5m08un55"]
+
+[ext_resource type="Curve" uid="uid://wdmt60t3fkdi" path="res://Assets/Entities/fx/curves/rain/splash_curve_alpha.tres" id="1_vx30d"]
+
+[resource]
+curve = ExtResource("1_vx30d")

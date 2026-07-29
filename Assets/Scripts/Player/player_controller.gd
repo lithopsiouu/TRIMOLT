@@ -48,7 +48,7 @@ var spring_crouch_offset: float = 0.9
 var current_spring_rest_offset: float = 0.0
 var standing_float_strength: float = 110.0
 var crouching_float_strength: float = 90.0
-var spring_damper: float = 8
+var spring_damper: float = 10
 
 # Velocity
 var target_velocity: float = 0.0
@@ -57,7 +57,7 @@ var acceleration: float = 8.0
 var run_speed: float = 2.5
 var walk_speed: float = 1.5
 var stop_speed: float = 0.6
-var jump_velocity: float = 7.4
+var jump_velocity: float = 8.5
 
 # Movement
 var move_input: Vector2 = Vector2.ZERO ## Direction of movement input

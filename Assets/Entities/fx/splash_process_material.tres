@@ -1,0 +1,23 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=4 format=3 uid="uid://bfis6kxvne12p"]
+
+[ext_resource type="Texture2D" uid="uid://cy3v5m08un55" path="res://Assets/Entities/fx/curves/rain/splash_curve_alpha_texture.tres" id="1_lx1da"]
+[ext_resource type="Texture2D" uid="uid://og5tr0br4jm4" path="res://Assets/Entities/fx/curves/rain/splash_curve_scale_texture.tres" id="2_afvy0"]
+[ext_resource type="Texture2D" uid="uid://bt5pxvmd3ao8u" path="res://Assets/Entities/fx/curves/rain/splash_curve_angle_texture.tres" id="2_g7whi"]
+
+[resource]
+lifetime_randomness = 0.25
+particle_flag_rotate_y = true
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, 1, 0)
+spread = 5.0
+initial_velocity_min = 0.5
+initial_velocity_max = 0.8
+angular_velocity_min = -40.0
+angular_velocity_max = 40.0
+angular_velocity_curve = ExtResource("2_g7whi")
+gravity = Vector3(0, -5, 0)
+scale_min = 0.1
+scale_max = 0.3
+scale_curve = ExtResource("2_afvy0")
+alpha_curve = ExtResource("1_lx1da")

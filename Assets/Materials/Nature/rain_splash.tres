@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://gtrimi06nii0"]
+
+[ext_resource type="Texture2D" uid="uid://dwhbixl63ymv6" path="res://Assets/Materials/Textures/Particle/rain_splash.png" id="1_iu5cr"]
+
+[resource]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.545098)
+albedo_texture = ExtResource("1_iu5cr")
+metallic_specular = 0.0
+roughness = 0.0

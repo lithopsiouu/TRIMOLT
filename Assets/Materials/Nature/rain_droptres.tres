@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://df08jpm7hawiu"]
+
+[ext_resource type="Texture2D" uid="uid://daa61hueex2b" path="res://Assets/Materials/Textures/Particle/raindrop.png" id="1_x7pxu"]
+
+[resource]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+albedo_color = Color(1, 1, 1, 0.392157)
+albedo_texture = ExtResource("1_x7pxu")
+metallic_specular = 0.0
+roughness = 0.0

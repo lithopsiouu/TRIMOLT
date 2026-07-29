@@ -1,0 +1,14 @@
+[gd_resource type="CurveXYZTexture" load_steps=4 format=3 uid="uid://cr3k3b7yvt0vu"]
+
+[ext_resource type="Curve" uid="uid://csn5c80tnqkrl" path="res://Assets/Entities/fx/curves/rain/curve_scale_x.tres" id="1_75mur"]
+[ext_resource type="Curve" uid="uid://bucaq6thy0drg" path="res://Assets/Entities/fx/curves/rain/curve_scale_y.tres" id="2_fuq0j"]
+
+[sub_resource type="Curve" id="Curve_vto7q"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[resource]
+curve_x = ExtResource("1_75mur")
+curve_y = ExtResource("2_fuq0j")
+curve_z = SubResource("Curve_vto7q")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://detwpgemm2bao"]
+[gd_scene load_steps=32 format=3 uid="uid://detwpgemm2bao"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://6u3ecb4i6wfg" path="res://Assets/Materials/Physics/PlayerPhysMaterial.tres" id="1_bcsyx"]
 [ext_resource type="Script" uid="uid://n1oiffhd5cdv" path="res://Assets/Scripts/Player/player_controller.gd" id="1_hxfs4"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://bcrtdhnicmvvg" path="res://Assets/Scripts/Player/StateMachine/Movement/landing.gd" id="13_3am3k"]
 [ext_resource type="Script" uid="uid://jexf41khmgh8" path="res://Assets/Scripts/Player/StateMachine/Movement/stumbling.gd" id="14_ii21s"]
 [ext_resource type="PackedScene" uid="uid://tggth82lvupv" path="res://Assets/UI/test/test_UI_button_prompt.tscn" id="18_i68cg"]
+[ext_resource type="PackedScene" uid="uid://dgaqgl71nwssu" path="res://Assets/Entities/Interaction/inventory.tscn" id="19_fcpa2"]
 [ext_resource type="Script" uid="uid://06cp6tfh25a8" path="res://Assets/Scripts/Combat/Hurtbox.gd" id="19_i68cg"]
 [ext_resource type="ArrayMesh" uid="uid://dq0816edkpv60" path="res://Assets/Models/Characters/Player/Pupa/polyphemus_pupa_Plane.res" id="20_i68cg"]
 
@@ -159,6 +160,8 @@ one_shot = true
 ignore_time_scale = true
 
 [node name="Prompt" parent="HeadPosition/CameraHolder/InteractorController" instance=ExtResource("18_i68cg")]
+
+[node name="Inventory" parent="HeadPosition/CameraHolder/InteractorController" instance=ExtResource("19_fcpa2")]
 
 [node name="LanternController" type="Node3D" parent="HeadPosition/CameraHolder"]
 script = ExtResource("7_arwmf")
